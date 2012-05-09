@@ -1,0 +1,57 @@
+#!/usr/bin/env php
+<?php
+
+/*
+ * This file is part of Felpado.
+ *
+ * (c) Pablo Díez <pablodip@gmail.com>
+ *
+ * This source file is subject to the MIT license that is bundled
+ * with this source code in the file LICENSE.
+ */
+
+namespace felpado\compile;
+
+require_once __DIR__.'/../src/felpado.php';
+
+file_put_contents(compiled_file_name(), compiled_file_contents());
+
+function compiled_file_name() {
+    return __DIR__.'/../felpado-compiled.php';
+}
+
+function compiled_file_contents() {
+    return '<?php'.PHP_EOL
+          .PHP_EOL
+          .compiled_file_header()
+          .PHP_EOL
+          .implode(PHP_EOL, array_map('felpado\compile\function_code', \felpado\functions()));
+}
+
+function compiled_file_header() {
+    return <<<EOF
+/*
+ * This file is part of Felpado.
+ *
+ * (c) Pablo Díez <pablodip@gmail.com>
+ *
+ * This source file is subject to the MIT license that is bundled
+ * with this source code in the file LICENSE.
+ */
+
+namespace f;
+
+EOF;
+}
+
+function function_code($function) {
+    return parse_function_file(function_file_contents($function));
+}
+
+function function_file_contents($function) {
+    return file_get_contents(\felpado\function_file($function));
+}
+
+function parse_function_file($contents) {
+    return preg_replace('#\A(.*\n){13}#m', '', $contents);
+}
