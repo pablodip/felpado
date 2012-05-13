@@ -6,7 +6,7 @@ class FunctionTestCase extends TestCase
 {
     protected function callFunction()
     {
-        return call_user_func_array('f\\'.$this->functionName(), func_get_args());
+        return call_user_func_array($this->functionName(), func_get_args());
     }
 
     protected function functionName()

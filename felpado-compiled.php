@@ -8,27 +8,23 @@
  * This source file is subject to the MIT license that is bundled
  * with this source code in the file LICENSE.
  */
+function assoc($collection, $key, $value) {
+    $result = to_array($collection);
+    $result[$key] = $value;
 
-namespace f;
-
-function conjoin($collection, $value) {
-    $collection[] = $value;
-
-    return $collection;
+    return $result;
 }
-function conjoin_assoc($collection, $key, $value) {
-    $collection[$key] = $value;
+function conjoin($collection, $value) {
+    $result = to_array($collection);
+    $result[] = $value;
 
-    return $collection;
+    return $result;
 }
 function construct($first, $rest) {
     $array = to_array($rest);
     array_unshift($array, $first);
 
     return $array;
-}
-function construct_assoc($firstKey, $firstValue, $rest) {
-    return reverse(conjoin_assoc(reverse($rest), $firstKey, $firstValue));
 }
 function contains($collection, $searched) {
     foreach ($collection as $value) {
@@ -48,11 +44,6 @@ function contains_strict($collection, $searched) {
 
     return false;
 }
-function each($callback, $collection) {
-    foreach ($collection as $key => $value) {
-        call_user_func($callback, $value, $key);
-    }
-}
 function every($callback, $collection) {
     foreach ($collection as $value) {
         if (!call_user_func($callback, $value)) {
@@ -61,6 +52,11 @@ function every($callback, $collection) {
     }
 
     return true;
+}
+function feach($callback, $collection) {
+    foreach ($collection as $key => $value) {
+        call_user_func($callback, $value, $key);
+    }
 }
 function filter($callback, $collection) {
     $result = array();
@@ -84,8 +80,51 @@ function first($collection) {
         return $value;
     }
 }
+function fkey($key) {
+    return function (array $array) use ($key) {
+        return $array[$key];
+    };
+}
+function fmax($collection, $callback = null) {
+    if ($callback === null) {
+        $callback = function ($value) { return $value; };
+    }
+
+    $maxValue = first($collection);
+    $maxCompare = call_user_func($callback, $maxValue);
+
+    foreach (rest($collection) as $value) {
+        $compare = call_user_func($callback, $value);
+
+        if ($compare > $maxCompare) {
+            $maxValue = $value;
+            $maxCompare = $compare;
+        }
+    }
+
+    return $maxValue;
+}
+function fmin($collection, $callback = null) {
+    if ($callback === null) {
+        $callback = function ($value) { return $value; };
+    }
+
+    $maxValue = first($collection);
+    $maxCompare = call_user_func($callback, $maxValue);
+
+    foreach (rest($collection) as $value) {
+        $compare = call_user_func($callback, $value);
+
+        if ($compare < $maxCompare) {
+            $maxValue = $value;
+            $maxCompare = $compare;
+        }
+    }
+
+    return $maxValue;
+}
 function foldl() {
-    return call_user_func_array('f\\reduce', func_get_args());
+    return call_user_func_array('reduce', func_get_args());
 }
 function group_by($callback, $collection) {
     $result = array();
@@ -94,11 +133,6 @@ function group_by($callback, $collection) {
     }
 
     return $result;
-}
-function key($key) {
-    return function (array $array) use ($key) {
-        return $array[$key];
-    };
 }
 function keys($collection) {
     $result = array();
@@ -122,48 +156,10 @@ function map($callback, $collection) {
 
     return $result;
 }
-function max($collection, $callback = null) {
-    if ($callback === null) {
-        $callback = function ($value) { return $value; };
-    }
-
-    $maxValue = first($collection);
-    $maxCompare = call_user_func($callback, $maxValue);
-
-    foreach (rest($collection) as $value) {
-        $compare = call_user_func($callback, $value);
-
-        if ($compare > $maxCompare) {
-            $maxValue = $value;
-            $maxCompare = $compare;
-        }
-    }
-
-    return $maxValue;
-}
 function method($method) {
     return function ($object) use ($method) {
         return $object->$method();
     };
-}
-function min($collection, $callback = null) {
-    if ($callback === null) {
-        $callback = function ($value) { return $value; };
-    }
-
-    $maxValue = first($collection);
-    $maxCompare = call_user_func($callback, $maxValue);
-
-    foreach (rest($collection) as $value) {
-        $compare = call_user_func($callback, $value);
-
-        if ($compare < $maxCompare) {
-            $maxValue = $value;
-            $maxCompare = $compare;
-        }
-    }
-
-    return $maxValue;
 }
 function property($property) {
     return function ($object) use ($property) {
@@ -202,7 +198,7 @@ function reverse($collection) {
     return array_reverse(to_array($collection), true);
 }
 function select() {
-    return call_user_func_array('f\\filter', func_get_args());
+    return call_user_func_array('filter', func_get_args());
 }
 function some($callback, $collection) {
     foreach ($collection as $value) {

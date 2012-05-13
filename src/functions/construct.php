@@ -9,8 +9,14 @@
  * with this source code in the file LICENSE.
  */
 
-namespace f;
-
+/**
+ * f\construct($first, $rest)
+ *
+ * Returns a new collection with first and rest.
+ *
+ * f\construct(1, array(2, 3, 4))
+ * => array(1, 2, 3, 4)
+ */
 function construct($first, $rest) {
     $array = to_array($rest);
     array_unshift($array, $first);

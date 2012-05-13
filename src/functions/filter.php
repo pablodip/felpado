@@ -9,8 +9,6 @@
  * with this source code in the file LICENSE.
  */
 
-namespace f;
-
 function filter($callback, $collection) {
     $result = array();
     foreach ($collection as $key => $value) {

@@ -9,8 +9,6 @@
  * with this source code in the file LICENSE.
  */
 
-namespace f;
-
 function rest($collection) {
     foreach ($collection as $key => $value) {
         if (!isset($result)) {

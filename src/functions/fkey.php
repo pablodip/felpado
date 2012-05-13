@@ -9,10 +9,8 @@
  * with this source code in the file LICENSE.
  */
 
-namespace f;
-
-function conjoin_assoc($collection, $key, $value) {
-    $collection[$key] = $value;
-
-    return $collection;
+function fkey($key) {
+    return function (array $array) use ($key) {
+        return $array[$key];
+    };
 }

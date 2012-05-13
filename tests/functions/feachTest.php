@@ -2,12 +2,12 @@
 
 namespace Felpado\Tests;
 
-class eachTest extends FunctionTestCase
+class feachTest extends FunctionTestCase
 {
     /**
      * @dataProvider indexedCollectionProvider
      */
-    public function testEach($collection)
+    public function testFeach($collection)
     {
         $calls = array();
         $this->callFunction(function () use(&$calls) {

@@ -9,8 +9,6 @@
  * with this source code in the file LICENSE.
  */
 
-namespace f;
-
 function group_by($callback, $collection) {
     $result = array();
     foreach ($collection as $value) {

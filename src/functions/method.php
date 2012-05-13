@@ -9,8 +9,6 @@
  * with this source code in the file LICENSE.
  */
 
-namespace f;
-
 function method($method) {
     return function ($object) use ($method) {
         return $object->$method();

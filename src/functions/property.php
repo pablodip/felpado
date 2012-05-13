@@ -9,8 +9,6 @@
  * with this source code in the file LICENSE.
  */
 
-namespace f;
-
 function property($property) {
     return function ($object) use ($property) {
         return $object->$property;

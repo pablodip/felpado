@@ -9,8 +9,9 @@
  * with this source code in the file LICENSE.
  */
 
-namespace f;
+function assoc($collection, $key, $value) {
+    $result = to_array($collection);
+    $result[$key] = $value;
 
-function construct_assoc($firstKey, $firstValue, $rest) {
-    return reverse(conjoin_assoc(reverse($rest), $firstKey, $firstValue));
+    return $result;
 }

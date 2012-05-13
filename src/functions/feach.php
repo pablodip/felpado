@@ -9,9 +9,17 @@
  * with this source code in the file LICENSE.
  */
 
-namespace f;
-
-function each($callback, $collection) {
+/**
+ * f\each($callback, $collection)
+ *
+ * Iterates over collection calling callback for each element.
+ *
+ * f\each(function ($value, $key) {
+ *    // do something
+ * }, array(1, 2, 3));
+ * => null
+ */
+function feach($callback, $collection) {
     foreach ($collection as $key => $value) {
         call_user_func($callback, $value, $key);
     }

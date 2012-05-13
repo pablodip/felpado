@@ -2,7 +2,7 @@
 
 namespace Felpado\Tests;
 
-class keyTest extends FunctionTestCase
+class fkeyTest extends FunctionTestCase
 {
     /**
      * @dataProvider keyNameProvider

@@ -9,8 +9,6 @@
  * with this source code in the file LICENSE.
  */
 
-namespace f;
-
 function reduce($callback, $collection, $initialValue = null) {
     $result = null;
     foreach ($collection as $key => $value) {

@@ -9,8 +9,6 @@
  * with this source code in the file LICENSE.
  */
 
-namespace f;
-
 function to_array($collection) {
     if (is_array($collection)) {
         return $collection;

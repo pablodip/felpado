@@ -9,8 +9,6 @@
  * with this source code in the file LICENSE.
  */
 
-namespace f;
-
 function foldl() {
-    return call_user_func_array('f\\reduce', func_get_args());
+    return call_user_func_array('reduce', func_get_args());
 }

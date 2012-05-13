@@ -9,8 +9,6 @@
  * with this source code in the file LICENSE.
  */
 
-namespace f;
-
 function some($callback, $collection) {
     foreach ($collection as $value) {
         if (call_user_func($callback, $value)) {

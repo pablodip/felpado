@@ -2,12 +2,12 @@
 
 namespace Felpado\Tests;
 
-class minTest extends FunctionTestCase
+class fminTest extends FunctionTestCase
 {
     /**
      * @dataProvider indexedCollectionProvider
      */
-    public function testMinimum($collection)
+    public function testFmin($collection)
     {
         $this->assertSame('bar', $this->callFunction($collection));
     }

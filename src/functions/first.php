@@ -9,8 +9,6 @@
  * with this source code in the file LICENSE.
  */
 
-namespace f;
-
 function first($collection) {
     foreach ($collection as $value) {
         return $value;

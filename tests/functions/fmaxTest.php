@@ -2,12 +2,12 @@
 
 namespace Felpado\Tests;
 
-class maxTest extends FunctionTestCase
+class fmaxTest extends FunctionTestCase
 {
     /**
      * @dataProvider indexedCollectionProvider
      */
-    public function testMaximum($collection)
+    public function testFmax($collection)
     {
         $this->assertSame(5, $this->callFunction($collection));
     }

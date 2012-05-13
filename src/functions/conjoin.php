@@ -9,10 +9,17 @@
  * with this source code in the file LICENSE.
  */
 
-namespace f;
-
+/**
+ * conjoin($collection, $value)
+ *
+ * Returns a new collection with value added at the end.
+ *
+ * conjoin(array(1, 2, 3), 4);
+ * => array(1, 2, 3, 4)
+ */
 function conjoin($collection, $value) {
-    $collection[] = $value;
+    $result = to_array($collection);
+    $result[] = $value;
 
-    return $collection;
+    return $result;
 }

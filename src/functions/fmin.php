@@ -9,9 +9,7 @@
  * with this source code in the file LICENSE.
  */
 
-namespace f;
-
-function max($collection, $callback = null) {
+function fmin($collection, $callback = null) {
     if ($callback === null) {
         $callback = function ($value) { return $value; };
     }
@@ -22,7 +20,7 @@ function max($collection, $callback = null) {
     foreach (rest($collection) as $value) {
         $compare = call_user_func($callback, $value);
 
-        if ($compare > $maxCompare) {
+        if ($compare < $maxCompare) {
             $maxValue = $value;
             $maxCompare = $compare;
         }

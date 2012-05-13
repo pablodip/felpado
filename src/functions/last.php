@@ -9,8 +9,6 @@
  * with this source code in the file LICENSE.
  */
 
-namespace f;
-
 function last($collection) {
     $array = to_array($collection);
     $last = end($array);

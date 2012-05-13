@@ -13,22 +13,32 @@
 namespace felpado\compile;
 
 require_once __DIR__.'/../src/felpado.php';
+\felpado\require_functions();
 
-file_put_contents(compiled_file_name(), compiled_file_contents());
+compile();
 
-function compiled_file_name() {
+function compile() {
+    compile_functions();
+    compile_doc();
+}
+
+function compile_functions() {
+    file_put_contents(functions_file_name(), functions_file_contents());
+}
+
+function functions_file_name() {
     return __DIR__.'/../felpado-compiled.php';
 }
 
-function compiled_file_contents() {
+function functions_file_contents() {
     return '<?php'.PHP_EOL
           .PHP_EOL
-          .compiled_file_header()
+          .functions_file_header()
           .PHP_EOL
-          .implode(PHP_EOL, array_map('felpado\compile\function_code', \felpado\functions()));
+          .implode(PHP_EOL, map(fkey('code'), \felpado\functions()));
 }
 
-function compiled_file_header() {
+function functions_file_header() {
     return <<<EOF
 /*
  * This file is part of Felpado.
@@ -38,20 +48,55 @@ function compiled_file_header() {
  * This source file is subject to the MIT license that is bundled
  * with this source code in the file LICENSE.
  */
-
-namespace f;
-
 EOF;
 }
 
-function function_code($function) {
-    return parse_function_file(function_file_contents($function));
+function compile_doc() {
+    file_put_contents(doc_file_name(), doc_file_contents());
 }
 
-function function_file_contents($function) {
-    return file_get_contents(\felpado\function_file($function));
+function doc_file_name() {
+    return __DIR__.'/../FUNCTIONS.md';
 }
 
-function parse_function_file($contents) {
-    return preg_replace('#\A(.*\n){13}#m', '', $contents);
+function doc_file_contents() {
+    return doc_file_header()
+          ."\n\n"
+          .doc_file_function_list()
+          ."\n\n"
+          .implode("\n\n", map('felpado\compile\function_doc', \felpado\functions()));
+}
+
+function doc_file_header() {
+    return <<<EOF
+# Functions
+EOF;
+}
+
+function doc_file_function_list() {
+    return implode(", ", map(function ($function) {
+        return sprintf('[%s](#%s)', $function['name'], $function['name']);
+    }, \felpado\functions()));
+}
+
+function function_doc($function) {
+    return sprintf(<<<EOF
+<a name="%s"></a>
+### %s
+
+%s
+
+%s
+
+```
+%s
+```
+EOF
+        ,
+        $function['name'],
+        $function['name'],
+        preg_replace('/^.*$/m', '`$0`', $function['doc']['usage']),
+        $function['doc']['desc'],
+        $function['doc']['example']
+    );
 }

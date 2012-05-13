@@ -9,8 +9,6 @@
  * with this source code in the file LICENSE.
  */
 
-namespace f;
-
 function reverse($collection) {
     return array_reverse(to_array($collection), true);
 }

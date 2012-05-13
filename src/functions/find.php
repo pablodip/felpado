@@ -9,8 +9,6 @@
  * with this source code in the file LICENSE.
  */
 
-namespace f;
-
 function find($callback, $collection) {
     foreach ($collection as $value) {
         if ($callback($value)) {
