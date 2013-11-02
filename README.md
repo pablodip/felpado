@@ -1,6 +1,6 @@
-[![Build Status](https://secure.travis-ci.org/pablodip/felpado.png)](http://travis-ci.org/pablodip/felpado)
-
 # Felpado
+
+[![Build Status](https://secure.travis-ci.org/pablodip/felpado.png)](http://travis-ci.org/pablodip/felpado)
 
 Felpado provides functions to process data easier.
 
