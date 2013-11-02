@@ -9,6 +9,14 @@
  * with this source code in the file LICENSE.
  */
 
+/**
+ * map($callback, $collection)
+ *
+ * Returns an array with callback applied to each value of collection.
+ *
+ * map(function ($element) { return $element * 2; }, array(1, 2, 3));
+ * => array(2, 4, 6)
+ */
 function map($callback, $collection) {
     $result = array();
     foreach ($collection as $key => $value) {

@@ -9,6 +9,14 @@
  * with this source code in the file LICENSE.
  */
 
+/**
+ * keys($collection)
+ *
+ * Returns an array with the keys of collection.
+ *
+ * keys(array('one' => 1, 'two' => 2, 'three' => 3));
+ * => array('one', 'two', 'three')
+ */
 function keys($collection) {
     $result = array();
     foreach ($collection as $key => $value) {

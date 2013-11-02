@@ -9,6 +9,17 @@
  * with this source code in the file LICENSE.
  */
 
+/**
+ * find($callback, $collection)
+ *
+ * Returns the first value that returns logical true applied to callback. otherwise null.
+ *
+ * find(function ($value) { return $value % 2 == 0; }, range(1, 6));
+ * => 2
+ *
+ * find(function ($value) { return $value % 2 == 0; }, array(1, 3, 5);
+ * => null
+ */
 function find($callback, $collection) {
     foreach ($collection as $value) {
         if ($callback($value)) {

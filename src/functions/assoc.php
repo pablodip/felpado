@@ -9,6 +9,14 @@
  * with this source code in the file LICENSE.
  */
 
+/**
+ * assoc($collection, $key, $value)
+ *
+ * Returns an array based on collection with value added and keyed.
+ *
+ * conjoin(array('a' => 1, 'b' => 2), 'c', 3);
+ * => array(array('a' => 1, 'b' => 2, 'c' => 3))
+ */
 function assoc($collection, $key, $value) {
     $result = to_array($collection);
     $result[$key] = $value;

@@ -9,6 +9,17 @@
  * with this source code in the file LICENSE.
  */
 
+/**
+ * last($collection)
+ *
+ * Returns the last value of collection, or null if collection is empty.
+ *
+ * last(array(1, 2, 3));
+ * => 3
+ *
+ * last(array());
+ * => null
+ */
 function last($collection) {
     $array = to_array($collection);
     $last = end($array);

@@ -9,6 +9,21 @@
  * with this source code in the file LICENSE.
  */
 
+/**
+ * rest($collection)
+ *
+ * Returns an array with the values of collection after the first.
+ * It returns an empty array if collection is empty or has only one value.
+ *
+ * rest(array(1, 2, 3, 4, 5));
+ * => array(2, 3, 4, 5)
+ *
+ * rest(array(1));
+ * => array()
+ *
+ * rest(array());
+ * => array()
+ */
 function rest($collection) {
     foreach ($collection as $key => $value) {
         if (!isset($result)) {

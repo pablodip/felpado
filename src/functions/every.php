@@ -9,6 +9,17 @@
  * with this source code in the file LICENSE.
  */
 
+/**
+ * every($callback, $collection)
+ *
+ * Returns true if callback applied to all values of collection returns logical true, otherwise false.
+ *
+ * every(function ($value) { return $value > 10; }, array(20, 30, 40));
+ * => true
+ *
+ * every(function ($value) { return $value > 10; }, array(5, 20, 30));
+ * => false
+ */
 function every($callback, $collection) {
     foreach ($collection as $value) {
         if (!call_user_func($callback, $value)) {

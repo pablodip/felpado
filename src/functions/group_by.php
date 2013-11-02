@@ -9,6 +9,14 @@
  * with this source code in the file LICENSE.
  */
 
+/**
+ * group_by($callback, $collection)
+ *
+ * Returns an array with the values of collection keyed by the result of callback on each value.
+ *
+ * group_by('strlen', array('one', 'two', 'three'));
+ * => array(3 => array('one', 'two'), 5 => array('three'))
+ */
 function group_by($callback, $collection) {
     $result = array();
     foreach ($collection as $value) {

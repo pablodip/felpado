@@ -10,13 +10,11 @@
  */
 
 /**
- * f\each($callback, $collection)
+ * feach($callback, $collection)
  *
- * Iterates over collection calling callback for each element.
+ * Iterates over collection calling callback for each value.
  *
- * f\each(function ($value, $key) {
- *    // do something
- * }, array(1, 2, 3));
+ * feach(function ($value, $key) { do_something($value, $key) }, array(1, 2, 3));
  * => null
  */
 function feach($callback, $collection) {

@@ -9,6 +9,17 @@
  * with this source code in the file LICENSE.
  */
 
+/**
+ * some($callback, $collection)
+ *
+ * Returns true if callback applied to any value of collection returns logical true, otherwise false.
+ *
+ * some(function ($value) { return $value > 10; }, array(5, 20, 30));
+ * => true
+ *
+ * some(function ($value) { return $value > 10; }, array(5, 8, 9));
+ * => false
+ */
 function some($callback, $collection) {
     foreach ($collection as $value) {
         if (call_user_func($callback, $value)) {

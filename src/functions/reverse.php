@@ -9,6 +9,14 @@
  * with this source code in the file LICENSE.
  */
 
+/**
+ * reverse($collection)
+ *
+ * Returns an array with collection in the reverse order.
+ *
+ * rest(array(1, 2, 3));
+ * => array(3, 2, 1)
+ */
 function reverse($collection) {
     return array_reverse(to_array($collection), true);
 }

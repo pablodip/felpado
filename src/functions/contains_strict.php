@@ -10,12 +10,12 @@
  */
 
 /**
- * f\contains_strict($collection, $searched)
+ * contains_strict($collection, $searched)
  *
- * Same than `containts` but use the strict comparison operator `===`.
+ * Same than `containts` but uses the strict comparison operator `===`.
  *
  * // strict comparison operator ===
- * f\contains(array(1, 2, 3), '1')
+ * contains_strict(array(1, 2, 3), '1');
  * => false
  */
 function contains_strict($collection, $searched) {

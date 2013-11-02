@@ -10,11 +10,11 @@
  */
 
 /**
- * f\construct($first, $rest)
+ * construct($first, $rest)
  *
- * Returns a new collection with first and rest.
+ * Returns an array with first and rest.
  *
- * f\construct(1, array(2, 3, 4))
+ * construct(1, array(2, 3, 4));
  * => array(1, 2, 3, 4)
  */
 function construct($first, $rest) {
