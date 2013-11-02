@@ -1,6 +1,6 @@
 {
     "name": "pablodip/felpado",
-    "description": "Some Functional Programming for PHP",
+    "description": "Functional Programming for PHP",
     "keywords": ["functional", "programming"],
     "homepage": "http://github.com/pablodip/felpado",
     "type": "library",
