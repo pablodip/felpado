@@ -5,4 +5,7 @@ php:
   - 5.4
   - 5.5
 
-script: phpunit
+before_script:
+  - composer --dev install
+
+script: php vendor/bin/phpunit
