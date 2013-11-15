@@ -6,11 +6,13 @@ class FunctionTestCase extends TestCase
 {
     protected function callFunction()
     {
-        return call_user_func_array($this->functionName(), func_get_args());
+        $function = $this->functionFromTestClass();
+
+        return call_user_func_array($function, func_get_args());
     }
 
-    protected function functionName()
+    private function functionFromTestClass()
     {
-        return function_from_test_class(get_class($this));
+        return sprintf('f\\%s', function_from_test_class(get_class($this)));
     }
 }

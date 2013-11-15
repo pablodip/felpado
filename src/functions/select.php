@@ -10,5 +10,5 @@
  */
 
 function select() {
-    return call_user_func_array('filter', func_get_args());
+    return call_user_func_array('f\\filter', func_get_args());
 }

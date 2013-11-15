@@ -1,19 +1,32 @@
 <?php
 
-namespace Felpado\Tests;
+namespace felpado\tests;
 
-exec(__DIR__.'/../bin/compile');
+compile();
+require_files();
+register_autoload();
 
-require_once __DIR__.'/../felpado-compiled.php';
-require_once __DIR__.'/TestCase.php';
-require_once __DIR__.'/FunctionTestCase.php';
+function compile() {
+    exec(__DIR__.'/../bin/compile');
+}
 
+function require_files() {
+    foreach (array(
+        __DIR__.'/../felpado-compiled.php',
+        __DIR__.'/TestCase.php',
+        __DIR__.'/FunctionTestCase.php'
+    ) as $file) {
+        require $file;
+    }
+}
 
-spl_autoload_register('Felpado\Tests\tests_autoload');
+function register_autoload() {
+    spl_autoload_register('felpado\\tests\\tests_autoload');
+}
 
 function tests_autoload($class) {
     if (is_class_from_tests($class)) {
-        require_once file_for_test_class($class);
+        require file_for_test_class($class);
     }
 }
 

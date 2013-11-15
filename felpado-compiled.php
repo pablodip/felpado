@@ -8,24 +8,30 @@
  * This source file is subject to the MIT license that is bundled
  * with this source code in the file LICENSE.
  */
+
+namespace f;
+
 function assoc($collection, $key, $value) {
     $result = to_array($collection);
     $result[$key] = $value;
 
     return $result;
 }
+
 function conjoin($collection, $value) {
     $result = to_array($collection);
     $result[] = $value;
 
     return $result;
 }
+
 function construct($first, $rest) {
     $array = to_array($rest);
     array_unshift($array, $first);
 
     return $array;
 }
+
 function contains($collection, $searched) {
     foreach ($collection as $value) {
         if ($value == $searched) {
@@ -35,6 +41,7 @@ function contains($collection, $searched) {
 
     return false;
 }
+
 function contains_strict($collection, $searched) {
     foreach ($collection as $value) {
         if ($value === $searched) {
@@ -44,6 +51,7 @@ function contains_strict($collection, $searched) {
 
     return false;
 }
+
 function every($callback, $collection) {
     foreach ($collection as $value) {
         if (!call_user_func($callback, $value)) {
@@ -53,11 +61,13 @@ function every($callback, $collection) {
 
     return true;
 }
+
 function feach($callback, $collection) {
     foreach ($collection as $key => $value) {
         call_user_func($callback, $value, $key);
     }
 }
+
 function filter($callback, $collection) {
     $result = array();
     foreach ($collection as $key => $value) {
@@ -68,6 +78,7 @@ function filter($callback, $collection) {
 
     return $result;
 }
+
 function find($callback, $collection) {
     foreach ($collection as $value) {
         if ($callback($value)) {
@@ -75,16 +86,19 @@ function find($callback, $collection) {
         }
     }
 }
+
 function first($collection) {
     foreach ($collection as $value) {
         return $value;
     }
 }
+
 function fkey($key) {
     return function (array $array) use ($key) {
         return $array[$key];
     };
 }
+
 function fmax($collection, $callback = null) {
     if ($callback === null) {
         $callback = function ($value) { return $value; };
@@ -104,6 +118,7 @@ function fmax($collection, $callback = null) {
 
     return $maxValue;
 }
+
 function fmin($collection, $callback = null) {
     if ($callback === null) {
         $callback = function ($value) { return $value; };
@@ -123,9 +138,11 @@ function fmin($collection, $callback = null) {
 
     return $maxValue;
 }
+
 function foldl() {
-    return call_user_func_array('reduce', func_get_args());
+    return call_user_func_array('f\\reduce', func_get_args());
 }
+
 function group_by($callback, $collection) {
     $result = array();
     foreach ($collection as $value) {
@@ -134,6 +151,7 @@ function group_by($callback, $collection) {
 
     return $result;
 }
+
 function keys($collection) {
     $result = array();
     foreach ($collection as $key => $value) {
@@ -142,12 +160,14 @@ function keys($collection) {
 
     return $result;
 }
+
 function last($collection) {
     $array = to_array($collection);
     $last = end($array);
 
     return $last !== false ? $last : (count($array) ? false : null);
 }
+
 function map($callback, $collection) {
     $result = array();
     foreach ($collection as $key => $value) {
@@ -156,16 +176,19 @@ function map($callback, $collection) {
 
     return $result;
 }
+
 function method($method) {
     return function ($object) use ($method) {
         return $object->$method();
     };
 }
+
 function property($property) {
     return function ($object) use ($property) {
         return $object->$property;
     };
 }
+
 function reduce($callback, $collection, $initialValue = null) {
     $result = null;
     foreach ($collection as $key => $value) {
@@ -183,6 +206,7 @@ function reduce($callback, $collection, $initialValue = null) {
 
     return $result;
 }
+
 function rest($collection) {
     foreach ($collection as $key => $value) {
         if (!isset($result)) {
@@ -194,12 +218,15 @@ function rest($collection) {
 
     return isset($result) ? $result : array();
 }
+
 function reverse($collection) {
     return array_reverse(to_array($collection), true);
 }
+
 function select() {
-    return call_user_func_array('filter', func_get_args());
+    return call_user_func_array('f\\filter', func_get_args());
 }
+
 function some($callback, $collection) {
     foreach ($collection as $value) {
         if (call_user_func($callback, $value)) {
@@ -209,6 +236,7 @@ function some($callback, $collection) {
 
     return false;
 }
+
 function to_array($collection) {
     if (is_array($collection)) {
         return $collection;
@@ -220,6 +248,7 @@ function to_array($collection) {
 
     throw new \InvalidArgumentException('The value can not be converted to an array.');
 }
+
 function values($collection) {
     $result = array();
     foreach ($collection as $value) {

@@ -35,7 +35,8 @@ function functions_file_contents() {
           .PHP_EOL
           .functions_file_header()
           .PHP_EOL
-          .implode(PHP_EOL, map(fkey('code'), \felpado\functions()));
+          .PHP_EOL
+          .implode(PHP_EOL.PHP_EOL, map(fkey('code'), \felpado\functions()));
 }
 
 function functions_file_header() {
@@ -48,6 +49,8 @@ function functions_file_header() {
  * This source file is subject to the MIT license that is bundled
  * with this source code in the file LICENSE.
  */
+
+namespace f;
 EOF;
 }
 

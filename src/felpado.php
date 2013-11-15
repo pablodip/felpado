@@ -71,12 +71,6 @@ function function_build_doc($doc) {
     );
 }
 
-function function_parse_doc($doc)
-{
-    return array(
-    );
-}
-
 function require_functions() {
     foreach (functions() as $function) {
         require_once function_file($function['name']);
