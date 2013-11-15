@@ -15,6 +15,8 @@ Felpado's functions have the following principles:
 
 ## Functions
 
+Read about the functions [here](FUNCTIONS.md).
+
 ## Author
 
 Pablo Díez - <pablodip@gmail.com>
