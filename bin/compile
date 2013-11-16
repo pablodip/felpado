@@ -12,7 +12,7 @@
 
 namespace felpado\compile;
 
-require_once __DIR__.'/../src/felpado.php';
+require_once __DIR__.'/../src/functions_util.php';
 \felpado\require_functions();
 
 compile();
@@ -27,7 +27,7 @@ function compile_functions() {
 }
 
 function functions_file_name() {
-    return __DIR__.'/../felpado-compiled.php';
+    return __DIR__.'/../src/felpado-compiled.php';
 }
 
 function functions_file_contents() {

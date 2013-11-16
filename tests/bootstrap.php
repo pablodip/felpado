@@ -12,7 +12,7 @@ function compile() {
 
 function require_files() {
     foreach (array(
-        __DIR__.'/../felpado-compiled.php',
+        __DIR__.'/../src/felpado-compiled.php',
         __DIR__.'/TestCase.php',
         __DIR__.'/FunctionTestCase.php'
     ) as $file) {
