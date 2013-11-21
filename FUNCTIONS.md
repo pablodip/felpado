@@ -1,6 +1,6 @@
 # Functions
 
-[assoc](#assoc), [conjoin](#conjoin), [construct](#construct), [contains](#contains), [contains_strict](#contains_strict), [every](#every), [feach](#feach), [filter](#filter), [find](#find), [first](#first), [fkey](#fkey), [fmax](#fmax), [fmin](#fmin), [foldl](#foldl), [group_by](#group_by), [keys](#keys), [last](#last), [map](#map), [method](#method), [property](#property), [reduce](#reduce), [rest](#rest), [reverse](#reverse), [select](#select), [some](#some), [to_array](#to_array), [values](#values)
+[assoc](#assoc), [conjoin](#conjoin), [construct](#construct), [contains](#contains), [containsStrict](#containsStrict), [every](#every), [each](#each), [filter](#filter), [find](#find), [first](#first), [key](#key), [groupBy](#groupBy), [keys](#keys), [last](#last), [map](#map), [method](#method), [property](#property), [rest](#rest), [reverse](#reverse), [some](#some), [values](#values)
 
 <a name="assoc"></a>
 ### assoc
@@ -41,26 +41,26 @@ construct(1, array(2, 3, 4));
 <a name="contains"></a>
 ### contains
 
-`contains($collection, $searched)`
+`contains($collection, $key)`
 
-Returns true if searched is present incollection, otherwise false.
+Returns true if the key is present in the collection, otherwise false.
 The comparison is done with the normal comparison operator `==`.
 
 ```
-contains(array(1, 2, 3), 1);
+contains(array('a' => 1, 'b' => 2), 'a');
 => true
 ```
 
-<a name="contains_strict"></a>
-### contains_strict
+<a name="containsStrict"></a>
+### containsStrict
 
-`contains_strict($collection, $searched)`
+`contains_strict($collection, $key)`
 
 Same than `containts` but uses the strict comparison operator `===`.
 
 ```
 // strict comparison operator ===
-contains_strict(array(1, 2, 3), '1');
+contains(array(1 => 'a', 2 => 'b'), '1');
 => false
 ```
 
@@ -76,8 +76,8 @@ every(function ($value) { return $value > 10; }, array(20, 30, 40));
 => true
 ```
 
-<a name="feach"></a>
-### feach
+<a name="each"></a>
+### each
 
 `feach($callback, $collection)`
 
@@ -124,8 +124,8 @@ first(array(1, 2, 3));
 => 1
 ```
 
-<a name="fkey"></a>
-### fkey
+<a name="key"></a>
+### key
 
 `fkey($key)`
 
@@ -137,41 +137,8 @@ $key(array('foo' => 2, 'bar' => 4));
 => 2
 ```
 
-<a name="fmax"></a>
-### fmax
-
-``
-
-
-
-```
-
-```
-
-<a name="fmin"></a>
-### fmin
-
-``
-
-
-
-```
-
-```
-
-<a name="foldl"></a>
-### foldl
-
-``
-
-
-
-```
-
-```
-
-<a name="group_by"></a>
-### group_by
+<a name="groupBy"></a>
+### groupBy
 
 `group_by($callback, $collection)`
 
@@ -246,17 +213,6 @@ $id(new Object(2));
 => 2
 ```
 
-<a name="reduce"></a>
-### reduce
-
-``
-
-
-
-```
-
-```
-
 <a name="rest"></a>
 ### rest
 
@@ -282,17 +238,6 @@ rest(array(1, 2, 3));
 => array(3, 2, 1)
 ```
 
-<a name="select"></a>
-### select
-
-``
-
-
-
-```
-
-```
-
 <a name="some"></a>
 ### some
 
@@ -303,17 +248,6 @@ Returns true if callback applied to any value of collection returns logical true
 ```
 some(function ($value) { return $value > 10; }, array(5, 20, 30));
 => true
-```
-
-<a name="to_array"></a>
-### to_array
-
-``
-
-
-
-```
-
 ```
 
 <a name="values"></a>
