@@ -112,7 +112,7 @@ class f
         $arrayIn = self::collectionIn($collection, $in);
 
         if ($arrayIn === false) {
-            return $default;
+            return false;
         }
 
         return \f::contains($arrayIn, \f::last($in));

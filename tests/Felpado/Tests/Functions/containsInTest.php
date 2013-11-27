@@ -24,6 +24,7 @@ class containsInTest extends FunctionTestCase
     {
         $this->assertFalse($this->callFunction($collection, array('no')));
         $this->assertFalse($this->callFunction($collection, array('bar', 'no')));
+        $this->assertFalse($this->callFunction($collection, array('bar', 'no', 'no')));
         $this->assertFalse($this->callFunction($collection, array('bar', 'one', 'no')));
     }
 
