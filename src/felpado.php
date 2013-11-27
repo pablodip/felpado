@@ -107,6 +107,17 @@ class f
         return false;
     }
 
+    public static function containsIn($collection, $in)
+    {
+        $arrayIn = self::collectionIn($collection, $in);
+
+        if ($arrayIn === false) {
+            return $default;
+        }
+
+        return \f::contains($arrayIn, \f::last($in));
+    }
+
     /**
      * contains_strict($collection, $key)
      *
@@ -241,6 +252,17 @@ class f
         }
 
         return $default;
+    }
+
+    public static function getIn($collection, $in, $default = null)
+    {
+        $arrayIn = self::collectionIn($collection, $in);
+
+        if ($arrayIn === false) {
+            return $default;
+        }
+
+        return \f::get($arrayIn, \f::last($in), $default);
     }
 
     /**
@@ -531,5 +553,34 @@ class f
         }
 
         return $result;
+    }
+
+    private static function collectionIn($collection, $in)
+    {
+        $depth = \f::dropLast($in);
+
+        if (count($depth)) {
+            return self::collectionDepth($collection, $depth);
+        }
+
+        return \f::toArray($collection);
+    }
+
+    private static function collectionDepth($array, $depth)
+    {
+        $first = \f::first($depth);
+
+        if (\f::contains($array, $first)) {
+            $arrayIn = \f::toArray(\f::get($array, $first));
+
+            $inRest = \f::rest($depth);
+            if (count($inRest)) {
+                return self::collectionDepth($arrayIn, $inRest);
+            }
+
+            return $arrayIn;
+        }
+
+        return false;
     }
 }

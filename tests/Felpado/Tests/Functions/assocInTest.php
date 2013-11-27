@@ -7,9 +7,9 @@ use Felpado\Tests\FunctionTestCase;
 class assocInTest extends FunctionTestCase
 {
     /**
-     * @dataProvider assocDeepProvider
+     * @dataProvider assocInProvider
      */
-    public function testAssocDeepShouldCreateTheDepth($collection)
+    public function testAssocInShouldCreateTheDepth($collection)
     {
         $this->assertSame(array(
             'foo' => 3,
@@ -22,23 +22,23 @@ class assocInTest extends FunctionTestCase
     }
 
     /**
-     * @dataProvider assocDeepProvider
+     * @dataProvider assocInProvider
      * @expectedException \LogicException
      */
-    public function testAssocDeepShouldThrowALogicExceptionWhenTheDepthPathAlreadyExistsAndItIsNotACollection($collection)
+    public function testAssocInShouldThrowALogicExceptionWhenTheInPathAlreadyExistsAndItIsNotACollection($collection)
     {
         $this->callFunction($collection, array('foo', 'bar'), 5);
     }
 
     /**
-     * @dataProvider assocDeepProvider
+     * @dataProvider assocInProvider
      */
-    public function testEmptyDepth($collection)
+    public function testEmptyIn($collection)
     {
         $this->assertSame(\f::toArray($collection), $this->callFunction($collection, array(), 'foo'));
     }
 
-    public function assocDeepProvider()
+    public function assocInProvider()
     {
         return $this->collectionDataProvider(array(
             'foo' => 3
