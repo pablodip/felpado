@@ -27,13 +27,13 @@ class f
         return $result;
     }
 
-    public static function assocDeep($collection, $depth, $value)
+    public static function assocIn($collection, $in, $value)
     {
         $array = \f::toArray($collection);
 
-        if ($depth) {
+        if ($in) {
             $deepArray =& $array;
-            foreach (\f::dropLast($depth) as $k) {
+            foreach (\f::dropLast($in) as $k) {
                 if (array_key_exists($k, $deepArray)) {
                     if (!is_array($deepArray[$k])) {
                         throw new \LogicException();
@@ -45,7 +45,7 @@ class f
                 $deepArray =& $deepArray[$k];
             }
 
-            $deepArray[\f::last($depth)] = $value;
+            $deepArray[\f::last($in)] = $value;
         }
 
         return $array;

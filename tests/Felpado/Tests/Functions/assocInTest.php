@@ -4,7 +4,7 @@ namespace Felpado\Tests\Functions;
 
 use Felpado\Tests\FunctionTestCase;
 
-class assocDeepTest extends FunctionTestCase
+class assocInTest extends FunctionTestCase
 {
     /**
      * @dataProvider assocDeepProvider
