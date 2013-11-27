@@ -21,7 +21,7 @@ class f
      */
     public static function assoc($collection, $key, $value)
     {
-        $result = f::toArray($collection);
+        $result = \f::toArray($collection);
         $result[$key] = $value;
 
         return $result;
@@ -60,7 +60,7 @@ class f
      * => array(1, 2, 3, 4)
      */
     public static function conjoin($collection, $value) {
-        $result = f::toArray($collection);
+        $result = \f::toArray($collection);
         $result[] = $value;
 
         return $result;
@@ -75,7 +75,7 @@ class f
      * => array(1, 2, 3, 4)
      */
     public static function construct($first, $rest) {
-        $array = f::toArray($rest);
+        $array = \f::toArray($rest);
         array_unshift($array, $first);
 
         return $array;
@@ -128,7 +128,7 @@ class f
 
     public static function dissoc($collection, $key)
     {
-        $result = f::toArray($collection);
+        $result = \f::toArray($collection);
         unset($result[$key]);
 
         return $result;
@@ -136,8 +136,8 @@ class f
 
     public static function dropLast($collection)
     {
-        $result = f::toArray($collection);
-        unset($result[f::last(f::keys($result))]);
+        $result = \f::toArray($collection);
+        unset($result[f::last(\f::keys($result))]);
 
         return $result;
     }
@@ -234,7 +234,7 @@ class f
 
     public static function get($collection, $key, $default = null)
     {
-        $array = f::toArray($collection);
+        $array = \f::toArray($collection);
 
         if (array_key_exists($key, $array)) {
             return $array[$key];
@@ -269,10 +269,10 @@ class f
             $callback = function ($value) { return $value; };
         }
 
-        $maxValue = f::first($collection);
+        $maxValue = \f::first($collection);
         $maxCompare = call_user_func($callback, $maxValue);
 
-        foreach (f::rest($collection) as $value) {
+        foreach (\f::rest($collection) as $value) {
             $compare = call_user_func($callback, $value);
 
             if ($compare > $maxCompare) {
@@ -289,10 +289,10 @@ class f
             $callback = function ($value) { return $value; };
         }
 
-        $maxValue = f::first($collection);
+        $maxValue = \f::first($collection);
         $maxCompare = call_user_func($callback, $maxValue);
 
-        foreach (f::rest($collection) as $value) {
+        foreach (\f::rest($collection) as $value) {
             $compare = call_user_func($callback, $value);
 
             if ($compare < $maxCompare) {
@@ -354,7 +354,7 @@ class f
      * => null
      */
     public static function last($collection) {
-        $array = f::toArray($collection);
+        $array = \f::toArray($collection);
         $last = end($array);
 
         return $last !== false ? $last : (count($array) ? false : null);
@@ -437,7 +437,7 @@ class f
 
     public static function renameKey($collection, $from, $to)
     {
-        return f::dissoc(f::assoc($collection, $to, f::get($collection, $from)), $from);
+        return \f::dissoc(\f::assoc($collection, $to, \f::get($collection, $from)), $from);
     }
 
     /**
@@ -476,7 +476,7 @@ class f
      * => array(3, 2, 1)
      */
     public static function reverse($collection) {
-        return array_reverse(f::toArray($collection), true);
+        return array_reverse(\f::toArray($collection), true);
     }
 
     public static function select() {
