@@ -30,12 +30,11 @@ class assocInTest extends FunctionTestCase
         $this->callFunction($collection, array('foo', 'bar'), 5);
     }
 
-    /**
-     * @dataProvider assocInProvider
-     */
-    public function testEmptyIn($collection)
+    public function testEmptyIn()
     {
-        $this->assertSame(\f::toArray($collection), $this->callFunction($collection, array(), 'foo'));
+        $array = array('foo' => 3);
+
+        $this->assertSame($array, $this->callFunction($array, array(), 'bar'));
     }
 
     public function assocInProvider()

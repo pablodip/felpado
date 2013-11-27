@@ -9,7 +9,7 @@
  * with this source code in the file LICENSE.
  */
 
-class f
+class Felpado
 {
     /**
      * assoc($collection, $key, $value)
@@ -21,7 +21,7 @@ class f
      */
     public static function assoc($collection, $key, $value)
     {
-        $result = \f::toArray($collection);
+        $result = self::toArray($collection);
         $result[$key] = $value;
 
         return $result;
@@ -29,11 +29,11 @@ class f
 
     public static function assocIn($collection, $in, $value)
     {
-        $array = \f::toArray($collection);
+        $array = self::toArray($collection);
 
         if ($in) {
             $deepArray =& $array;
-            foreach (\f::dropLast($in) as $k) {
+            foreach (self::dropLast($in) as $k) {
                 if (array_key_exists($k, $deepArray)) {
                     if (!is_array($deepArray[$k])) {
                         throw new \LogicException();
@@ -45,7 +45,7 @@ class f
                 $deepArray =& $deepArray[$k];
             }
 
-            $deepArray[\f::last($in)] = $value;
+            $deepArray[self::last($in)] = $value;
         }
 
         return $array;
@@ -55,12 +55,12 @@ class f
      * conjoin($collection, $value)
      *
      * Returns an array based on collection with value added.
-     *
+     *G
      * conjoin(array(1, 2, 3), 4);
      * => array(1, 2, 3, 4)
      */
     public static function conjoin($collection, $value) {
-        $result = \f::toArray($collection);
+        $result = self::toArray($collection);
         $result[] = $value;
 
         return $result;
@@ -75,7 +75,7 @@ class f
      * => array(1, 2, 3, 4)
      */
     public static function construct($first, $rest) {
-        $array = \f::toArray($rest);
+        $array = self::toArray($rest);
         array_unshift($array, $first);
 
         return $array;
@@ -115,7 +115,7 @@ class f
             return false;
         }
 
-        return \f::contains($arrayIn, \f::last($in));
+        return self::contains($arrayIn, self::last($in));
     }
 
     /**
@@ -139,7 +139,7 @@ class f
 
     public static function dissoc($collection, $key)
     {
-        $result = \f::toArray($collection);
+        $result = self::toArray($collection);
         unset($result[$key]);
 
         return $result;
@@ -147,8 +147,8 @@ class f
 
     public static function dropLast($collection)
     {
-        $result = \f::toArray($collection);
-        unset($result[f::last(\f::keys($result))]);
+        $result = self::toArray($collection);
+        unset($result[self::last(self::keys($result))]);
 
         return $result;
     }
@@ -245,7 +245,7 @@ class f
 
     public static function get($collection, $key, $default = null)
     {
-        $array = \f::toArray($collection);
+        $array = self::toArray($collection);
 
         if (array_key_exists($key, $array)) {
             return $array[$key];
@@ -262,7 +262,7 @@ class f
             return $default;
         }
 
-        return \f::get($arrayIn, \f::last($in), $default);
+        return self::get($arrayIn, self::last($in), $default);
     }
 
     /**
@@ -291,10 +291,10 @@ class f
             $callback = function ($value) { return $value; };
         }
 
-        $maxValue = \f::first($collection);
+        $maxValue = self::first($collection);
         $maxCompare = call_user_func($callback, $maxValue);
 
-        foreach (\f::rest($collection) as $value) {
+        foreach (self::rest($collection) as $value) {
             $compare = call_user_func($callback, $value);
 
             if ($compare > $maxCompare) {
@@ -311,10 +311,10 @@ class f
             $callback = function ($value) { return $value; };
         }
 
-        $maxValue = \f::first($collection);
+        $maxValue = self::first($collection);
         $maxCompare = call_user_func($callback, $maxValue);
 
-        foreach (\f::rest($collection) as $value) {
+        foreach (self::rest($collection) as $value) {
             $compare = call_user_func($callback, $value);
 
             if ($compare < $maxCompare) {
@@ -327,7 +327,7 @@ class f
     }
 
     public static function foldl() {
-        return call_user_func_array(array('f', 'reduce'), func_get_args());
+        return call_user_func_array(array('Felpado', 'reduce'), func_get_args());
     }
 
     /**
@@ -376,7 +376,7 @@ class f
      * => null
      */
     public static function last($collection) {
-        $array = \f::toArray($collection);
+        $array = self::toArray($collection);
         $last = end($array);
 
         return $last !== false ? $last : (count($array) ? false : null);
@@ -459,7 +459,7 @@ class f
 
     public static function renameKey($collection, $from, $to)
     {
-        return \f::dissoc(\f::assoc($collection, $to, \f::get($collection, $from)), $from);
+        return self::dissoc(self::assoc($collection, $to, self::get($collection, $from)), $from);
     }
 
     /**
@@ -498,11 +498,11 @@ class f
      * => array(3, 2, 1)
      */
     public static function reverse($collection) {
-        return array_reverse(\f::toArray($collection), true);
+        return array_reverse(self::toArray($collection), true);
     }
 
     public static function select() {
-        return call_user_func_array(array('f', 'filter'), func_get_args());
+        return call_user_func_array(array('Felpado', 'filter'), func_get_args());
     }
 
     /**
@@ -557,23 +557,23 @@ class f
 
     private static function collectionIn($collection, $in)
     {
-        $depth = \f::dropLast($in);
+        $depth = self::dropLast($in);
 
         if (count($depth)) {
             return self::collectionDepth($collection, $depth);
         }
 
-        return \f::toArray($collection);
+        return self::toArray($collection);
     }
 
     private static function collectionDepth($array, $depth)
     {
-        $first = \f::first($depth);
+        $first = self::first($depth);
 
-        if (\f::contains($array, $first)) {
-            $arrayIn = \f::toArray(\f::get($array, $first));
+        if (self::contains($array, $first)) {
+            $arrayIn = self::toArray(self::get($array, $first));
 
-            $inRest = \f::rest($depth);
+            $inRest = self::rest($depth);
             if (count($inRest)) {
                 return self::collectionDepth($arrayIn, $inRest);
             }

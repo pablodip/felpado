@@ -20,10 +20,12 @@ conjoin(array('a' => 1, 'b' => 2), 'c', 3);
 `conjoin($collection, $value)`
 
 Returns an array based on collection with value added.
-
-```
+G
 conjoin(array(1, 2, 3), 4);
 => array(1, 2, 3, 4)
+
+```
+
 ```
 
 <a name="construct"></a>
