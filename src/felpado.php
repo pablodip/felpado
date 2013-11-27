@@ -27,6 +27,30 @@ class f
         return $result;
     }
 
+    public static function assocDeep($collection, $depth, $value)
+    {
+        $array = \f::toArray($collection);
+
+        if ($depth) {
+            $deepArray =& $array;
+            foreach (\f::dropLast($depth) as $k) {
+                if (array_key_exists($k, $deepArray)) {
+                    if (!is_array($deepArray[$k])) {
+                        throw new \LogicException();
+                    }
+                } else {
+                    $deepArray[$k] = array();
+                }
+
+                $deepArray =& $deepArray[$k];
+            }
+
+            $deepArray[\f::last($depth)] = $value;
+        }
+
+        return $array;
+    }
+
     /**
      * conjoin($collection, $value)
      *
