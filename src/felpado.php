@@ -110,6 +110,14 @@ class f
         return $result;
     }
 
+    public static function dropLast($collection)
+    {
+        $result = f::toArray($collection);
+        unset($result[f::last(f::keys($result))]);
+
+        return $result;
+    }
+
     /**
      * every($callback, $collection)
      *
