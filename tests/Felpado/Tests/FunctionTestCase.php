@@ -13,7 +13,7 @@ class FunctionTestCase extends TestCase
 
     private function callableFromTestClass()
     {
-        return array('Felpado', $this->functionFromTestClass(get_class($this)));
+        return array('f', $this->functionFromTestClass(get_class($this)));
     }
 
     private function functionFromTestClass($class) {
