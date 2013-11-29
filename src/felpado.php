@@ -462,6 +462,21 @@ class Felpado
         return self::dissoc(self::assoc($collection, $to, self::get($collection, $from)), $from);
     }
 
+    public static function renameKeys($collection, $keysMap)
+    {
+        if (count($keysMap)) {
+            $from = self::first(self::keys($keysMap));
+            $to = self::first($keysMap);
+
+            return self::renameKeys(
+                self::renameKey($collection, $from, $to),
+                self::dissoc($keysMap, $from)
+            );
+        }
+
+        return $collection;
+    }
+
     /**
      * rest($collection)
      *
