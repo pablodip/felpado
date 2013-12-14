@@ -445,7 +445,7 @@ class Felpado
 
     public static function reduce($callback, $collection, $initialValue = null) {
         $result = null;
-        foreach ($collection as $key => $value) {
+        foreach ($collection as $value) {
             if ($result === null) {
                 if ($initialValue === null) {
                     $result = $value;
