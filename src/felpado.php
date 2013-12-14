@@ -25,7 +25,7 @@ class Felpado
      */
     public static function assoc($collection, $key, $value)
     {
-        $result = self::toArray($collection);
+        $result = f::toArray($collection);
         $result[$key] = $value;
 
         return $result;
@@ -33,11 +33,11 @@ class Felpado
 
     public static function assocIn($collection, $in, $value)
     {
-        $array = self::toArray($collection);
+        $array = f::toArray($collection);
 
         if ($in) {
             $deepArray =& $array;
-            foreach (self::dropLast($in) as $k) {
+            foreach (f::dropLast($in) as $k) {
                 if (array_key_exists($k, $deepArray)) {
                     if (!is_array($deepArray[$k])) {
                         throw new \LogicException();
@@ -49,7 +49,7 @@ class Felpado
                 $deepArray =& $deepArray[$k];
             }
 
-            $deepArray[self::last($in)] = $value;
+            $deepArray[f::last($in)] = $value;
         }
 
         return $array;
@@ -64,7 +64,7 @@ class Felpado
      * => array(1, 2, 3, 4)
      */
     public static function conjoin($collection, $value) {
-        $result = self::toArray($collection);
+        $result = f::toArray($collection);
         $result[] = $value;
 
         return $result;
@@ -79,7 +79,7 @@ class Felpado
      * => array(1, 2, 3, 4)
      */
     public static function construct($first, $rest) {
-        $array = self::toArray($rest);
+        $array = f::toArray($rest);
         array_unshift($array, $first);
 
         return $array;
@@ -113,13 +113,13 @@ class Felpado
 
     public static function containsIn($collection, $in)
     {
-        $arrayIn = self::collectionIn($collection, $in);
+        $arrayIn = f::collectionIn($collection, $in);
 
         if ($arrayIn === false) {
             return false;
         }
 
-        return self::contains($arrayIn, self::last($in));
+        return f::contains($arrayIn, f::last($in));
     }
 
     /**
@@ -143,7 +143,7 @@ class Felpado
 
     public static function dissoc($collection, $key)
     {
-        $result = self::toArray($collection);
+        $result = f::toArray($collection);
         unset($result[$key]);
 
         return $result;
@@ -151,8 +151,8 @@ class Felpado
 
     public static function dropLast($collection)
     {
-        $result = self::toArray($collection);
-        unset($result[self::last(self::keys($result))]);
+        $result = f::toArray($collection);
+        unset($result[f::last(f::keys($result))]);
 
         return $result;
     }
@@ -249,7 +249,7 @@ class Felpado
 
     public static function get($collection, $key, $default = null)
     {
-        $array = self::toArray($collection);
+        $array = f::toArray($collection);
 
         if (array_key_exists($key, $array)) {
             return $array[$key];
@@ -260,13 +260,13 @@ class Felpado
 
     public static function getIn($collection, $in, $default = null)
     {
-        $arrayIn = self::collectionIn($collection, $in);
+        $arrayIn = f::collectionIn($collection, $in);
 
         if ($arrayIn === false) {
             return $default;
         }
 
-        return self::get($arrayIn, self::last($in), $default);
+        return f::get($arrayIn, f::last($in), $default);
     }
 
     /**
@@ -295,10 +295,10 @@ class Felpado
             $callback = function ($value) { return $value; };
         }
 
-        $maxValue = self::first($collection);
+        $maxValue = f::first($collection);
         $maxCompare = call_user_func($callback, $maxValue);
 
-        foreach (self::rest($collection) as $value) {
+        foreach (f::rest($collection) as $value) {
             $compare = call_user_func($callback, $value);
 
             if ($compare > $maxCompare) {
@@ -315,10 +315,10 @@ class Felpado
             $callback = function ($value) { return $value; };
         }
 
-        $maxValue = self::first($collection);
+        $maxValue = f::first($collection);
         $maxCompare = call_user_func($callback, $maxValue);
 
-        foreach (self::rest($collection) as $value) {
+        foreach (f::rest($collection) as $value) {
             $compare = call_user_func($callback, $value);
 
             if ($compare < $maxCompare) {
@@ -380,7 +380,7 @@ class Felpado
      * => null
      */
     public static function last($collection) {
-        $array = self::toArray($collection);
+        $array = f::toArray($collection);
         $last = end($array);
 
         return $last !== false ? $last : (count($array) ? false : null);
@@ -463,18 +463,18 @@ class Felpado
 
     public static function renameKey($collection, $from, $to)
     {
-        return self::dissoc(self::assoc($collection, $to, self::get($collection, $from)), $from);
+        return f::dissoc(f::assoc($collection, $to, f::get($collection, $from)), $from);
     }
 
     public static function renameKeys($collection, $keysMap)
     {
         if (count($keysMap)) {
-            $from = self::first(self::keys($keysMap));
-            $to = self::first($keysMap);
+            $from = f::first(f::keys($keysMap));
+            $to = f::first($keysMap);
 
-            return self::renameKeys(
-                self::renameKey($collection, $from, $to),
-                self::dissoc($keysMap, $from)
+            return f::renameKeys(
+                f::renameKey($collection, $from, $to),
+                f::dissoc($keysMap, $from)
             );
         }
 
@@ -517,7 +517,7 @@ class Felpado
      * => array(3, 2, 1)
      */
     public static function reverse($collection) {
-        return array_reverse(self::toArray($collection), true);
+        return array_reverse(f::toArray($collection), true);
     }
 
     public static function select() {
@@ -576,25 +576,25 @@ class Felpado
 
     private static function collectionIn($collection, $in)
     {
-        $depth = self::dropLast($in);
+        $depth = f::dropLast($in);
 
         if (count($depth)) {
-            return self::collectionDepth($collection, $depth);
+            return f::collectionDepth($collection, $depth);
         }
 
-        return self::toArray($collection);
+        return f::toArray($collection);
     }
 
     private static function collectionDepth($array, $depth)
     {
-        $first = self::first($depth);
+        $first = f::first($depth);
 
-        if (self::contains($array, $first)) {
-            $arrayIn = self::toArray(self::get($array, $first));
+        if (f::contains($array, $first)) {
+            $arrayIn = f::toArray(f::get($array, $first));
 
-            $inRest = self::rest($depth);
+            $inRest = f::rest($depth);
             if (count($inRest)) {
-                return self::collectionDepth($arrayIn, $inRest);
+                return f::collectionDepth($arrayIn, $inRest);
             }
 
             return $arrayIn;
