@@ -9,6 +9,24 @@
  * with this source code in the file LICENSE.
  */
 
+class placeholder
+{
+    private static $instance;
+
+    private function __construct()
+    {
+    }
+
+    public static function create()
+    {
+        if (self::$instance === null) {
+            self::$instance = new self();
+        }
+
+        return self::$instance;
+    }
+}
+
 class f extends Felpado
 {
 }
@@ -53,6 +71,17 @@ class Felpado
         }
 
         return $array;
+    }
+
+    public static function compose()
+    {
+        $fns = func_get_args();
+
+        return f::reduce(function ($composition, $fn) {
+            return function() use ($composition, $fn) {
+                return call_user_func($fn, call_user_func_array($composition, func_get_args()));
+            };
+        }, f::reverse($fns));
     }
 
     /**
@@ -421,6 +450,39 @@ class Felpado
         return function ($object) use ($method) {
             return $object->$method();
         };
+    }
+
+    public static function partial()
+    {
+        $fa = func_get_args();
+
+        $callback = f::first($fa);
+        $args = f::rest($fa);
+
+        return function () use ($callback, $args) {
+            return call_user_func_array($callback, f::partialMergeArgs($args, func_get_args()));
+        };
+    }
+
+    public static function _()
+    {
+        return placeholder::create();
+    }
+
+    private static function partialMergeArgs($left, $right)
+    {
+        foreach ($left as &$v) {
+            if ($v instanceof placeholder) {
+                if (empty($right)) {
+                    throw new \InvalidArgumentException('The placeholder cannot be resolved.');
+                }
+
+                $v = f::first($right);
+                $right = f::rest($right);
+            }
+        }
+
+        return array_merge($left, $right);
     }
 
     /**

@@ -1,0 +1,17 @@
+<?php
+
+namespace Felpado\Tests\Functions;
+
+use Felpado\Tests\FunctionTestCase;
+
+class composeTest extends FunctionTestCase
+{
+    public function testCompose()
+    {
+        $c1 = $this->callFunction('md5', 'strtoupper', 'trim', 'strrev');
+        $c2 = $this->callFunction('count', 'array_filter');
+
+        $this->assertSame(md5('OLLEH'), $c1(' hello '));
+        $this->assertSame(2, $c2(['1', 2, '3', 4, '5'], 'is_int'));
+    }
+}
