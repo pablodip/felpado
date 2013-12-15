@@ -3,6 +3,7 @@
 namespace Felpado\Tests\Functions;
 
 use Felpado\Tests\FunctionTestCase;
+use Felpado as f;
 
 class renameKeyTest extends FunctionTestCase
 {
@@ -15,6 +16,8 @@ class renameKeyTest extends FunctionTestCase
             'foo' => 3,
             'ups' => 9,
         ), $this->callFunction($collection, 'bar', 'ups'));
+
+        $this->assertSame(f::toArray($collection), $this->callFunction($collection, 'bar', 'bar'));
     }
 
     public function renameKeyProvider()

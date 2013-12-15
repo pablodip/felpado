@@ -525,7 +525,7 @@ class Felpado
 
     public static function renameKey($collection, $from, $to)
     {
-        return f::dissoc(f::assoc($collection, $to, f::get($collection, $from)), $from);
+        return f::assoc(f::dissoc($collection, $from), $to, f::get($collection, $from));
     }
 
     public static function renameKeys($collection, $keysMap)
