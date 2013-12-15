@@ -13,11 +13,13 @@ class FunctionTestCase extends TestCase
 
     private function callableFromTestClass()
     {
-        return array('f', $this->functionFromTestClass(get_class($this)));
+        $function = $this->functionFromTestClass(get_class($this));
+
+        return '\\felpado\\'.$function;
     }
 
     private function functionFromTestClass($class) {
-        return $this->removeTestNamespace($this->removeTestSuffix($class));
+        return $this->underscorize($this->removeTestNamespace($this->removeTestSuffix($class)));
     }
 
     private function removeTestNamespace($class) {
@@ -26,5 +28,10 @@ class FunctionTestCase extends TestCase
 
     private function removeTestSuffix($class) {
         return preg_replace('/Test$/', '', $class);
+    }
+
+    private function underscorize($string)
+    {
+        return strtolower(preg_replace(array('/([A-Z]+)([A-Z][a-z])/', '/([a-z\d])([A-Z])/'), array('\\1_\\2', '\\1_\\2'), strtr($string, '_', '.')));
     }
 }

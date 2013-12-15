@@ -3,6 +3,8 @@
 $loader = require __DIR__.'/../vendor/autoload.php';
 $loader->add('Felpado\Tests', __DIR__);
 
+return;
+
 
 require __DIR__.'/doc_file.php';
 

@@ -2,7 +2,7 @@
 
 namespace felpado\doc;
 
-use Felpado as f;
+use felpado as f;
 
 function generate_doc_file($docFile, $sourceFile) {
     $contents = doc_file_contents(docs_from_source(file_source($sourceFile)));
@@ -30,13 +30,13 @@ EOF;
 }
 
 function doc_file_function_list($docs) {
-    return implode(", ", f::map(function ($function) {
+    return implode(", ", f\map(function ($function) {
         return sprintf('[%s](#%s)', $function, $function);
-    }, f::keys($docs)));
+    }, f\keys($docs)));
 }
 
 function doc_file_functions($docs) {
-    return implode("\n\n", f::map('felpado\doc\function_doc', $docs));
+    return implode("\n\n", f\map('felpado\doc\function_doc', $docs));
 }
 
 function function_doc($doc, $function) {
@@ -63,9 +63,9 @@ EOF
 
 
 function docs_from_source($source) {
-    return f::map(
+    return f\map(
         'felpado\doc\parse_doc',
-        f::map('felpado\doc\doc_remove_php', docs_from_tokens(token_get_all($source)))
+        f\map('felpado\doc\doc_remove_php', docs_from_tokens(token_get_all($source)))
     );
 }
 
@@ -87,13 +87,13 @@ function parse_doc($doc) {
 }
 
 function docs_from_tokens($tokens) {
-    return f::reduce(function ($docs, $token) {
+    return f\reduce(function ($docs, $token) {
         if (token_is_doc($token)) {
-            return f::assoc($docs, 'pending', token_value($token));
+            return f\assoc($docs, 'pending', token_value($token));
         }
 
-        if (f::contains($docs, 'pending') && token_is_string($token)) {
-            return f::renameKey($docs, 'pending', token_value($token));
+        if (f\contains($docs, 'pending') && token_is_string($token)) {
+            return f\renameKey($docs, 'pending', token_value($token));
         }
 
         return $docs;

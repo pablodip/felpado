@@ -3,7 +3,7 @@
 namespace Felpado\Tests\Functions;
 
 use Felpado\Tests\FunctionTestCase;
-use Felpado as f;
+use felpado as f;
 
 class partialTest extends FunctionTestCase
 {
@@ -20,9 +20,9 @@ class partialTest extends FunctionTestCase
 
     public function testPartialWithPlaceholders()
     {
-        $o1 = $this->callFunction([$this, 'over'], f::_(), 5, 2);
-        $o2 = $this->callFunction([$this, 'over'], f::_(), f::_(), 2);
-        $o3 = $this->callFunction([$this, 'over'], f::_(), 5, f::_());
+        $o1 = $this->callFunction([$this, 'over'], f\_(), 5, 2);
+        $o2 = $this->callFunction([$this, 'over'], f\_(), f\_(), 2);
+        $o3 = $this->callFunction([$this, 'over'], f\_(), 5, f\_());
 
         $this->assertSame(1, $o1(10));
         $this->assertSame(1, $o2(10, 5));
@@ -34,7 +34,7 @@ class partialTest extends FunctionTestCase
      */
     public function testPartialWithPlaceholdersShouldThrowAnExceptionIfAPlaceholderValueIsMissing()
     {
-        $o = $this->callFunction([$this, 'over'], f::_(), f::_(), 2);
+        $o = $this->callFunction([$this, 'over'], f\_(), f\_(), 2);
 
         $o(10);
     }
