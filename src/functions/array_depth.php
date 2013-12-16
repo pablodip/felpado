@@ -13,7 +13,7 @@ namespace felpado;
 
 use felpado as f;
 
-function collection_depth($array, $depth)
+function array_depth($array, $depth)
 {
     $first = f\first($depth);
 
@@ -21,7 +21,7 @@ function collection_depth($array, $depth)
         $arrayIn = f\to_array(f\get($array, $first));
 
         $inRest = f\rest($depth);
-        if (count($inRest)) {
+        if ($inRest) {
             return f\collection_depth($arrayIn, $inRest);
         }
 

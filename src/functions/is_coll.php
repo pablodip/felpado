@@ -13,13 +13,7 @@ namespace felpado;
 
 use felpado as f;
 
-function get_in($collection, $in, $default = null)
+function is_coll($coll)
 {
-    $arrayIn = f\collection_in($collection, $in);
-
-    if ($arrayIn === false) {
-        return $default;
-    }
-
-    return f\get($arrayIn, f\last($in), $default);
+    return is_array($coll) || $coll instanceof \Traversable;
 }

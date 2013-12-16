@@ -13,26 +13,28 @@ namespace felpado;
 
 use felpado as f;
 
-function assoc_in($collection, $in, $value)
+function assoc_in($coll, $in, $value)
 {
-    $array = f\to_array($collection);
+    $array = f\to_array($coll);
 
-    if ($in) {
-        $deepArray =& $array;
-        foreach (f\drop_last($in) as $k) {
-            if (array_key_exists($k, $deepArray)) {
-                if (!is_array($deepArray[$k])) {
-                    throw new \LogicException();
-                }
-            } else {
-                $deepArray[$k] = array();
+    if (empty($in)) {
+        return $array;
+    }
+
+    $current =& $array;
+    foreach ($in as $k) {
+        if (array_key_exists($k, $current)) {
+            if (!is_array($current[$k])) {
+                throw new \LogicException();
             }
-
-            $deepArray =& $deepArray[$k];
+        } else {
+            $current[$k] = array();
         }
 
-        $deepArray[f\last($in)] = $value;
+        $current =& $current[$k];
     }
+
+    $current = $value;
 
     return $array;
 }
