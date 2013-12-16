@@ -20,10 +20,5 @@
     },
     "autoload": {
         "files": ["src/felpado.php"]
-    },
-    "extra": {
-        "branch-alias": {
-            "dev-master": "0.6.x-dev"
-        }
     }
 }
