@@ -2,42 +2,46 @@
 
 namespace felpado\tests;
 
+use felpado as f;
+
 class assoc_inTest extends felpadoTestCase
 {
     /**
-     * @dataProvider assocInProvider
+     * @dataProvider providerAssocIn
      */
-    public function testAssocInShouldCreateTheDepth($collection)
+    public function testItShouldCreateTheDepth($coll)
     {
-        $this->assertSame(array(
+        $expected = array(
             'foo' => 3,
             'bar' => array(
                 'ups' => array(
                     'in' => 5
                 )
             ),
-        ), $this->callFunction($collection, array('bar', 'ups', 'in'), 5));
+        );
+        $this->assertSame($expected, f\assoc_in($coll, array('bar', 'ups', 'in'), 5));
     }
 
     /**
-     * @dataProvider assocInProvider
+     * @dataProvider providerAssocIn
      * @expectedException \LogicException
      */
-    public function testAssocInShouldThrowALogicExceptionWhenTheInPathAlreadyExistsAndItIsNotACollection($collection)
+    public function testItShouldThrowALogicExceptionWhenTheInPathAlreadyExistsAndItIsNotAnArray($coll)
     {
-        $this->callFunction($collection, array('foo', 'bar'), 5);
+        f\assoc_in($coll, array('foo', 'bar'), 5);
     }
 
-    public function testEmptyIn()
+    /**
+     * @dataProvider providerAssocIn
+     */
+    public function testItShouldDoNothingWithAnEmptyIn($coll)
     {
-        $array = array('foo' => 3);
-
-        $this->assertSame($array, $this->callFunction($array, array(), 'bar'));
+        $this->assertSame(f\to_array($coll), f\assoc_in($coll, array(), 'bar'));
     }
 
-    public function assocInProvider()
+    public function providerAssocIn()
     {
-        return $this->collectionDataProvider(array(
+        return $this->collProvider(array(
             'foo' => 3
         ));
     }

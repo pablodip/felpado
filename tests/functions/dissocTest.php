@@ -17,7 +17,7 @@ class dissocTest extends felpadoTestCase
 
     public function dissocProvider()
     {
-        return $this->collectionDataProvider(array(
+        return $this->collProvider(array(
             'foo' => 3,
             'bar' => 9,
             'ups' => 5,

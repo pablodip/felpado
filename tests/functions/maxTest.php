@@ -41,7 +41,7 @@ class maxTest extends felpadoTestCase
 
     public function withCallbackCollectionProvider()
     {
-        return $this->collectionDataProvider(array(
+        return $this->collProvider(array(
             array('name' => 'foo', 'age' => 20),
             array('name' => 'bar', 'age' => 50),
             array('name' => 'ups', 'age' => 40),

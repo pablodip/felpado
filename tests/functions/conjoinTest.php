@@ -2,18 +2,20 @@
 
 namespace felpado\tests;
 
+use felpado as f;
+
 class conjoinTest extends felpadoTestCase
 {
     /**
-     * @dataProvider conjoinProvider
+     * @dataProvider providerConjoin
      */
-    public function testConjoin($collection)
+    public function testConjoin($coll)
     {
-        $this->assertSame(array(2, 3, 5), $this->callFunction($collection, 5));
+        $this->assertSame(array(2, 3, 5), f\conjoin($coll, 5));
     }
 
-    public function conjoinProvider()
+    public function providerConjoin()
     {
-        return $this->collectionDataProvider(array(2, 3));
+        return $this->collProvider(array(2, 3));
     }
 }

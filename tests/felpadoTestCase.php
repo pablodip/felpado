@@ -32,7 +32,7 @@ class felpadoTestCase extends \PHPUnit_Framework_TestCase
 
     public function indexedCollectionProvider()
     {
-        return $this->collectionDataProvider(array(
+        return $this->collProvider(array(
             4,
             5,
             'foo',
@@ -42,7 +42,7 @@ class felpadoTestCase extends \PHPUnit_Framework_TestCase
 
     public function associativeCollectionProvider()
     {
-        return $this->collectionDataProvider(array(
+        return $this->collProvider(array(
             'one' => 1,
             'two' => 2,
             4     => 'four',
@@ -52,19 +52,19 @@ class felpadoTestCase extends \PHPUnit_Framework_TestCase
 
     public function oneItemCollectionProvider()
     {
-        return $this->collectionDataProvider(array(2));
+        return $this->collProvider(array(2));
     }
 
     public function emptyCollectionProvider()
     {
-        return $this->collectionDataProvider(array());
+        return $this->collProvider(array());
     }
 
-    protected function collectionDataProvider(array $array)
+    protected function collProvider(array $array)
     {
         return array(
             array($array),
             array(new \ArrayObject($array)),
         );
     }
-} 
+}

@@ -31,7 +31,7 @@ class getTest extends felpadoTestCase
 
     public function getProvider()
     {
-        return $this->collectionDataProvider(array(
+        return $this->collProvider(array(
             'foo' => 3,
             'bar' => 9,
         ));

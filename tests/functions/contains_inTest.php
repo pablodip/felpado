@@ -37,7 +37,7 @@ class contains_inTest extends felpadoTestCase
 
     public function containsInProvider()
     {
-        return $this->collectionDataProvider(array(
+        return $this->collProvider(array(
             'foo' => 3,
             'bar' => array(
                 'one' => array(
