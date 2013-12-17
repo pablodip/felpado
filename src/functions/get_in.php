@@ -13,8 +13,7 @@ namespace felpado;
 
 use felpado as f;
 
-function get_in($collection, $in, $default = null)
-{
+function get_in($collection, $in, $default = null) {
     $arrayIn = f\collection_in($collection, $in);
 
     if ($arrayIn === false) {

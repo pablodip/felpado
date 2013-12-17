@@ -13,8 +13,7 @@ namespace felpado;
 
 use felpado as f;
 
-function drop_last($collection)
-{
+function drop_last($collection) {
     $result = f\to_array($collection);
     unset($result[f\last(f\keys($result))]);
 

@@ -13,8 +13,7 @@ namespace felpado;
 
 use felpado as f;
 
-function partial_merge_args($left, $right)
-{
+function partial_merge_args($left, $right) {
     foreach ($left as &$v) {
         if ($v instanceof placeholder) {
             if (empty($right)) {

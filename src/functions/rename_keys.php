@@ -13,8 +13,7 @@ namespace felpado;
 
 use felpado as f;
 
-function rename_keys($collection, $keysMap)
-{
+function rename_keys($collection, $keysMap) {
     if (count($keysMap)) {
         $from = f\first(f\keys($keysMap));
         $to = f\first($keysMap);

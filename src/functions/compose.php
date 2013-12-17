@@ -13,8 +13,7 @@ namespace felpado;
 
 use felpado as f;
 
-function compose()
-{
+function compose() {
     $fns = func_get_args();
 
     return f\reduce(function ($composition, $fn) {

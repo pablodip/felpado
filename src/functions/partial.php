@@ -13,8 +13,7 @@ namespace felpado;
 
 use felpado as f;
 
-function partial()
-{
+function partial() {
     $fa = func_get_args();
 
     $callback = f\first($fa);

@@ -13,7 +13,6 @@ namespace felpado;
 
 use felpado as f;
 
-function rename_key($collection, $from, $to)
-{
+function rename_key($collection, $from, $to) {
     return f\assoc(f\dissoc($collection, $from), $to, f\get($collection, $from));
 }

@@ -13,8 +13,7 @@ namespace felpado;
 
 use felpado as f;
 
-function collection_depth($array, $depth)
-{
+function collection_depth($array, $depth) {
     $first = f\first($depth);
 
     if (f\contains($array, $first)) {

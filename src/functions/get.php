@@ -13,8 +13,7 @@ namespace felpado;
 
 use felpado as f;
 
-function get($collection, $key, $default = null)
-{
+function get($collection, $key, $default = null) {
     $array = f\to_array($collection);
 
     if (array_key_exists($key, $array)) {

@@ -13,8 +13,7 @@ namespace felpado;
 
 use felpado as f;
 
-function assoc_in($coll, $in, $value)
-{
+function assoc_in($coll, $in, $value) {
     $array = f\to_array($coll);
 
     if (empty($in)) {

@@ -13,7 +13,6 @@ namespace felpado;
 
 use felpado as f;
 
-function is_coll($coll)
-{
+function is_coll($coll) {
     return is_array($coll) || $coll instanceof \Traversable;
 }

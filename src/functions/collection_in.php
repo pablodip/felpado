@@ -13,8 +13,7 @@ namespace felpado;
 
 use felpado as f;
 
-function collection_in($collection, $in)
-{
+function collection_in($collection, $in) {
     $depth = f\drop_last($in);
 
     if (count($depth)) {

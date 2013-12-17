@@ -21,8 +21,7 @@ use felpado as f;
  * conjoin(array('a' => 1, 'b' => 2), 'c', 3);
  * => array(array('a' => 1, 'b' => 2, 'c' => 3))
  */
-function assoc($collection, $key, $value)
-{
+function assoc($collection, $key, $value) {
     $result = f\to_array($collection);
     $result[$key] = $value;
 

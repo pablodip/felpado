@@ -13,7 +13,6 @@ namespace felpado;
 
 use felpado as f;
 
-function _()
-{
+function _() {
     return f\placeholder::create();
 }

@@ -13,8 +13,7 @@ namespace felpado;
 
 use felpado as f;
 
-function dissoc($collection, $key)
-{
+function dissoc($collection, $key) {
     $result = f\to_array($collection);
     unset($result[$key]);
 
