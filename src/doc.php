@@ -40,7 +40,8 @@ function generate_functions_doc() {
            $docSeparator.
            $docFunctionList($functions).
            $docSeparator.
-           $docFunctionsDoc($functions);
+           $docFunctionsDoc($functions).
+           "\n";
 }
 
 function function_doc_template() {
