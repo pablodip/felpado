@@ -47,7 +47,7 @@ function generate_functions_doc() {
 function function_doc_template() {
     return <<<EOF
 <a name="%name%"></a>
-### %name%
+### f\%name%
 
 %usage%
 
@@ -106,7 +106,7 @@ function function_doc_info_from_code($function, $code) {
         return $buildDoc('', $docTemplate);
     }
 
-    $processDoc = f\compose(f\partial('array_replace', $docTemplate), f\partial('explode', "\n\n"));
+    $processDoc = f\compose(f\partial('array_replace', $docTemplate), f\partial('explode', "\n\n", f\_(), 3));
     $doc = $processDoc($rawDoc);
 
     return $buildDoc($rawDoc, $doc);

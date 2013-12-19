@@ -3,7 +3,7 @@
 [_](#_), [array_depth](#array_depth), [assoc](#assoc), [assoc_in](#assoc_in), [collection_depth](#collection_depth), [collection_in](#collection_in), [compose](#compose), [conjoin](#conjoin), [construct](#construct), [contains](#contains), [contains_in](#contains_in), [contains_strict](#contains_strict), [dissoc](#dissoc), [drop_last](#drop_last), [each](#each), [every](#every), [filter](#filter), [find](#find), [first](#first), [foldl](#foldl), [get](#get), [get_in](#get_in), [group_by](#group_by), [is_coll](#is_coll), [key](#key), [keys](#keys), [last](#last), [map](#map), [max](#max), [method](#method), [min](#min), [partial](#partial), [partial_merge_args](#partial_merge_args), [property](#property), [reduce](#reduce), [rename_key](#rename_key), [rename_keys](#rename_keys), [rest](#rest), [reverse](#reverse), [select](#select), [some](#some), [to_array](#to_array), [values](#values)
 
 <a name="_"></a>
-### _
+### f\_
 
 
 
@@ -14,7 +14,7 @@
 ```
 
 <a name="array_depth"></a>
-### array_depth
+### f\array_depth
 
 
 
@@ -25,7 +25,7 @@
 ```
 
 <a name="assoc"></a>
-### assoc
+### f\assoc
 
 assoc($collection, $key, $value)
 
@@ -37,7 +37,7 @@ conjoin(array('a' => 1, 'b' => 2), 'c', 3);
 ```
 
 <a name="assoc_in"></a>
-### assoc_in
+### f\assoc_in
 
 
 
@@ -48,7 +48,7 @@ conjoin(array('a' => 1, 'b' => 2), 'c', 3);
 ```
 
 <a name="collection_depth"></a>
-### collection_depth
+### f\collection_depth
 
 
 
@@ -59,7 +59,7 @@ conjoin(array('a' => 1, 'b' => 2), 'c', 3);
 ```
 
 <a name="collection_in"></a>
-### collection_in
+### f\collection_in
 
 
 
@@ -70,7 +70,7 @@ conjoin(array('a' => 1, 'b' => 2), 'c', 3);
 ```
 
 <a name="compose"></a>
-### compose
+### f\compose
 
 
 
@@ -81,7 +81,7 @@ conjoin(array('a' => 1, 'b' => 2), 'c', 3);
 ```
 
 <a name="conjoin"></a>
-### conjoin
+### f\conjoin
 
 conjoin($collection, $value)
 
@@ -95,7 +95,7 @@ conjoin(array(1, 2, 3), 4);
 ```
 
 <a name="construct"></a>
-### construct
+### f\construct
 
 construct($first, $rest)
 
@@ -107,7 +107,7 @@ construct(1, array(2, 3, 4));
 ```
 
 <a name="contains"></a>
-### contains
+### f\contains
 
 contains($collection, $key)
 
@@ -117,10 +117,17 @@ The comparison is done with the normal comparison operator `==`.
 ```
 contains(array('a' => 1, 'b' => 2), 'a');
 => true
+
+contains(array('a' => 1, 'b' => 2), 'c');
+=> false
+
+// normal comparison operator ==, not strict
+contains(array(1 => 'a', 2 => 'b'), '1');
+=> true
 ```
 
 <a name="contains_in"></a>
-### contains_in
+### f\contains_in
 
 
 
@@ -131,7 +138,7 @@ contains(array('a' => 1, 'b' => 2), 'a');
 ```
 
 <a name="contains_strict"></a>
-### contains_strict
+### f\contains_strict
 
 contains_strict($collection, $key)
 
@@ -144,7 +151,7 @@ contains(array(1 => 'a', 2 => 'b'), '1');
 ```
 
 <a name="dissoc"></a>
-### dissoc
+### f\dissoc
 
 
 
@@ -155,7 +162,7 @@ contains(array(1 => 'a', 2 => 'b'), '1');
 ```
 
 <a name="drop_last"></a>
-### drop_last
+### f\drop_last
 
 
 
@@ -166,7 +173,7 @@ contains(array(1 => 'a', 2 => 'b'), '1');
 ```
 
 <a name="each"></a>
-### each
+### f\each
 
 feach($callback, $collection)
 
@@ -178,7 +185,7 @@ feach(function ($value, $key) { do_something($value, $key) }, array(1, 2, 3));
 ```
 
 <a name="every"></a>
-### every
+### f\every
 
 every($callback, $collection)
 
@@ -187,10 +194,13 @@ Returns true if callback applied to all values of collection returns logical tru
 ```
 every(function ($value) { return $value > 10; }, array(20, 30, 40));
 => true
+
+every(function ($value) { return $value > 10; }, array(5, 20, 30));
+=> false
 ```
 
 <a name="filter"></a>
-### filter
+### f\filter
 
 filter($callback, $collection)
 
@@ -202,7 +212,7 @@ filter(function ($value) { return $value % 2 == 0; }, range(1, 6));
 ```
 
 <a name="find"></a>
-### find
+### f\find
 
 find($callback, $collection)
 
@@ -211,10 +221,13 @@ Returns the first value that returns logical true applied to callback. otherwise
 ```
 find(function ($value) { return $value % 2 == 0; }, range(1, 6));
 => 2
+
+find(function ($value) { return $value % 2 == 0; }, array(1, 3, 5);
+=> null
 ```
 
 <a name="first"></a>
-### first
+### f\first
 
 first($collection)
 
@@ -223,10 +236,13 @@ Returns the first value of collection, or null if collection is empty.
 ```
 first(array(1, 2, 3));
 => 1
+
+first(array());
+=> null
 ```
 
 <a name="foldl"></a>
-### foldl
+### f\foldl
 
 
 
@@ -237,7 +253,7 @@ first(array(1, 2, 3));
 ```
 
 <a name="get"></a>
-### get
+### f\get
 
 
 
@@ -248,7 +264,7 @@ first(array(1, 2, 3));
 ```
 
 <a name="get_in"></a>
-### get_in
+### f\get_in
 
 
 
@@ -259,7 +275,7 @@ first(array(1, 2, 3));
 ```
 
 <a name="group_by"></a>
-### group_by
+### f\group_by
 
 group_by($callback, $collection)
 
@@ -271,7 +287,7 @@ group_by('strlen', array('one', 'two', 'three'));
 ```
 
 <a name="is_coll"></a>
-### is_coll
+### f\is_coll
 
 
 
@@ -282,7 +298,7 @@ group_by('strlen', array('one', 'two', 'three'));
 ```
 
 <a name="key"></a>
-### key
+### f\key
 
 fkey($key)
 
@@ -292,10 +308,16 @@ Returns a closure that returns the value of an array with the given key.
 $key = fkey('foo');
 $key(array('foo' => 2, 'bar' => 4));
 => 2
+
+map(fkey('foo'), array(
+    array('foo' => 2, 'bar' => 4),
+    array('foo' => 6, 'bar' => 8),
+))
+=> array(2, 6)
 ```
 
 <a name="keys"></a>
-### keys
+### f\keys
 
 keys($collection)
 
@@ -307,7 +329,7 @@ keys(array('one' => 1, 'two' => 2, 'three' => 3));
 ```
 
 <a name="last"></a>
-### last
+### f\last
 
 last($collection)
 
@@ -316,10 +338,13 @@ Returns the last value of collection, or null if collection is empty.
 ```
 last(array(1, 2, 3));
 => 3
+
+last(array());
+=> null
 ```
 
 <a name="map"></a>
-### map
+### f\map
 
 map($callback, $collection)
 
@@ -331,7 +356,7 @@ map(function ($element) { return $element * 2; }, array(1, 2, 3));
 ```
 
 <a name="max"></a>
-### max
+### f\max
 
 
 
@@ -342,7 +367,7 @@ map(function ($element) { return $element * 2; }, array(1, 2, 3));
 ```
 
 <a name="method"></a>
-### method
+### f\method
 
 method($method)
 
@@ -353,10 +378,14 @@ Returns a closure that calls the given method and returns its value in an object
 $getId = method('getId');
 $getId(new Object(2));
 => 2
+
+// useful with another functions
+map(method('getId'), array(new Object(2), new Object(6)))
+=> array(2, 6)
 ```
 
 <a name="min"></a>
-### min
+### f\min
 
 
 
@@ -367,7 +396,7 @@ $getId(new Object(2));
 ```
 
 <a name="partial"></a>
-### partial
+### f\partial
 
 
 
@@ -378,7 +407,7 @@ $getId(new Object(2));
 ```
 
 <a name="partial_merge_args"></a>
-### partial_merge_args
+### f\partial_merge_args
 
 
 
@@ -389,7 +418,7 @@ $getId(new Object(2));
 ```
 
 <a name="property"></a>
-### property
+### f\property
 
 property($property)
 
@@ -400,10 +429,14 @@ Returns a closure that returns the given property of an object.
 $id = property('id');
 $id(new Object(2));
 => 2
+
+// useful with another functions
+map(property('id'), array(new Object(2), new Object(6)))
+=> array(2, 6)
 ```
 
 <a name="reduce"></a>
-### reduce
+### f\reduce
 
 
 
@@ -414,7 +447,7 @@ $id(new Object(2));
 ```
 
 <a name="rename_key"></a>
-### rename_key
+### f\rename_key
 
 
 
@@ -425,7 +458,7 @@ $id(new Object(2));
 ```
 
 <a name="rename_keys"></a>
-### rename_keys
+### f\rename_keys
 
 
 
@@ -436,7 +469,7 @@ $id(new Object(2));
 ```
 
 <a name="rest"></a>
-### rest
+### f\rest
 
 rest($collection)
 
@@ -446,10 +479,16 @@ It returns an empty array if collection is empty or has only one value.
 ```
 rest(array(1, 2, 3, 4, 5));
 => array(2, 3, 4, 5)
+
+rest(array(1));
+=> array()
+
+rest(array());
+=> array()
 ```
 
 <a name="reverse"></a>
-### reverse
+### f\reverse
 
 reverse($collection)
 
@@ -461,7 +500,7 @@ rest(array(1, 2, 3));
 ```
 
 <a name="select"></a>
-### select
+### f\select
 
 
 
@@ -472,7 +511,7 @@ rest(array(1, 2, 3));
 ```
 
 <a name="some"></a>
-### some
+### f\some
 
 some($callback, $collection)
 
@@ -481,10 +520,13 @@ Returns true if callback applied to any value of collection returns logical true
 ```
 some(function ($value) { return $value > 10; }, array(5, 20, 30));
 => true
+
+some(function ($value) { return $value > 10; }, array(5, 8, 9));
+=> false
 ```
 
 <a name="to_array"></a>
-### to_array
+### f\to_array
 
 
 
@@ -495,7 +537,7 @@ some(function ($value) { return $value > 10; }, array(5, 20, 30));
 ```
 
 <a name="values"></a>
-### values
+### f\values
 
 values($collection)
 
