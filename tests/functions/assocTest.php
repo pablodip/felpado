@@ -7,21 +7,19 @@ use felpado as f;
 class assocTest extends felpadoTestCase
 {
     /**
-     * @dataProvider providerAssoc
+     * @dataProvider provideAssoc
      */
-    public function testAssoc($coll)
+    public function testAssoc($expected, $coll, $key, $value)
     {
-        $expected = array(
-            'foo' => 'bar',
-            'ups' => 'la'
-        );
-        $this->assertSame($expected, f\assoc($coll, 'ups', 'la'));
+        $this->assertSame($expected, f\assoc($coll, $key, $value));
     }
 
-    public function providerAssoc()
+    public function provideAssoc()
     {
-        return $this->collProvider(array(
-            'foo' => 'bar'
+        return $this->buildExpectedCollArgsProvider(array(
+            array(array('a' => 'b'), array(), 'a', 'b'),
+            array(array('a' => 'b', 'c' => 'd'), array('a' => 'b'), 'c', 'd'),
+            array(array('foo' => 'ups'), array('foo' => 'bar'), 'foo', 'ups'),
         ));
     }
 }

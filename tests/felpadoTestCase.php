@@ -67,4 +67,15 @@ class felpadoTestCase extends \PHPUnit_Framework_TestCase
             array(new \ArrayObject($array)),
         );
     }
+
+    protected function buildExpectedCollArgsProvider($data)
+    {
+        $provide = array();
+        foreach ($data as $d) {
+            $provide[] = $d;
+            $provide[] = array_replace($d, array(1 => new \ArrayObject($d[1])));
+        }
+
+        return $provide;
+    }
 }
