@@ -410,10 +410,10 @@ not(false);
 => true
 
 not('a');
-=> true
+=> false
 
 not('');
-=> false
+=> true
 ```
 
 <a name="partial"></a>
