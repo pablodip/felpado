@@ -79,14 +79,14 @@ function functions_info() {
             'name' => $function,
             'file' => $file,
             'code' => $code,
-            'doc' => function_doc_info_from_code($function, $code)
+            'doc' => function_doc_info_from_code($code)
         ];
     };
 
     return f\map($buildInfo, $functions);
 }
 
-function function_doc_info_from_code($function, $code) {
+function function_doc_info_from_code($code) {
     $buildDoc = function ($raw, $doc) {
         return ['raw' => $raw, 'usage' => $doc[0], 'desc' => $doc[1], 'example' => $doc[2]];
     };
