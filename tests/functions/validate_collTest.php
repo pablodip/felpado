@@ -37,6 +37,11 @@ class validate_collTest extends felpadoTestCase
         $this->assertSame(array(), f\validate_coll(array('a' => 1), array('b' => f\optional('is_float'))));
     }
 
+    public function testAllowsOptionalsWithNull()
+    {
+        $this->assertSame(array(), f\validate_coll(array('a' => null), array('a' => f\optional('is_int'))));
+    }
+
     public function testReturnsRequiredWhenNotExists()
     {
         $this->assertSame(array('a' => 'required'), f\validate_coll(array(), array('a' => f\required('is_int'))));

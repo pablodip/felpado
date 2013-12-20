@@ -20,9 +20,12 @@ function validate_coll($coll, $rules) {
         }
 
         if (f\contains($coll, $key)) {
-            $isValid = f\validate(f\get($coll, $key), $rule->getCallback());
-            if (f\not($isValid)) {
-                return 'invalid';
+            $value = f\get($coll, $key);
+            if (f\not(is_null($value) && $rule instanceof optional)) {
+                $isValid = f\validate($value, $rule->getCallback());
+                if (f\not($isValid)) {
+                    return 'invalid';
+                }
             }
         } elseif ($rule instanceof required) {
             return 'required';
