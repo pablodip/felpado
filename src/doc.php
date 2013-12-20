@@ -75,12 +75,12 @@ function functions_info() {
         $function = $functionFromFile($file);
         $code = file_get_contents($file);
 
-        return [
+        return array(
             'name' => $function,
             'file' => $file,
             'code' => $code,
             'doc' => function_doc_info_from_code($code)
-        ];
+        );
     };
 
     return f\map($buildInfo, $functions);
@@ -88,10 +88,10 @@ function functions_info() {
 
 function function_doc_info_from_code($code) {
     $buildDoc = function ($raw, $doc) {
-        return ['raw' => $raw, 'usage' => $doc[0], 'desc' => $doc[1], 'example' => $doc[2]];
+        return array('raw' => $raw, 'usage' => $doc[0], 'desc' => $doc[1], 'example' => $doc[2]);
     };
 
-    $docTemplate = ['', '', ''];
+    $docTemplate = array('', '', '');
 
     $getRawDoc = function ($contents) {
         if (preg_match('@^/\*\*\n(.*)\n \*/\nfunction.@ms', $contents, $matches)) {
