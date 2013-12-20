@@ -12,7 +12,7 @@ function felpado_functions() {
     }, glob(__DIR__ . '/functions/*.php'));
 }
 
-class required
+class validation_rule
 {
     private $callback;
 
@@ -25,6 +25,13 @@ class required
     {
         return $this->callback;
     }
+}
+
+class required extends validation_rule
+{
+}
+class optional extends validation_rule
+{
 }
 
 class placeholder

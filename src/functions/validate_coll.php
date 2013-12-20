@@ -14,21 +14,21 @@ namespace felpado;
 use felpado as f;
 
 function validate_coll($coll, $rules) {
+    $validate = function ($rule, $key) use ($coll) {
+        if (f\not($rule instanceof validation_rule)) {
+            throw new \InvalidArgumentException('Validation rules must be created with felpado\required and felpado\optional.');
+        }
 
-    $validate = function ($value, $key) use ($coll) {
-        if ($value instanceof required) {
-            if (f\not(f\contains($coll, $key))) {
-                return 'required';
+        if (f\contains($coll, $key)) {
+            $isValid = f\validate(f\get($coll, $key), $rule->getCallback());
+            if (f\not($isValid)) {
+                return 'invalid';
             }
-
-            $callback = $value->getCallback();
-        } else {
-            $callback = $value;
+        } elseif ($rule instanceof required) {
+            return 'required';
         }
 
-        if (f\not(call_user_func($callback, f\get($coll, $key)))) {
-            return 'invalid';
-        }
+        return null;
     };
 
     return f\filter('felpado\identity', f\map($validate, $rules));
