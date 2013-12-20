@@ -23,12 +23,12 @@ function generate_functions_doc() {
         $template = f\partial('str_replace', $search, f\_(), function_doc_template());
 
         $replace = function ($function) {
-            return [
+            return array(
                 $function['name'],
                 $function['doc']['usage'],
                 $function['doc']['desc'],
                 $function['doc']['example']
-            ];
+            );
         };
 
         $process = f\compose($template, $replace);
