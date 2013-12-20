@@ -2,24 +2,33 @@
 
 namespace felpado\tests;
 
+use felpado as f;
+
 class methodTest extends felpadoTestCase
 {
-    /**
-     * @dataProvider methodNameProvider
-     */
-    public function testMethod($methodName)
+    public function testMethod()
     {
-        $dateTime = new \DateTime();
-        $method = $this->callFunction($methodName);
+        $object = new _MethodTesting();
 
-        $this->assertSame($dateTime->$methodName(), $method($dateTime));
+        $a = f\method('a');
+        $c = f\method('c');
+        $cWithDE = f\method('c', 'd', 'e');
+
+        $this->assertSame('b', $a($object));
+        $this->assertSame(array(), $c($object));
+        $this->assertSame(array('d', 'e'), $cWithDE($object));
+    }
+}
+
+class _MethodTesting
+{
+    public function a()
+    {
+        return 'b';
     }
 
-    public function methodNameProvider()
+    public function c()
     {
-        return array(
-            array('getOffset'),
-            array('getTimestamp'),
-        );
+        return func_get_args();
     }
 }

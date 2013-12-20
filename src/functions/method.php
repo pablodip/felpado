@@ -28,7 +28,9 @@ use felpado as f;
  * => array(2, 6)
  */
 function method($method) {
-    return function ($object) use ($method) {
-        return $object->$method();
+    $args = f\rest(func_get_args());
+
+    return function ($object) use ($method, $args) {
+        return call_user_func_array(array($object, $method), $args);
     };
 }
