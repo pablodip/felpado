@@ -19,7 +19,7 @@ function generate_functions_doc() {
     };
 
     $docFunctionsDoc = function ($functions) {
-        $search = ['%name%', '%usage%', '%desc%', '%example%'];
+        $search = array('%name%', '%usage%', '%desc%', '%example%');
         $template = f\partial('str_replace', $search, f\_(), function_doc_template());
 
         $replace = function ($function) {
