@@ -1,6 +1,6 @@
 # Functions
 
-[_](#_), [array_depth](#array_depth), [assoc](#assoc), [assoc_in](#assoc_in), [collection_depth](#collection_depth), [collection_in](#collection_in), [compose](#compose), [conjoin](#conjoin), [construct](#construct), [contains](#contains), [contains_in](#contains_in), [contains_strict](#contains_strict), [dissoc](#dissoc), [drop_last](#drop_last), [each](#each), [every](#every), [filter](#filter), [find](#find), [first](#first), [foldl](#foldl), [get](#get), [get_in](#get_in), [group_by](#group_by), [is_coll](#is_coll), [key](#key), [keys](#keys), [last](#last), [map](#map), [max](#max), [method](#method), [min](#min), [not](#not), [partial](#partial), [partial_merge_args](#partial_merge_args), [property](#property), [reduce](#reduce), [rename_key](#rename_key), [rename_keys](#rename_keys), [rest](#rest), [reverse](#reverse), [select](#select), [some](#some), [to_array](#to_array), [values](#values)
+[_](#_), [array_depth](#array_depth), [assoc](#assoc), [assoc_in](#assoc_in), [collection_depth](#collection_depth), [collection_in](#collection_in), [compose](#compose), [conjoin](#conjoin), [construct](#construct), [contains](#contains), [contains_in](#contains_in), [contains_strict](#contains_strict), [dissoc](#dissoc), [drop_last](#drop_last), [each](#each), [every](#every), [filter](#filter), [find](#find), [first](#first), [foldl](#foldl), [get](#get), [get_in](#get_in), [get_or_throw](#get_or_throw), [group_by](#group_by), [is_coll](#is_coll), [key](#key), [keys](#keys), [last](#last), [map](#map), [max](#max), [method](#method), [min](#min), [not](#not), [partial](#partial), [partial_merge_args](#partial_merge_args), [property](#property), [reduce](#reduce), [rename_key](#rename_key), [rename_keys](#rename_keys), [rest](#rest), [reverse](#reverse), [select](#select), [some](#some), [to_array](#to_array), [validate](#validate), [values](#values)
 
 <a name="_"></a>
 ### f\_
@@ -265,6 +265,17 @@ first(array());
 
 <a name="get_in"></a>
 ### f\get_in
+
+
+
+
+
+```
+
+```
+
+<a name="get_or_throw"></a>
+### f\get_or_throw
 
 
 
@@ -548,6 +559,17 @@ some(function ($value) { return $value > 10; }, array(5, 8, 9));
 
 <a name="to_array"></a>
 ### f\to_array
+
+
+
+
+
+```
+
+```
+
+<a name="validate"></a>
+### f\validate
 
 
 
