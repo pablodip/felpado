@@ -8,18 +8,18 @@ class validate_collTest extends felpadoTestCase
 {
     public function testValidateEmpty()
     {
-        $this->assertSame(array(), f\validate_coll(array(), array()));
+        $this->assertSame(array(), f\validate_collection(array(), array()));
     }
 
     public function testValidateWithoutErrors()
     {
-        $this->assertSame(array(), f\validate_coll(array('a' => 1), array('a' => f\optional('is_int'))));
-        $this->assertSame(array(), f\validate_coll(array('a' => 1, 'b' => 2.0), array('a' => f\optional('is_int'), 'b' => f\optional('is_float'))));
+        $this->assertSame(array(), f\validate_collection(array('a' => 1), array('a' => f\optional('is_int'))));
+        $this->assertSame(array(), f\validate_collection(array('a' => 1, 'b' => 2.0), array('a' => f\optional('is_int'), 'b' => f\optional('is_float'))));
     }
 
     public function testReturnsInvalidErrorWhenNotOk()
     {
-        $this->assertSame(array('a' => 'invalid'), f\validate_coll(array('a' => 1), array('a' => f\optional('is_string'))));
+        $this->assertSame(array('a' => 'invalid'), f\validate_collection(array('a' => 1), array('a' => f\optional('is_string'))));
     }
 
     public function testReturnsInvalidErrorPerKeyWhenNotOk()
@@ -29,29 +29,29 @@ class validate_collTest extends felpadoTestCase
 
         $errors = array('a' => 'invalid', 'b' => 'invalid');
 
-        $this->assertSame($errors, f\validate_coll($array, $rules));
+        $this->assertSame($errors, f\validate_collection($array, $rules));
     }
 
     public function testAllowsOptionalsToNotExist()
     {
-        $this->assertSame(array(), f\validate_coll(array('a' => 1), array('b' => f\optional('is_float'))));
+        $this->assertSame(array(), f\validate_collection(array('a' => 1), array('b' => f\optional('is_float'))));
     }
 
     public function testAllowsOptionalsWithNull()
     {
-        $this->assertSame(array(), f\validate_coll(array('a' => null), array('a' => f\optional('is_int'))));
+        $this->assertSame(array(), f\validate_collection(array('a' => null), array('a' => f\optional('is_int'))));
     }
 
     public function testReturnsRequiredWhenNotExists()
     {
-        $this->assertSame(array('a' => 'required'), f\validate_coll(array(), array('a' => f\required('is_int'))));
-        $this->assertSame(array('a' => 'required'), f\validate_coll(array('b' => 2), array('a' => f\required('is_int'))));
+        $this->assertSame(array('a' => 'required'), f\validate_collection(array(), array('a' => f\required('is_int'))));
+        $this->assertSame(array('a' => 'required'), f\validate_collection(array('b' => 2), array('a' => f\required('is_int'))));
     }
 
     public function testValidatesWhenRequired()
     {
-        $this->assertSame(array(), f\validate_coll(array('a' => 1), array('a' => f\required('is_int'))));
-        $this->assertSame(array('a' => 'invalid'), f\validate_coll(array('a' => 1), array('a' => f\required('is_string'))));
+        $this->assertSame(array(), f\validate_collection(array('a' => 1), array('a' => f\required('is_int'))));
+        $this->assertSame(array('a' => 'invalid'), f\validate_collection(array('a' => 1), array('a' => f\required('is_string'))));
     }
 
     /**
@@ -59,6 +59,6 @@ class validate_collTest extends felpadoTestCase
      */
     public function testThrowsAnExceptionWhenARuleIsNotAnInstanceOfValueRule()
     {
-        f\validate_coll(array('a' => 1), array('a' => 'is_int'));
+        f\validate_collection(array('a' => 1), array('a' => 'is_int'));
     }
 }
