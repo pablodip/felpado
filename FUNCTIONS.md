@@ -1,6 +1,6 @@
 # Functions
 
-[_](#_), [array_depth](#array_depth), [assoc](#assoc), [assoc_in](#assoc_in), [collection_depth](#collection_depth), [collection_in](#collection_in), [compose](#compose), [conjoin](#conjoin), [construct](#construct), [contains](#contains), [contains_in](#contains_in), [contains_strict](#contains_strict), [dissoc](#dissoc), [drop_last](#drop_last), [each](#each), [every](#every), [filter](#filter), [find](#find), [first](#first), [foldl](#foldl), [get](#get), [get_in](#get_in), [get_or_throw](#get_or_throw), [group_by](#group_by), [is_coll](#is_coll), [key](#key), [keys](#keys), [last](#last), [map](#map), [max](#max), [method](#method), [min](#min), [not](#not), [partial](#partial), [partial_merge_args](#partial_merge_args), [property](#property), [reduce](#reduce), [rename_key](#rename_key), [rename_keys](#rename_keys), [rest](#rest), [reverse](#reverse), [select](#select), [some](#some), [to_array](#to_array), [validate](#validate), [values](#values)
+[_](#_), [array_depth](#array_depth), [assoc](#assoc), [assoc_in](#assoc_in), [collection_depth](#collection_depth), [collection_in](#collection_in), [compose](#compose), [conjoin](#conjoin), [construct](#construct), [contains](#contains), [contains_in](#contains_in), [contains_strict](#contains_strict), [dissoc](#dissoc), [drop_last](#drop_last), [each](#each), [every](#every), [filter](#filter), [find](#find), [first](#first), [foldl](#foldl), [get](#get), [get_in](#get_in), [get_or_throw](#get_or_throw), [group_by](#group_by), [identity](#identity), [is_coll](#is_coll), [key](#key), [keys](#keys), [last](#last), [map](#map), [max](#max), [method](#method), [min](#min), [not](#not), [partial](#partial), [partial_merge_args](#partial_merge_args), [property](#property), [reduce](#reduce), [rename_key](#rename_key), [rename_keys](#rename_keys), [required](#required), [rest](#rest), [reverse](#reverse), [select](#select), [some](#some), [to_array](#to_array), [validate](#validate), [validate_array](#validate_array), [validate_coll_throw](#validate_coll_throw), [values](#values)
 
 <a name="_"></a>
 ### f\_
@@ -297,6 +297,17 @@ group_by('strlen', array('one', 'two', 'three'));
 => array(3 => array('one', 'two'), 5 => array('three'))
 ```
 
+<a name="identity"></a>
+### f\identity
+
+
+
+
+
+```
+
+```
+
 <a name="is_coll"></a>
 ### f\is_coll
 
@@ -500,6 +511,17 @@ map(property('id'), array(new Object(2), new Object(6)))
 
 ```
 
+<a name="required"></a>
+### f\required
+
+
+
+
+
+```
+
+```
+
 <a name="rest"></a>
 ### f\rest
 
@@ -570,6 +592,28 @@ some(function ($value) { return $value > 10; }, array(5, 8, 9));
 
 <a name="validate"></a>
 ### f\validate
+
+
+
+
+
+```
+
+```
+
+<a name="validate_array"></a>
+### f\validate_array
+
+
+
+
+
+```
+
+```
+
+<a name="validate_coll_throw"></a>
+### f\validate_coll_throw
 
 
 

@@ -12,6 +12,21 @@ function felpado_functions() {
     }, glob(__DIR__ . '/functions/*.php'));
 }
 
+class required
+{
+    private $callback;
+
+    public function __construct($callback)
+    {
+        $this->callback = $callback;
+    }
+
+    public function getCallback()
+    {
+        return $this->callback;
+    }
+}
+
 class placeholder
 {
     private static $instance;
