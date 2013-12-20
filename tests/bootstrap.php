@@ -4,6 +4,7 @@ $loader = require __DIR__ . '/../vendor/autoload.php';
 
 require __DIR__ . '/felpadoTestCase.php';
 require __DIR__ . '/../src/doc.php';
+require __DIR__ . '/../src/benchmark.php';
 
 /* functions doc */
 $generateFunctionsDocFile = function() {
@@ -21,3 +22,6 @@ $felpadoLoadFunctionTestClass = function ($class) {
     }
 };
 spl_autoload_register($felpadoLoadFunctionTestClass);
+
+/* benchmark */
+felpado\benchmark();
