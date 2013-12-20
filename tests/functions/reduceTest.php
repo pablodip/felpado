@@ -18,8 +18,8 @@ class reduceTest extends felpadoTestCase
 
         $this->assertSame(6, $result);
         $expected = array(
-            array(1, 2),
-            array(3, 3),
+            array(1, 2, 1),
+            array(3, 3, 2),
         );
         $this->assertSame($expected, $calls);
     }
@@ -38,9 +38,9 @@ class reduceTest extends felpadoTestCase
 
         $this->assertSame(11, $result);
         $expected = array(
-            array(5, 1),
-            array(6, 2),
-            array(8, 3),
+            array(5, 1, 0),
+            array(6, 2, 1),
+            array(8, 3, 2),
         );
         $this->assertSame($expected, $calls);
     }
@@ -81,7 +81,7 @@ class reduceTest extends felpadoTestCase
 
         $this->assertSame(8, $result);
         $expected = array(
-            array(6, 2),
+            array(6, 2, 0),
         );
         $this->assertSame($expected, $calls);
     }

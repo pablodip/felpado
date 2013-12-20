@@ -15,7 +15,7 @@ use felpado as f;
 
 function validate_coll($coll, $rules) {
     $validate = function ($rule, $key) use ($coll) {
-        if (f\not($rule instanceof validation_rule)) {
+        if (f\not($rule instanceof value_rule)) {
             throw new \InvalidArgumentException('Validation rules must be created with felpado\required and felpado\optional.');
         }
 

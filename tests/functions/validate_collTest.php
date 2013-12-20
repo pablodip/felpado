@@ -52,7 +52,7 @@ class validate_collTest extends felpadoTestCase
     /**
      * @expectedException \InvalidArgumentException
      */
-    public function testThrowsAnExceptionWhenARuleIsNotAnInstanceOfValidationRule()
+    public function testThrowsAnExceptionWhenARuleIsNotAnInstanceOfValueRule()
     {
         f\validate_coll(array('a' => 1), array('a' => 'is_int'));
     }

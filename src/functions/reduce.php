@@ -15,7 +15,7 @@ use felpado as f;
 
 function reduce($callback, $collection, $initialValue = null) {
     $result = null;
-    foreach ($collection as $value) {
+    foreach ($collection as $key => $value) {
         if ($result === null) {
             if ($initialValue === null) {
                 $result = $value;
@@ -25,7 +25,7 @@ function reduce($callback, $collection, $initialValue = null) {
             }
         }
 
-        $result = call_user_func($callback, $result, $value);
+        $result = call_user_func($callback, $result, $value, $key);
     }
 
     return $result;
