@@ -13,6 +13,11 @@ namespace felpado;
 
 use felpado as f;
 
-function required($params = array()) {
-    return new required($params);
+/*
+ * Code from https://github.com/nikic/iter/blob/master/src/iter.fn.php
+ */
+function not_callback($function) {
+    return function() use ($function) {
+        return !call_user_func_array($function, func_get_args());
+    };
 }

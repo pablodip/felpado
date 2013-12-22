@@ -13,24 +13,24 @@ namespace felpado;
 
 use felpado as f;
 
-function fill($coll, $rules) {
-    $fill = function ($coll, $rule, $key) {
-        if (f\not($rule instanceof value_rule)) {
+function fill($collection, $paramRules) {
+    $fill = function ($collection, $paramRule, $key) {
+        if (f\not($paramRule instanceof param_rule)) {
             throw new \InvalidArgumentException('Fill rules must be created with felpado\required and felpado\optional.');
         }
 
-        if ($rule instanceof required) {
-            if (f\not(f\contains($coll, $key))) {
+        if ($paramRule instanceof required) {
+            if (f\not(f\contains($collection, $key))) {
                 throw new \Exception(sprintf('"%s" is required.', $key));
             }
 
-            $value = f\get($coll, $key);
+            $value = f\get($collection, $key);
         } else {
-            $value = f\get($coll, $key, $rule->getDefault());
+            $value = f\get($collection, $key, $paramRule->getDefaultValue());
         }
 
-        return f\assoc($coll, $key, $value);
+        return f\assoc($collection, $key, $value);
     };
 
-    return f\reduce($fill, $rules, $coll);
+    return f\reduce($fill, $paramRules, $collection);
 }

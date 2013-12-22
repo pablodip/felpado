@@ -13,6 +13,6 @@ namespace felpado;
 
 use felpado as f;
 
-function optional($callback, $default = null) {
-    return new optional($callback, $default);
+function optional($params) {
+    return new optional($params);
 }

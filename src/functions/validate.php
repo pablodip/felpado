@@ -13,6 +13,6 @@ namespace felpado;
 
 use felpado as f;
 
-function validate($value, $callback) {
-    return !!call_user_func($callback, $value);
+function validate($value, $validator) {
+    return !!call_user_func($validator, $value);
 }

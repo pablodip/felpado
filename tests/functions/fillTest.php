@@ -9,7 +9,11 @@ class fillTest extends felpadoTestCase
     public function testItFills()
     {
         $coll = array('a' => 1);
-        $rules = array('a' => f\optional('is_int'), 'b' => f\optional('is_float', 2.0), 'c' => f\optional('is_string', 'foo'));
+        $rules = array(
+            'a' => f\optional(array('validator' => 'is_int')),
+            'b' => f\optional(array('validator' => 'is_float', 'defaultValue' => 2.0)),
+            'c' => f\optional(array('validator' => 'is_string', 'defaultValue' => 'foo'))
+        );
 
         $expected = array('a' => 1, 'b' => 2.0, 'c' => 'foo');
 
@@ -22,7 +26,7 @@ class fillTest extends felpadoTestCase
     public function testItThrowsAnExceptionIfARequiredDoesNotExist()
     {
         $coll = array();
-        $rules = array('a' => f\required('is_int'));
+        $rules = array('a' => f\required(array('validator' => 'is_int')));
 
         f\fill($coll, $rules);
     }
@@ -30,7 +34,7 @@ class fillTest extends felpadoTestCase
     /**
      * @expectedException \InvalidArgumentException
      */
-    public function testItThrowsAnExceptionIfARuleIsNotAnInstanceOfValueRule()
+    public function testItThrowsAnExceptionIfARuleIsNotAnInstanceOfParamRule()
     {
         $coll = array();
         $rules = array('a' => 'is_int');

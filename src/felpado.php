@@ -7,43 +7,45 @@ foreach (felpado_functions() as $function) {
 }
 
 function felpado_functions() {
-    return array_map(function ($file) {
+    $basename = function ($file) {
         return substr(basename($file), 0, -4);
-    }, glob(__DIR__ . '/functions/*.php'));
+    };
+
+    return array_map($basename, glob(__DIR__ . '/functions/*.php'));
 }
 
-class value_rule
+class param_rule
 {
-    private $callback;
+    private $validator;
 
-    public function __construct($callback)
+    public function __construct(array $params)
     {
-        $this->callback = $callback;
+        $this->validator = isset($params['validator']) ? $params['validator'] : null;
     }
 
-    public function getCallback()
+    public function getValidator()
     {
-        return $this->callback;
+        return $this->validator;
     }
 }
 
-class required extends value_rule
+class required extends param_rule
 {
 }
-class optional extends value_rule
+class optional extends param_rule
 {
-    private $default;
+    private $defaultValue;
 
-    public function __construct($callback, $default = null)
+    public function __construct(array $params)
     {
-        parent::__construct($callback);
+        parent::__construct($params);
 
-        $this->default = $default;
+        $this->defaultValue = isset($params['defaultValue']) ? $params['defaultValue'] : null;
     }
 
-    public function getDefault()
+    public function getDefaultValue()
     {
-        return $this->default;
+        return $this->defaultValue;
     }
 }
 

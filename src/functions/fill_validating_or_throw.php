@@ -13,8 +13,8 @@ namespace felpado;
 
 use felpado as f;
 
-function fill_validating_or_throw($collection, $rules) {
-    f\validate_collection_or_throw($collection, $rules);
+function fill_validating_or_throw($collection, $paramRules) {
+    f\validate_collection_or_throw($collection, $paramRules);
 
-    return f\fill($collection, $rules);
+    return f\fill($collection, $paramRules);
 }

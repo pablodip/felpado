@@ -8,7 +8,9 @@ class fill_validating_or_throwTest extends felpadoTestCase
 {
     public function testItFills()
     {
-        $this->assertSame(array('a' => 1), f\fill_validating_or_throw(array(), array('a' => f\optional('is_int', 1))));
+        $this->assertSame(array('a' => 1), f\fill_validating_or_throw(array(), array(
+            'a' => f\optional(array('validator' => 'is_int', 'defaultValue' => 1))
+        )));
     }
 
     /**
@@ -16,6 +18,8 @@ class fill_validating_or_throwTest extends felpadoTestCase
      */
     public function testItThrowsIfValidationFails()
     {
-        f\fill_validating_or_throw(array('a' => 1), array('a' => f\required('is_float')));
+        f\fill_validating_or_throw(array('a' => 1), array(
+            'a' => f\required(array('validator' => 'is_float'))
+        ));
     }
 }
