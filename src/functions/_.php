@@ -14,5 +14,5 @@ namespace felpado;
 use felpado as f;
 
 function _() {
-    return f\placeholder::create();
+    return f\placeholder::getInstance();
 }

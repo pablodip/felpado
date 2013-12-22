@@ -13,6 +13,10 @@ namespace felpado;
 
 use felpado as f;
 
-function optional($params = array()) {
-    return new optional($params);
+function fill_validating_normalizing_or_throw($collection, $paramRules) {
+    f\validate_collection_or_throw($collection, $paramRules);
+
+    $filled = f\fill($collection, $paramRules);
+
+    return f\normalize_collection($filled, $paramRules);
 }

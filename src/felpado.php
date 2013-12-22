@@ -17,15 +17,31 @@ function felpado_functions() {
 class param_rule
 {
     private $validator;
+    private $normalizer;
 
-    public function __construct(array $params)
+    public function __construct($params = array())
     {
-        $this->validator = isset($params['validator']) ? $params['validator'] : null;
+        $this->validator = $this->getFirstParam($params, array('validator', 'v'));
+        $this->normalizer = $this->getFirstParam($params, array('normalizer', 'n'));
     }
 
     public function getValidator()
     {
         return $this->validator;
+    }
+
+    public function getNormalizer()
+    {
+        return $this->normalizer;
+    }
+
+    protected function getFirstParam($params, $names)
+    {
+        foreach ($names as $name) {
+            if (isset($params[$name])) {
+                return $params[$name];
+            }
+        }
     }
 }
 
@@ -40,7 +56,7 @@ class optional extends param_rule
     {
         parent::__construct($params);
 
-        $this->defaultValue = isset($params['defaultValue']) ? $params['defaultValue'] : null;
+        $this->defaultValue = $this->getFirstParam($params, array('default_value', 'd'));
     }
 
     public function getDefaultValue()
@@ -57,7 +73,7 @@ class placeholder
     {
     }
 
-    public static function create()
+    public static function getInstance()
     {
         if (self::$instance === null) {
             self::$instance = new self();

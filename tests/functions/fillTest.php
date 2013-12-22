@@ -10,9 +10,9 @@ class fillTest extends felpadoTestCase
     {
         $coll = array('a' => 1);
         $rules = array(
-            'a' => f\optional(array('validator' => 'is_int')),
-            'b' => f\optional(array('validator' => 'is_float', 'defaultValue' => 2.0)),
-            'c' => f\optional(array('validator' => 'is_string', 'defaultValue' => 'foo'))
+            'a' => f\optional(array('v' => 'is_int')),
+            'b' => f\optional(array('v' => 'is_float', 'd' => 2.0)),
+            'c' => f\optional(array('v' => 'is_string', 'd' => 'foo'))
         );
 
         $expected = array('a' => 1, 'b' => 2.0, 'c' => 'foo');
@@ -26,7 +26,7 @@ class fillTest extends felpadoTestCase
     public function testItThrowsAnExceptionIfARequiredDoesNotExist()
     {
         $coll = array();
-        $rules = array('a' => f\required(array('validator' => 'is_int')));
+        $rules = array('a' => f\required(array('v' => 'is_int')));
 
         f\fill($coll, $rules);
     }
