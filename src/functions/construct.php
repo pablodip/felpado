@@ -14,11 +14,11 @@ namespace felpado;
 use felpado as f;
 
 /**
- * construct($first, $rest)
+ * f\construct($first, $rest)
  *
  * Returns an array with first and rest.
  *
- * construct(1, array(2, 3, 4));
+ * f\construct(1, array(2, 3, 4));
  * => array(1, 2, 3, 4)
  */
 function construct($first, $rest) {

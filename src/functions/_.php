@@ -13,6 +13,17 @@ namespace felpado;
 
 use felpado as f;
 
+/**
+ * f\_()
+ *
+ * Returns a placeholder to use with partial (see partial).
+ *
+ * f\_();
+ * => felpado\placeholder()
+ *
+ * $firstCharacter = f\partial('substr', f\_(), 0, 1);
+ * => clojure to return the first character of a string
+ */
 function _() {
     return f\placeholder::getInstance();
 }

@@ -14,11 +14,11 @@ namespace felpado;
 use felpado as f;
 
 /**
- * conjoin($collection, $value)
+ * f\conjoin($collection, $value)
  *
  * Returns an array based on collection with value added.
- *G
- * conjoin(array(1, 2, 3), 4);
+ *
+ * f\conjoin(array(1, 2, 3), 4);
  * => array(1, 2, 3, 4)
  */
 function conjoin($collection, $value) {

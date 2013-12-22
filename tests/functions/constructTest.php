@@ -2,17 +2,19 @@
 
 namespace felpado\tests;
 
+use felpado as f;
+
 class constructTest extends felpadoTestCase
 {
     /**
-     * @dataProvider constructCollectionProvider
+     * @dataProvider provideConstruct
      */
-    public function testConstruct($collection)
+    public function testConstruct($coll)
     {
-        $this->assertSame(array(2, 4, 5, 6), $this->callFunction(2, $collection));
+        $this->assertSame(array(2, 4, 5, 6), f\construct(2, $coll));
     }
 
-    public function constructCollectionProvider()
+    public function provideConstruct()
     {
         return $this->collProvider(array(4, 5, 6));
     }

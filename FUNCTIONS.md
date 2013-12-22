@@ -5,12 +5,16 @@
 <a name="_"></a>
 ### f\_
 
+f\_()
 
-
-
+Returns a placeholder to use with partial (see partial).
 
 ```
+f\_();
+=> felpado\placeholder()
 
+$firstCharacter = f\partial('substr', f\_(), 0, 1);
+=> clojure to return the first character of a string
 ```
 
 <a name="array_depth"></a>
@@ -27,24 +31,33 @@
 <a name="assoc"></a>
 ### f\assoc
 
-assoc($collection, $key, $value)
+f\assoc($coll, $key, $value)
 
-Returns an array based on collection with value added and keyed.
+Returns an array based on coll with value associated with key.
 
 ```
-conjoin(array('a' => 1, 'b' => 2), 'c', 3);
-=> array(array('a' => 1, 'b' => 2, 'c' => 3))
+f\assoc(array('a' => 1, 'b' => 2), 'c', 3);
+=> array('a' => 1, 'b' => 2, 'c' => 3)
 ```
 
 <a name="assoc_in"></a>
 ### f\assoc_in
 
+f\assoc_in($coll, $in, $value)
 
-
-
+Returns an array based on coll with value associated in the nested structure of in.
 
 ```
+f\assoc_in(array('a' => 1), array('b', 'b1'), 2);
+=> array('a' => 1, 'b' => array('b1' => 2))
 
+// does nothing without in
+f\assoc_in(array('a' => 1), array(), 2);
+=> array('a' => 1)
+
+// supports infinite nesting
+f\assoc_in(array(), array('a', 'a1', 'a1I', 'a1IA'), 1);
+=> array('a' => array('a1' => array('a1I' => array('a1IA' => 1))))
 ```
 
 <a name="collection_depth"></a>
@@ -72,47 +85,48 @@ conjoin(array('a' => 1, 'b' => 2), 'c', 3);
 <a name="compose"></a>
 ### f\compose
 
+f\compose(callable $fn1 [, $fn...])
 
-
-
+Returns a function that is the composition of the passed functions.
+The first function (right to left) receives the passed args, and the rest the result.
 
 ```
-
+$revUp = f\compose('strtoupper', 'strrev');
+$revUp('hello');
+=> OLLEH
 ```
 
 <a name="conjoin"></a>
 ### f\conjoin
 
-conjoin($collection, $value)
+f\conjoin($collection, $value)
 
 Returns an array based on collection with value added.
-G
-conjoin(array(1, 2, 3), 4);
-=> array(1, 2, 3, 4)
 
 ```
-
+f\conjoin(array(1, 2, 3), 4);
+=> array(1, 2, 3, 4)
 ```
 
 <a name="construct"></a>
 ### f\construct
 
-construct($first, $rest)
+f\construct($first, $rest)
 
 Returns an array with first and rest.
 
 ```
-construct(1, array(2, 3, 4));
+f\construct(1, array(2, 3, 4));
 => array(1, 2, 3, 4)
 ```
 
 <a name="contains"></a>
 ### f\contains
 
-contains($collection, $key)
+f\contains($collection, $key)
 
 Returns true if the key is present in the collection, otherwise false.
-The comparison is done with the normal comparison operator `==`.
+The comparison is done with the strict comparison operator `==`.
 
 ```
 contains(array('a' => 1, 'b' => 2), 'a');

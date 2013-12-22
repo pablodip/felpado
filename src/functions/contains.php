@@ -14,10 +14,10 @@ namespace felpado;
 use felpado as f;
 
 /**
- * contains($collection, $key)
+ * f\contains($collection, $key)
  *
  * Returns true if the key is present in the collection, otherwise false.
- * The comparison is done with the normal comparison operator `==`.
+ * The comparison is done with the strict comparison operator `==`.
  *
  * contains(array('a' => 1, 'b' => 2), 'a');
  * => true

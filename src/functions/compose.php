@@ -13,6 +13,16 @@ namespace felpado;
 
 use felpado as f;
 
+/**
+ * f\compose(callable $fn1 [, $fn...])
+ *
+ * Returns a function that is the composition of the passed functions.
+ * The first function (right to left) receives the passed args, and the rest the result.
+ *
+ * $revUp = f\compose('strtoupper', 'strrev');
+ * $revUp('hello');
+ * => OLLEH
+ */
 function compose() {
     $fns = func_get_args();
 

@@ -14,7 +14,7 @@ class optionalTest extends felpadoTestCase
 
     public function testRequiredPassesTheParams()
     {
-        $paramRule = f\optional(['d' => 'ups', 'v' => 'foo', 'n' => 'bar']);
+        $paramRule = f\optional(array('d' => 'ups', 'v' => 'foo', 'n' => 'bar'));
 
         $this->assertInstanceOf('felpado\optional', $paramRule);
         $this->assertSame('ups', $paramRule->getDefaultValue());

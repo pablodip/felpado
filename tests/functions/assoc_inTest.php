@@ -7,7 +7,7 @@ use felpado as f;
 class assoc_inTest extends felpadoTestCase
 {
     /**
-     * @dataProvider providerAssocIn
+     * @dataProvider provideAssocIn
      */
     public function testItShouldCreateTheDepth($coll)
     {
@@ -23,7 +23,7 @@ class assoc_inTest extends felpadoTestCase
     }
 
     /**
-     * @dataProvider providerAssocIn
+     * @dataProvider provideAssocIn
      * @expectedException \LogicException
      */
     public function testItShouldThrowALogicExceptionWhenTheInPathAlreadyExistsAndItIsNotAnArray($coll)
@@ -32,14 +32,14 @@ class assoc_inTest extends felpadoTestCase
     }
 
     /**
-     * @dataProvider providerAssocIn
+     * @dataProvider provideAssocIn
      */
     public function testItShouldDoNothingWithAnEmptyIn($coll)
     {
-        $this->assertSame(f\to_array($coll), f\assoc_in($coll, array(), 'bar'));
+        $this->assertSame($coll, f\assoc_in($coll, array(), 'bar'));
     }
 
-    public function providerAssocIn()
+    public function provideAssocIn()
     {
         return $this->collProvider(array(
             'foo' => 3
