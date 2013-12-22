@@ -14,7 +14,7 @@ class requiredTest extends felpadoTestCase
 
     public function testRequiredPassesTheParams()
     {
-        $paramRule = f\required(['v' => 'foo', 'n' => 'bar']);
+        $paramRule = f\required(array('v' => 'foo', 'n' => 'bar'));
 
         $this->assertInstanceOf('felpado\required', $paramRule);
         $this->assertSame('foo', $paramRule->getValidator());

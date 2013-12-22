@@ -4,14 +4,14 @@
 
 Felpado provides functions to process data easier.
 
-Most of these functions are common in functional programming, but in PHP they either not exist or are bad implemented.
+Most of these functions are common in functional programming.
 
 Felpado's functions have the following principles:
 
-  * Arguments are never modified by reference (which PHP does a lot).
+  * Arguments are never modified by reference.
   * A callable can be any PHP callable.
   * When accepting a collection, it can be either an array or a traversable object.
-  * When returning a collection, it will always be an array.
+  * When returning a collection, it will be the original collection or an array if it has to be modified.
 
 ## Functions
 
