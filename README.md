@@ -1,6 +1,6 @@
 # Felpado
 
-[![Build Status](https://secure.travis-ci.org/pablodip/felpado.png)](http://travis-ci.org/pablodip/felpado)
+[![Build Status](https://secure.travis-ci.org/pablodip/felpado.png)](http://travis-ci.org/pablodip/felpado) [![Latest Stable Version](https://poser.pugx.org/pablodip/felpado/v/stable.png)](https://packagist.org/packages/pablodip/felpado) [![Total Downloads](https://poser.pugx.org/pablodip/felpado/downloads.png)](https://packagist.org/packages/pablodip/felpado)
 
 Felpado provides functions to process data easier.
 

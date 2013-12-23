@@ -17,8 +17,8 @@ class validate_collectionTest extends felpadoTestCase
             'a' => f\optional(array('v' => 'is_int'))
         )));
         $this->assertSame(array(), f\validate_collection(array('a' => 1, 'b' => 2.0), array(
-            'a' => f\optional(['v' => 'is_int']),
-            'b' => f\optional(['v' => 'is_float'])
+            'a' => f\optional(array('v' => 'is_int')),
+            'b' => f\optional(array('v' => 'is_float'))
         )));
     }
 
