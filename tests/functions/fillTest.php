@@ -20,6 +20,19 @@ class fillTest extends felpadoTestCase
         $this->assertSame($expected, f\fill($coll, $rules));
     }
 
+    public function testItReturnsTheResultInTheParamRulesOrder()
+    {
+        $coll = array('b' => 2.0);
+        $rules = array(
+            'a' => f\optional(array('d' => 1)),
+            'b' => f\required()
+        );
+
+        $expected = array('a' => 1, 'b' => 2.0);
+
+        $this->assertSame($expected, f\fill($coll, $rules));
+    }
+
     /**
      * @expectedException \Exception
      */

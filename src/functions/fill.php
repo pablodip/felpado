@@ -14,7 +14,7 @@ namespace felpado;
 use felpado as f;
 
 function fill($collection, $paramRules) {
-    $fill = function ($collection, $paramRule, $key) {
+    $fill = function ($result, $paramRule, $key) use ($collection) {
         if (f\not($paramRule instanceof param_rule)) {
             throw new \InvalidArgumentException('Fill rules must be created with felpado\required and felpado\optional.');
         }
@@ -29,8 +29,8 @@ function fill($collection, $paramRules) {
             $value = f\get($collection, $key, $paramRule->getDefaultValue());
         }
 
-        return f\assoc($collection, $key, $value);
+        return f\assoc($result, $key, $value);
     };
 
-    return f\reduce($fill, $paramRules, $collection);
+    return f\reduce($fill, $paramRules, array());
 }
