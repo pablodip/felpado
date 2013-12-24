@@ -11,6 +11,16 @@ class validate_collectionTest extends felpadoTestCase
         $this->assertSame(array(), f\validate_collection(array(), array()));
     }
 
+    public function testValidateOnlyExistence()
+    {
+        $array = array('a' => 1);
+        $paramRules = array('a' => f\required(), 'b' => f\optional());
+
+        $expected = array();
+
+        $this->assertSame($expected, f\validate_collection($array, $paramRules));
+    }
+
     public function testValidateWithoutErrors()
     {
         $this->assertSame(array(), f\validate_collection(array('a' => 1), array(

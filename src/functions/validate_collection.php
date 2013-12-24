@@ -20,11 +20,13 @@ function validate_collection($collection, $paramRules) {
         }
 
         if (f\contains($collection, $key)) {
-            $value = f\get($collection, $key);
-            if (f\not(is_null($value) && $paramRule instanceof optional)) {
-                $isValid = f\validate($value, $paramRule->getValidator());
-                if (f\not($isValid)) {
-                    return 'invalid';
+            if ($paramRule->getValidator()) {
+                $value = f\get($collection, $key);
+                if (f\not(is_null($value) && $paramRule instanceof optional)) {
+                    $isValid = f\validate($value, $paramRule->getValidator());
+                    if (f\not($isValid)) {
+                        return 'invalid';
+                    }
                 }
             }
         } elseif ($paramRule instanceof required) {
