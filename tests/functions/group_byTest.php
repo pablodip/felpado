@@ -16,7 +16,7 @@ class group_byTest extends felpadoTestCase
     }
 
     /**
-     * @dataProvider emptyCollectionProvider
+     * @dataProvider provideEmptyColl
      */
     public function testEmptyCollection($collection)
     {

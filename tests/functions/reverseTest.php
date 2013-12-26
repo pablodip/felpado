@@ -31,7 +31,7 @@ class reverseTest extends felpadoTestCase
     }
 
     /**
-     * @dataProvider emptyCollectionProvider
+     * @dataProvider provideEmptyColl
      */
     public function testEmptyCollection($collection)
     {

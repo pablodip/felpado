@@ -34,7 +34,7 @@ class findTest extends felpadoTestCase
     }
 
     /**
-     * @dataProvider emptyCollectionProvider
+     * @dataProvider provideEmptyColl
      */
     public function testEmptyCollection($collection)
     {

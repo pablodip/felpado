@@ -34,7 +34,7 @@ class containsTest extends felpadoTestCase
 
     public function provideContains()
     {
-        return $this->collProvider(array(
+        return $this->provideColl(array(
             1 => true,
             2 => false
         ));

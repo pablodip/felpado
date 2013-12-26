@@ -16,6 +16,6 @@ class conjoinTest extends felpadoTestCase
 
     public function provideConjoin()
     {
-        return $this->collProvider(array(2, 3));
+        return $this->provideColl(array(2, 3));
     }
 }

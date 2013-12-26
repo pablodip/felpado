@@ -31,7 +31,7 @@ class valuesTest extends felpadoTestCase
     }
 
     /**
-     * @dataProvider emptyCollectionProvider
+     * @dataProvider provideEmptyColl
      */
     public function testEmptyCollection($collection)
     {

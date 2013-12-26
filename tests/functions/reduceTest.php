@@ -47,7 +47,7 @@ class reduceTest extends felpadoTestCase
 
     public function reduceProvider()
     {
-        return $this->collProvider(array(1, 2, 3));
+        return $this->provideColl(array(1, 2, 3));
     }
 
     /**

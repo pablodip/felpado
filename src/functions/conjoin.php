@@ -14,15 +14,15 @@ namespace felpado;
 use felpado as f;
 
 /**
- * f\conjoin($collection, $value)
+ * f\conjoin($coll, $value)
  *
  * Returns an array based on collection with value added.
  *
  * f\conjoin(array(1, 2, 3), 4);
  * => array(1, 2, 3, 4)
  */
-function conjoin($collection, $value) {
-    $result = f\to_array($collection);
+function conjoin($coll, $value) {
+    $result = f\to_array($coll);
     $result[] = $value;
 
     return $result;

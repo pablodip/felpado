@@ -16,6 +16,6 @@ class constructTest extends felpadoTestCase
 
     public function provideConstruct()
     {
-        return $this->collProvider(array(4, 5, 6));
+        return $this->provideColl(array(4, 5, 6));
     }
 }

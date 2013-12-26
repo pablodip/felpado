@@ -44,7 +44,7 @@ class get_inTest extends felpadoTestCase
 
     public function getInProvider()
     {
-        return $this->collProvider(array(
+        return $this->provideColl(array(
             'foo' => 3,
             'bar' => array(
                 'one' => array(

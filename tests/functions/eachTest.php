@@ -2,24 +2,30 @@
 
 namespace felpado\tests;
 
+use felpado as f;
+
 class eachTest extends felpadoTestCase
 {
     /**
-     * @dataProvider indexedCollectionProvider
+     * @dataProvider provideEach
      */
-    public function testEach($collection)
+    public function testEach($coll)
     {
         $calls = array();
-        $this->callFunction(function () use(&$calls) {
+        f\each(function () use(&$calls) {
             $calls[] = func_get_args();
-        }, $collection);
+        }, $coll);
 
         $expected = array(
-            array(4, 0),
-            array(5, 1),
-            array('foo', 2),
-            array('bar', 3),
+            array('o', 1),
+            array('t', 2),
+            array('th', 3)
         );
         $this->assertSame($expected, $calls);
+    }
+
+    public function provideEach()
+    {
+        return $this->provideColl(array(1 => 'o', 2 => 't', 3 => 'th'));
     }
 }

@@ -22,7 +22,7 @@ class rename_keyTest extends felpadoTestCase
 
     public function renameKeyProvider()
     {
-        return $this->collProvider(array(
+        return $this->provideColl(array(
             'foo' => 3,
             'bar' => 9,
         ));

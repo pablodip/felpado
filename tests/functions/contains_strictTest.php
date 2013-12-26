@@ -2,31 +2,31 @@
 
 namespace felpado\tests;
 
+use felpado as f;
+
 class contains_strictTest extends felpadoTestCase
 {
-    /**
-     * @dataProvider associativeCollectionProvider
-     */
-    public function testExists($collection)
+    public function testExists()
     {
-        $this->assertTrue($this->callFunction($collection, 'one'));
-        $this->assertTrue($this->callFunction($collection, 'two'));
+        $coll = array(1 => 'one', 2 => 'two');
+
+        $this->assertTrue(f\contains_strict($coll, 1));
+        $this->assertTrue(f\contains_strict($coll, 2));
     }
 
-    /**
-     * @dataProvider associativeCollectionProvider
-     */
-    public function testExistsStrict($collection)
+    public function testExistsStrict()
     {
-        $this->assertFalse($this->callFunction($collection, '4'));
+        $coll = array(1 => 'one', 2 => 'two');
+
+        $this->assertFalse(f\contains_strict($coll, '1'));
+        $this->assertFalse(f\contains_strict($coll, '2'));
     }
 
-    /**
-     * @dataProvider associativeCollectionProvider
-     */
-    public function testNotExists($collection)
+    public function testNotExists()
     {
-        $this->assertFalse($this->callFunction($collection, 'foo'));
-        $this->assertFalse($this->callFunction($collection, 'four'));
+        $coll = array(1 => 'one', 2 => 'two');
+
+        $this->assertFalse(f\contains_strict($coll, 3));
+        $this->assertFalse(f\contains_strict($coll, 4));
     }
 }

@@ -2,42 +2,44 @@
 
 namespace felpado\tests;
 
+use felpado as f;
+
 class contains_inTest extends felpadoTestCase
 {
     /**
-     * @dataProvider containsInProvider
+     * @dataProvider provideContainsIn
      */
-    public function testContainsInInShouldReturnTrueIfTheInExists($collection)
+    public function testContainsInInShouldReturnTrueIfTheInExists($coll)
     {
-        $this->assertTrue($this->callFunction($collection, array('foo')));
-        $this->assertTrue($this->callFunction($collection, array('bar', 'two')));
-        $this->assertTrue($this->callFunction($collection, array('bar', 'one', 'ups')));
-        $this->assertTrue($this->callFunction($collection, array('bar', 'one')));
+        $this->assertTrue(f\contains_in($coll, array('foo')));
+        $this->assertTrue(f\contains_in($coll, array('bar', 'two')));
+        $this->assertTrue(f\contains_in($coll, array('bar', 'one', 'ups')));
+        $this->assertTrue(f\contains_in($coll, array('bar', 'one')));
     }
 
     /**
-     * @dataProvider containsInProvider
+     * @dataProvider provideContainsIn
      */
-    public function testContainsInInShouldReturnFalseIfTheInNotExists($collection)
+    public function testContainsInInShouldReturnFalseIfTheInNotExists($coll)
     {
-        $this->assertFalse($this->callFunction($collection, array('no')));
-        $this->assertFalse($this->callFunction($collection, array('bar', 'no')));
-        $this->assertFalse($this->callFunction($collection, array('bar', 'no', 'no')));
-        $this->assertFalse($this->callFunction($collection, array('bar', 'one', 'no')));
+        $this->assertFalse(f\contains_in($coll, array('no')));
+        $this->assertFalse(f\contains_in($coll, array('bar', 'no')));
+        $this->assertFalse(f\contains_in($coll, array('bar', 'no', 'no')));
+        $this->assertFalse(f\contains_in($coll, array('bar', 'one', 'no')));
     }
 
     /**
      * @expectedException \InvalidArgumentException
-     * @dataProvider containsInProvider
+     * @dataProvider provideContainsIn
      */
-    public function testContainsInShouldShouldThrowAnExceptionIfAnyDepthIsNotAnArray($collection)
+    public function testContainsInShouldShouldThrowAnExceptionIfAnyDepthIsNotAnArray($coll)
     {
-        $this->callFunction($collection, array('foo', 'two', 'ups'));
+        f\contains_in($coll, array('foo', 'two', 'ups'));
     }
 
-    public function containsInProvider()
+    public function provideContainsIn()
     {
-        return $this->collProvider(array(
+        return $this->provideColl(array(
             'foo' => 3,
             'bar' => array(
                 'one' => array(

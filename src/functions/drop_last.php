@@ -13,6 +13,14 @@ namespace felpado;
 
 use felpado as f;
 
+/**
+ * f\drop_last($coll)
+ *
+ * Returns an array based on coll with the last element removed.
+ *
+ * f\drop_last(array('a' => 1, 'b' => 2));
+ * => array('a' => 1)
+ */
 function drop_last($collection) {
     $result = f\to_array($collection);
     unset($result[f\last(f\keys($result))]);

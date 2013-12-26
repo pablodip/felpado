@@ -2,36 +2,22 @@
 
 namespace felpado\tests;
 
+use felpado as f;
+
 class drop_lastTest extends felpadoTestCase
 {
-    /**
-     * @dataProvider indexedCollectionProvider
-     */
-    public function testIndexed($collection)
+    public function testIndexed()
     {
-        $this->assertSame(array(
-            4,
-            5,
-            'foo',
-            //'bar',
-        ), $this->callFunction($collection));
+        $this->assertSame(array('one', 'two'), f\drop_last(array('one', 'two', 'three')));
+    }
+
+    public function testAssociative()
+    {
+        $this->assertSame(array(1 => 'o', 2 => 't'), f\drop_last(array(1 => 'o', 2 => 't', 3 => 'th')));
     }
 
     /**
-     * @dataProvider associativeCollectionProvider
-     */
-    public function testAssociative($collection)
-    {
-        $this->assertSame(array(
-            'one' => 1,
-            'two' => 2,
-            4     => 'four',
-            //5     => 'five',
-        ), $this->callFunction($collection));
-    }
-
-    /**
-     * @dataProvider emptyCollectionProvider
+     * @dataProvider provideEmptyColl
      */
     public function testEmptyCollection($collection)
     {

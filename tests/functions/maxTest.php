@@ -32,7 +32,7 @@ class maxTest extends felpadoTestCase
     }
 
     /**
-     * @dataProvider emptyCollectionProvider
+     * @dataProvider provideEmptyColl
      */
     public function testEmptyCollection($collection)
     {
@@ -41,7 +41,7 @@ class maxTest extends felpadoTestCase
 
     public function withCallbackCollectionProvider()
     {
-        return $this->collProvider(array(
+        return $this->provideColl(array(
             array('name' => 'foo', 'age' => 20),
             array('name' => 'bar', 'age' => 50),
             array('name' => 'ups', 'age' => 40),

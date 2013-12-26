@@ -14,16 +14,16 @@ namespace felpado;
 use felpado as f;
 
 /**
- * contains_strict($collection, $key)
+ * f\contains_strict($coll, $key)
  *
- * Same than `containts` but uses the strict comparison operator `===`.
+ * Same than `f\containts` but uses the strict comparison operator `===`.
  *
  * // strict comparison operator ===
- * contains(array(1 => 'a', 2 => 'b'), '1');
+ * f\contains(array(1 => 'a', 2 => 'b'), '1');
  * => false
  */
-function contains_strict($collection, $key) {
-    foreach ($collection as $k => $value) {
+function contains_strict($coll, $key) {
+    foreach ($coll as $k => $value) {
         if ($k === $key) {
             return true;
         }

@@ -17,7 +17,8 @@ use felpado as f;
  * f\compose(callable $fn1 [, $fn...])
  *
  * Returns a function that is the composition of the passed functions.
- * The first function (right to left) receives the passed args, and the rest the result.
+ * The first function (right to left) receives the passed args, and the rest the result
+ * of the previous function.
  *
  * $revUp = f\compose('strtoupper', 'strrev');
  * $revUp('hello');
@@ -26,9 +27,11 @@ use felpado as f;
 function compose() {
     $fns = func_get_args();
 
-    return f\reduce(function ($composition, $fn) {
+    $compose = function ($composition, $fn) {
         return function() use ($composition, $fn) {
             return call_user_func($fn, call_user_func_array($composition, func_get_args()));
         };
-    }, f\reverse($fns));
+    };
+
+    return f\reduce($compose, f\reverse($fns));
 }

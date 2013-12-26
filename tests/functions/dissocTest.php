@@ -2,25 +2,25 @@
 
 namespace felpado\tests;
 
+use felpado as f;
+
 class dissocTest extends felpadoTestCase
 {
     /**
      * @dataProvider dissocProvider
      */
-    public function testAssoc($collection)
+    public function testAssoc($coll)
     {
-        $this->assertSame(array(
-            'foo' => 3,
-            'ups' => 5,
-        ), $this->callFunction($collection, 'bar'));
+        $this->assertSame(array(1 => 'o', 3 => 'tr'), f\dissoc($coll, 2));
+        $this->assertSame(array(1 => 'o', 2 => 't'), f\dissoc($coll, 3));
     }
 
     public function dissocProvider()
     {
-        return $this->collProvider(array(
-            'foo' => 3,
-            'bar' => 9,
-            'ups' => 5,
+        return $this->provideColl(array(
+            1 => 'o',
+            2 => 't',
+            3 => 'tr'
         ));
     }
 }

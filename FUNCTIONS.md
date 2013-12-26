@@ -88,7 +88,8 @@ f\assoc_in(array(), array('a', 'a1', 'a1I', 'a1IA'), 1);
 f\compose(callable $fn1 [, $fn...])
 
 Returns a function that is the composition of the passed functions.
-The first function (right to left) receives the passed args, and the rest the result.
+The first function (right to left) receives the passed args, and the rest the result
+of the previous function.
 
 ```
 $revUp = f\compose('strtoupper', 'strrev');
@@ -99,7 +100,7 @@ $revUp('hello');
 <a name="conjoin"></a>
 ### f\conjoin
 
-f\conjoin($collection, $value)
+f\conjoin($coll, $value)
 
 Returns an array based on collection with value added.
 
@@ -143,58 +144,84 @@ contains(array(1 => 'a', 2 => 'b'), '1');
 <a name="contains_in"></a>
 ### f\contains_in
 
+f\contains_in($coll, $in)
 
-
-
+Returns whether a nested structure exists or not.
 
 ```
+f\contains_in(array('a' => array('a1' => 1)), array('a'));
+=> true
 
+f\contains_in(array('a' => array('a1' => 1)), array('a', 'a1));
+=> true
+
+f\contains_in(array('a' => array('a1' => 1)), array('a', 'a2));
+=> false
+
+f\contains_in(array('a' => array('a1' => 1)), array('b'));
+=> false
+
+f\contains_in(array('a' => array('a1' => 1)), array('b', 'b1'));
+=> false
+
+// returns false with an empty in
+f\contains_in(array('a' => 1), array());
+=> false
+
+// supports infinite nesting
+f\contains_in(array('a', 'a1', 'a1I', 'a1IA'), array('a', 'a1', 'a1I', 'a1IA'));
+=> true
 ```
 
 <a name="contains_strict"></a>
 ### f\contains_strict
 
-contains_strict($collection, $key)
+f\contains_strict($coll, $key)
 
-Same than `containts` but uses the strict comparison operator `===`.
+Same than `f\containts` but uses the strict comparison operator `===`.
 
 ```
 // strict comparison operator ===
-contains(array(1 => 'a', 2 => 'b'), '1');
+f\contains(array(1 => 'a', 2 => 'b'), '1');
 => false
 ```
 
 <a name="dissoc"></a>
 ### f\dissoc
 
+f\dissoc($coll, $key)
 
-
-
+Returns an array based on coll with value associated with key removed.
 
 ```
+f\dissoc(array('a' => 1, 'b' => 2), 'b');
+=> array('a' => 1)
 
+f\dissoc(array('a' => 1, 'b' => 2, 'c' => 3), 'b');
+=> array('a' => 1, 'c' => 3)
 ```
 
 <a name="drop_last"></a>
 ### f\drop_last
 
+f\drop_last($coll)
 
-
-
+Returns an array based on coll with the last element removed.
 
 ```
-
+f\drop_last(array('a' => 1, 'b' => 2));
+=> array('a' => 1)
 ```
 
 <a name="each"></a>
 ### f\each
 
-feach($callback, $collection)
+f\each($fn, $coll)
 
-Iterates over collection calling callback for each value.
+Iterates over collection calling fn for each value.
 
 ```
-feach(function ($value, $key) { do_something($value, $key) }, array(1, 2, 3));
+f\each(function ($value, $key) { do_something($value, $key); }, array(1, 2, 3));
 => null
 ```
 

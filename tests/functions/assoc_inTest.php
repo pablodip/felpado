@@ -41,7 +41,7 @@ class assoc_inTest extends felpadoTestCase
 
     public function provideAssocIn()
     {
-        return $this->collProvider(array(
+        return $this->provideColl(array(
             'foo' => 3
         ));
     }

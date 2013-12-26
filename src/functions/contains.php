@@ -29,8 +29,8 @@ use felpado as f;
  * contains(array(1 => 'a', 2 => 'b'), '1');
  * => true
  */
-function contains($collection, $key) {
-    foreach ($collection as $k => $value) {
+function contains($coll, $key) {
+    foreach ($coll as $k => $value) {
         if ($k == $key) {
             return true;
         }
