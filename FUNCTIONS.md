@@ -1,6 +1,6 @@
 # Functions
 
-[_](#_), [array_depth](#array_depth), [assoc](#assoc), [assoc_in](#assoc_in), [collection_depth](#collection_depth), [collection_in](#collection_in), [compose](#compose), [conjoin](#conjoin), [construct](#construct), [contains](#contains), [contains_in](#contains_in), [contains_strict](#contains_strict), [dissoc](#dissoc), [drop_last](#drop_last), [each](#each), [every](#every), [fill](#fill), [fill_validating_normalizing_or_throw](#fill_validating_normalizing_or_throw), [fill_validating_or_throw](#fill_validating_or_throw), [filter](#filter), [find](#find), [first](#first), [foldl](#foldl), [get](#get), [get_in](#get_in), [get_or_throw](#get_or_throw), [group_by](#group_by), [identity](#identity), [is_coll](#is_coll), [key](#key), [keys](#keys), [last](#last), [map](#map), [max](#max), [method](#method), [min](#min), [normalize_collection](#normalize_collection), [not](#not), [not_callback](#not_callback), [operator](#operator), [optional](#optional), [partial](#partial), [partial_merge_args](#partial_merge_args), [property](#property), [reduce](#reduce), [rename_key](#rename_key), [rename_keys](#rename_keys), [required](#required), [rest](#rest), [reverse](#reverse), [select](#select), [some](#some), [to_array](#to_array), [validate](#validate), [validate_collection](#validate_collection), [validate_collection_or_throw](#validate_collection_or_throw), [values](#values)
+[_](#_), [array_depth](#array_depth), [assoc](#assoc), [assoc_in](#assoc_in), [collection_depth](#collection_depth), [collection_in](#collection_in), [compose](#compose), [conjoin](#conjoin), [construct](#construct), [contains](#contains), [contains_in](#contains_in), [contains_strict](#contains_strict), [dissoc](#dissoc), [drop_last](#drop_last), [each](#each), [every](#every), [fill](#fill), [fill_validating_normalizing_or_throw](#fill_validating_normalizing_or_throw), [fill_validating_or_throw](#fill_validating_or_throw), [filter](#filter), [filter_indexed](#filter_indexed), [find](#find), [first](#first), [get](#get), [get_in](#get_in), [get_in_or](#get_in_or), [get_or](#get_or), [group_by](#group_by), [identity](#identity), [is_coll](#is_coll), [key](#key), [keys](#keys), [last](#last), [map](#map), [max](#max), [method](#method), [min](#min), [normalize_collection](#normalize_collection), [not](#not), [not_callback](#not_callback), [operator](#operator), [optional](#optional), [partial](#partial), [partial_merge_args](#partial_merge_args), [property](#property), [reduce](#reduce), [rename_key](#rename_key), [rename_keys](#rename_keys), [required](#required), [rest](#rest), [reverse](#reverse), [select](#select), [some](#some), [to_array](#to_array), [validate](#validate), [validate_collection](#validate_collection), [validate_collection_or_throw](#validate_collection_or_throw), [values](#values)
 
 <a name="_"></a>
 ### f\_
@@ -228,35 +228,47 @@ f\each(function ($value, $key) { do_something($value, $key); }, array(1, 2, 3));
 <a name="every"></a>
 ### f\every
 
-every($callback, $collection)
+f\every($fn, $coll)
 
-Returns true if callback applied to all values of collection returns logical true, otherwise false.
+Returns true if fn applied to all elements of coll returns logical true, otherwise false.
 
 ```
-every(function ($value) { return $value > 10; }, array(20, 30, 40));
+f\every(function ($v) { return $v > 10; }, array(20, 30, 40));
 => true
 
-every(function ($value) { return $value > 10; }, array(5, 20, 30));
+f\every(function ($) { return $v > 10; }, array(5, 20, 30));
 => false
 ```
 
 <a name="fill"></a>
 ### f\fill
 
+f\fill($coll, $paramRules)
 
-
-
+Returns a new collection filled with param rules.
+If a param is optional and it does not exist and there is a default value, it's filled.
+If a param exists and there is no param rule for that param, it's not filled.
 
 ```
+// filling with empty coll
+f\fill(array(), array('a' => f\optional(array('d' => 1)));
+=> array('a' => 1)
 
+// filling with existing coll
+f\fill(array('a' => 1), array('a' => f\required(), 'b' => f\optional(array('d' => 2)));
+=> array('a' => 1, 'b' => 2)
+
+// without param rule
+f\fill(array('a' => 1, 'b' => 2), array('a' => f\required()));
+=> array()
 ```
 
 <a name="fill_validating_normalizing_or_throw"></a>
 ### f\fill_validating_normalizing_or_throw
 
+f\fill_validating_normalizing_or_throw($coll, $paramRules)
 
-
-
+Combines filling, validating and normalization, throwing if validation fails.
 
 ```
 
@@ -265,9 +277,9 @@ every(function ($value) { return $value > 10; }, array(5, 20, 30));
 <a name="fill_validating_or_throw"></a>
 ### f\fill_validating_or_throw
 
+f\fill_validating_or_throw($coll, $paramRules)
 
-
-
+Combines filling and validation, throwing if validation fails.
 
 ```
 
@@ -276,87 +288,116 @@ every(function ($value) { return $value > 10; }, array(5, 20, 30));
 <a name="filter"></a>
 ### f\filter
 
-filter($callback, $collection)
+f\filter($fn, $coll)
 
-Returns an array with the values of collection that appled to callback return logical true.
+Returns a new collection passing the current collection through the fn.
 
 ```
-filter(function ($value) { return $value % 2 == 0; }, range(1, 6));
+f\filter(function ($value) { return $value % 2 == 0; }, range(1, 6));
 => array(2, 4, 6)
+```
+
+<a name="filter_indexed"></a>
+### f\filter_indexed
+
+f\filter_indexed($fn, $coll)
+
+Same than filter but keeping the index.
+
+```
+f\filter(function ($value) { return $value % 2 == 0; }, range(1, 6));
+=> array(1 => 2, 3 => 4, 5 => 6)
 ```
 
 <a name="find"></a>
 ### f\find
 
-find($callback, $collection)
+f\find($fn, $coll)
 
-Returns the first value that returns logical true applied to callback. otherwise null.
+Returns the first value that returns logical true applied to fn. Otherwise null.
 
 ```
-find(function ($value) { return $value % 2 == 0; }, range(1, 6));
+f\find(function ($value) { return $value % 2 == 0; }, range(1, 6));
 => 2
 
-find(function ($value) { return $value % 2 == 0; }, array(1, 3, 5);
+f\find(function ($value) { return $value % 2 == 0; }, array(1, 3, 5);
 => null
 ```
 
 <a name="first"></a>
 ### f\first
 
-first($collection)
+f\first($coll)
 
-Returns the first value of collection, or null if collection is empty.
+Returns the first value of a collection, or null if the collection is empty.
 
 ```
-first(array(1, 2, 3));
+f\first(array(1, 2, 3));
 => 1
 
-first(array());
+f\first(array());
 => null
-```
-
-<a name="foldl"></a>
-### f\foldl
-
-
-
-
-
-```
-
 ```
 
 <a name="get"></a>
 ### f\get
 
+f\get($coll, $key)
 
-
-
+Returns a element of a collection by key.
+An InvalidArgumentException is thrown if the key does not exist.
 
 ```
+f\get(array('a' => 1, 'b' => 2), 'a');
+=> 1
 
+f\get(array('a' => 1, 'b' => 2), 'b');
+=> 2
 ```
 
 <a name="get_in"></a>
 ### f\get_in
 
+f\get_in($coll, $in)
 
-
-
-
-```
-
-```
-
-<a name="get_or_throw"></a>
-### f\get_or_throw
-
-
-
-
+Returns a element of a collection in a nested structure in.
+An InvalidArgumentException is thrown if the in does not exist.
 
 ```
+f\get_in(array('a' => array('a1' => 'foo'), array('a', 'a1');
+=> 'foo'
+```
 
+<a name="get_in_or"></a>
+### f\get_in_or
+
+f\get_in_or($coll, $in, $default)
+
+Returns a element of a collection in a nested structure in.
+The default is returned if the in does not exist.
+
+```
+f\get_in_or(array('a' => array('a1' => 'foo'), array('a', 'a1'));
+=> 'foo'
+
+f\get_in_or(array('a' => array('a1' => 'foo'), array('a', 'a2'), 'bar');
+=> 'bar'
+```
+
+<a name="get_or"></a>
+### f\get_or
+
+f\get_or($coll, $key, $default)
+
+Returns a element of a collection by key.
+The default is returned if the key does not exist.
+
+```
+f\get(array('a' => 1, 'b' => 2), 'a');
+=> 1
+
+f\get(array('a' => 1, 'b' => 2), 'c', 3);
+=> 3
 ```
 
 <a name="group_by"></a>

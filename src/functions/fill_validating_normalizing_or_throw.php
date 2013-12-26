@@ -13,10 +13,15 @@ namespace felpado;
 
 use felpado as f;
 
-function fill_validating_normalizing_or_throw($collection, $paramRules) {
-    f\validate_collection_or_throw($collection, $paramRules);
+/**
+ * f\fill_validating_normalizing_or_throw($coll, $paramRules)
+ *
+ * Combines filling, validating and normalization, throwing if validation fails.
+ */
+function fill_validating_normalizing_or_throw($coll, $paramRules) {
+    f\validate_collection_or_throw($coll, $paramRules);
 
-    $filled = f\fill($collection, $paramRules);
+    $filled = f\fill($coll, $paramRules);
 
     return f\normalize_collection($filled, $paramRules);
 }

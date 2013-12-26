@@ -36,5 +36,5 @@ function validate_collection($collection, $paramRules) {
         return null;
     };
 
-    return f\filter('felpado\identity', f\map($validate, $paramRules));
+    return f\filter_indexed('felpado\identity', f\map($validate, $paramRules));
 }

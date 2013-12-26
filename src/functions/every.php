@@ -14,19 +14,19 @@ namespace felpado;
 use felpado as f;
 
 /**
- * every($callback, $collection)
+ * f\every($fn, $coll)
  *
- * Returns true if callback applied to all values of collection returns logical true, otherwise false.
+ * Returns true if fn applied to all elements of coll returns logical true, otherwise false.
  *
- * every(function ($value) { return $value > 10; }, array(20, 30, 40));
+ * f\every(function ($v) { return $v > 10; }, array(20, 30, 40));
  * => true
  *
- * every(function ($value) { return $value > 10; }, array(5, 20, 30));
+ * f\every(function ($) { return $v > 10; }, array(5, 20, 30));
  * => false
  */
-function every($callback, $collection) {
-    foreach ($collection as $value) {
-        if (!call_user_func($callback, $value)) {
+function every($fn, $coll) {
+    foreach ($coll as $v) {
+        if (!call_user_func($fn, $v)) {
             return false;
         }
     }

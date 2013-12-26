@@ -2,13 +2,16 @@
 
 namespace felpado\tests;
 
+use felpado as f;
+
 class firstTest extends felpadoTestCase
 {
-    /**
-     * @dataProvider indexedCollectionProvider
-     */
-    public function testFirst($collection)
+    public function testFirst()
     {
-        $this->assertSame(4, $this->callFunction($collection));
+        $coll1 = range(2, 10);
+        $this->assertSame(2, f\first($coll1));
+
+        $coll2 = new \ArrayObject(array('a', 'b', 'c'));
+        $this->assertSame('a', f\first($coll2));
     }
 }

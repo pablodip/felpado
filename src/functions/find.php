@@ -14,14 +14,14 @@ namespace felpado;
 use felpado as f;
 
 /**
- * find($callback, $collection)
+ * f\find($fn, $coll)
  *
- * Returns the first value that returns logical true applied to callback. otherwise null.
+ * Returns the first value that returns logical true applied to fn. Otherwise null.
  *
- * find(function ($value) { return $value % 2 == 0; }, range(1, 6));
+ * f\find(function ($value) { return $value % 2 == 0; }, range(1, 6));
  * => 2
  *
- * find(function ($value) { return $value % 2 == 0; }, array(1, 3, 5);
+ * f\find(function ($value) { return $value % 2 == 0; }, array(1, 3, 5);
  * => null
  */
 function find($callback, $collection) {

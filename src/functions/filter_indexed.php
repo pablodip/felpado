@@ -14,18 +14,18 @@ namespace felpado;
 use felpado as f;
 
 /**
- * f\filter($fn, $coll)
+ * f\filter_indexed($fn, $coll)
  *
- * Returns a new collection passing the current collection through the fn.
+ * Same than filter but keeping the index.
  *
  * f\filter(function ($value) { return $value % 2 == 0; }, range(1, 6));
- * => array(2, 4, 6)
+ * => array(1 => 2, 3 => 4, 5 => 6)
  */
-function filter($fn, $coll) {
+function filter_indexed($fn, $coll) {
     $result = array();
-    foreach ($coll as $value) {
-        if (call_user_func($fn, $value)) {
-            $result[] = $value;
+    foreach ($coll as $key => $value) {
+        if (call_user_func($fn, $value, $key)) {
+            $result[$key] = $value;
         }
     }
 

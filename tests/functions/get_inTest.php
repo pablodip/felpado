@@ -2,47 +2,40 @@
 
 namespace felpado\tests;
 
+use felpado as f;
+
 class get_inTest extends felpadoTestCase
 {
     /**
-     * @dataProvider getInProvider
+     * @dataProvider provideGetIn
      */
-    public function testGetInShouldReturnAValueIn($collection)
+    public function testGetInShouldReturnAValueIn($coll)
     {
-        $this->assertSame(3, $this->callFunction($collection, array('foo')));
-        $this->assertSame(6, $this->callFunction($collection, array('bar', 'two')));
-        $this->assertSame(4, $this->callFunction($collection, array('bar', 'one', 'ups')));
-        $this->assertSame(array('ups' => 4), $this->callFunction($collection, array('bar', 'one')));
-    }
-
-    /**
-     * @dataProvider getInProvider
-     */
-    public function testGetInShouldReturnNullIfTheInDoesNotExistAndThereIsNoDefault($collection)
-    {
-        $this->assertNull($this->callFunction($collection, array('no')));
-        $this->assertNull($this->callFunction($collection, array('bar', 'no')));
-    }
-
-    /**
-     * @dataProvider getInProvider
-     */
-    public function testGetShouldReturnTheDefaultIfTheKeyDoesNotExist($collection)
-    {
-        $this->assertSame(10, $this->callFunction($collection, array('no'), 10));
-        $this->assertSame(1, $this->callFunction($collection, array('bar', 'no'), 1));
+        $this->assertSame(3, f\get_in($coll, array('foo')));
+        $this->assertSame(6, f\get_in($coll, array('bar', 'two')));
+        $this->assertSame(4, f\get_in($coll, array('bar', 'one', 'ups')));
+        $this->assertSame(array('ups' => 4), f\get_in($coll, array('bar', 'one')));
     }
 
     /**
      * @expectedException \InvalidArgumentException
-     * @dataProvider getInProvider
+     * @dataProvider provideGetIn
      */
-    public function testGetShouldShouldThrowAnExceptionIfAnyDepthIsNotAnArray($collection)
+    public function testGetInShouldThrowAnExceptionIfTheInDoesNotExist($coll)
     {
-        $this->callFunction($collection, array('foo', 'two', 'ups'));
+        f\get_in($coll, array('no'));
     }
 
-    public function getInProvider()
+    /**
+     * @expectedException \InvalidArgumentException
+     * @dataProvider provideGetIn
+     */
+    public function testGetInShouldThrowAnExceptionIfAnyDepthIsNotAnArray($coll)
+    {
+        f\get_in($coll, array('foo', 'two', 'ups'));
+    }
+
+    public function provideGetIn()
     {
         return $this->provideColl(array(
             'foo' => 3,

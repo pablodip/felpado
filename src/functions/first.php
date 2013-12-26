@@ -14,18 +14,18 @@ namespace felpado;
 use felpado as f;
 
 /**
- * first($collection)
+ * f\first($coll)
  *
- * Returns the first value of collection, or null if collection is empty.
+ * Returns the first value of a collection, or null if the collection is empty.
  *
- * first(array(1, 2, 3));
+ * f\first(array(1, 2, 3));
  * => 1
  *
- * first(array());
+ * f\first(array());
  * => null
  */
-function first($collection) {
-    foreach ($collection as $value) {
-        return $value;
+function first($coll) {
+    foreach ($coll as $v) {
+        return $v;
     }
 }

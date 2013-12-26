@@ -13,8 +13,13 @@ namespace felpado;
 
 use felpado as f;
 
-function fill_validating_or_throw($collection, $paramRules) {
-    f\validate_collection_or_throw($collection, $paramRules);
+/**
+ * f\fill_validating_or_throw($coll, $paramRules)
+ *
+ * Combines filling and validation, throwing if validation fails.
+ */
+function fill_validating_or_throw($coll, $paramRules) {
+    f\validate_collection_or_throw($coll, $paramRules);
 
-    return f\fill($collection, $paramRules);
+    return f\fill($coll, $paramRules);
 }

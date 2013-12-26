@@ -34,17 +34,6 @@ class fillTest extends felpadoTestCase
     }
 
     /**
-     * @expectedException \Exception
-     */
-    public function testItThrowsAnExceptionIfARequiredDoesNotExist()
-    {
-        $coll = array();
-        $rules = array('a' => f\required(array('v' => 'is_int')));
-
-        f\fill($coll, $rules);
-    }
-
-    /**
      * @expectedException \InvalidArgumentException
      */
     public function testItThrowsAnExceptionIfARuleIsNotAnInstanceOfParamRule()

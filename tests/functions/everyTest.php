@@ -2,29 +2,22 @@
 
 namespace felpado\tests;
 
+use felpado as f;
+
 class everyTest extends felpadoTestCase
 {
     /**
-     * @dataProvider indexedCollectionProvider
+     * @dataProvider provideEvery
      */
-    public function testAllTrue($collection)
+    public function testAllTrue($coll)
     {
-        $this->assertTrue($this->callFunction('is_scalar', $collection));
+        $this->assertTrue(f\every('is_scalar', $coll));
+        $this->assertFalse(f\every('is_string', $coll));
+        $this->assertFalse(f\every('is_object', $coll));
     }
 
-    /**
-     * @dataProvider indexedCollectionProvider
-     */
-    public function testSomeTrue($collection)
+    public function provideEvery()
     {
-        $this->assertFalse($this->callFunction('is_string', $collection));
-    }
-
-    /**
-     * @dataProvider indexedCollectionProvider
-     */
-    public function testNoneTrue($collection)
-    {
-        $this->assertFalse($this->callFunction('is_object', $collection));
+        return $this->provideColl(array(1, 2, 'three'));
     }
 }

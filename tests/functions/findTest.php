@@ -2,48 +2,50 @@
 
 namespace felpado\tests;
 
+use felpado as f;
+
 class findTest extends felpadoTestCase
 {
     /**
-     * @dataProvider indexedCollectionProvider
+     * @dataProvider provideFind
      */
-    public function testFind($collection)
+    public function testFind($coll)
     {
         $calls = array();
-        $result = $this->callFunction(function ($value) use(&$calls) {
+        $result = f\find(function ($value) use(&$calls) {
             $calls[] = func_get_args();
 
-            return is_string($value);
-        }, $collection);
+            return $value % 2 === 0;
+        }, $coll);
 
-        $this->assertSame('foo', $result);
-        $expected = array(
-            array(4),
-            array(5),
-            array('foo'),
-        );
-        $this->assertSame($expected, $calls);
+        $this->assertSame(2, $result);
+        $this->assertSame(array(array(1), array(2)), $calls);
     }
 
     /**
-     * @dataProvider indexedCollectionProvider
+     * @dataProvider provideFind
      */
-    public function testNotMatch($collection)
+    public function testNotMatch($coll)
     {
-        $this->assertNull($this->callFunction('is_object', $collection));
+        $this->assertNull(f\find('is_object', $coll));
+    }
+
+    public function provideFind()
+    {
+        return $this->provideColl(array(1, 2, 3, 4));
     }
 
     /**
      * @dataProvider provideEmptyColl
      */
-    public function testEmptyCollection($collection)
+    public function testEmptyCollection($coll)
     {
         $calls = array();
         $result = $this->callFunction(function ($value) use(&$calls) {
             $calls[] = func_get_args();
 
             return is_string($value);
-        }, $collection);
+        }, $coll);
 
         $this->assertNull($result);
         $this->assertSame(array(), $calls);

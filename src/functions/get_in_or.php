@@ -14,20 +14,23 @@ namespace felpado;
 use felpado as f;
 
 /**
- * f\get_in($coll, $in)
+ * f\get_in_or($coll, $in, $default)
  *
  * Returns a element of a collection in a nested structure in.
- * An InvalidArgumentException is thrown if the in does not exist.
+ * The default is returned if the in does not exist.
  *
- * f\get_in(array('a' => array('a1' => 'foo'), array('a', 'a1');
+ * f\get_in_or(array('a' => array('a1' => 'foo'), array('a', 'a1'));
  * => 'foo'
+ *
+ * f\get_in_or(array('a' => array('a1' => 'foo'), array('a', 'a2'), 'bar');
+ * => 'bar'
  */
-function get_in($coll, $in) {
+function get_in_or($coll, $in, $default) {
     $arrayIn = f\collection_in($coll, $in);
 
     if ($arrayIn === false) {
         return $default;
     }
 
-    return f\get($arrayIn, f\last($in));
+    return f\get_or($arrayIn, f\last($in), $default);
 }

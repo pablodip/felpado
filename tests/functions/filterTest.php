@@ -2,31 +2,28 @@
 
 namespace felpado\tests;
 
+use felpado as f;
+
 class filterTest extends felpadoTestCase
 {
     /**
-     * @dataProvider indexedCollectionProvider
+     * @dataProvider provideFilter
      */
-    public function testFilter($collection)
+    public function testFilter($coll)
     {
         $calls = array();
-        $result = $this->callFunction(function ($value, $key) use(&$calls) {
+        $result = f\filter(function ($v) use(&$calls) {
             $calls[] = func_get_args();
 
-            return is_int($value);
-        }, $collection);
+            return is_int($v);
+        }, $coll);
 
-        $expected = array(
-            0 => 4,
-            1 => 5,
-        );
-        $this->assertSame($expected, $result);
-        $expected = array(
-            array(4, 0),
-            array(5, 1),
-            array('foo', 2),
-            array('bar', 3),
-        );
-        $this->assertSame($expected, $calls);
+        $this->assertSame(array(10, 30), $result);
+        $this->assertSame(array(array(10), array('20'), array(30)), $calls);
+    }
+
+    public function provideFilter()
+    {
+        return $this->provideColl(array(10, '20', 30));
     }
 }
