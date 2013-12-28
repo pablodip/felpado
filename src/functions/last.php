@@ -14,18 +14,18 @@ namespace felpado;
 use felpado as f;
 
 /**
- * last($collection)
+ * f\last($coll)
  *
  * Returns the last value of collection, or null if collection is empty.
  *
- * last(array(1, 2, 3));
+ * f\last(array(1, 2, 3));
  * => 3
  *
- * last(array());
+ * f\last(array());
  * => null
  */
-function last($collection) {
-    $array = f\to_array($collection);
+function last($coll) {
+    $array = f\to_array($coll);
     $last = end($array);
 
     return $last !== false ? $last : (count($array) ? false : null);

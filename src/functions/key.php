@@ -14,22 +14,22 @@ namespace felpado;
 use felpado as f;
 
 /**
- * fkey($key)
+ * f\key($key)
  *
- * Returns a closure that returns the value of an array with the given key.
+ * Returns a closure that returns the value of a coll with the given key.
  *
- * $key = fkey('foo');
+ * $key = f\key('foo');
  * $key(array('foo' => 2, 'bar' => 4));
  * => 2
  *
- * map(fkey('foo'), array(
+ * map(f\key('foo'), array(
  *     array('foo' => 2, 'bar' => 4),
  *     array('foo' => 6, 'bar' => 8),
  * ))
  * => array(2, 6)
  */
 function key($key) {
-    return function (array $array) use ($key) {
-        return $array[$key];
+    return function ($coll) use ($key) {
+        return $coll[$key];
     };
 }

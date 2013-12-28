@@ -2,41 +2,22 @@
 
 namespace felpado\tests;
 
+use felpado as f;
+
 class mapTest extends felpadoTestCase
 {
     /**
-     * @dataProvider indexedCollectionProvider
+     * @dataProvider provideMap
      */
-    public function testIndexedCollection($collection)
+    public function testMap($exp, $coll, $fn)
     {
-        $calls = $this->callFunction(function () {
-            return func_get_args();
-        }, $collection);
-
-        $expected = array(
-            0 => array(4, 0),
-            1 => array(5, 1),
-            2 => array('foo', 2),
-            3 => array('bar', 3),
-        );
-        $this->assertSame($expected, $calls);
+        $this->assertSame($exp, f\map($fn, $coll));
     }
 
-    /**
-     * @dataProvider associativeCollectionProvider
-     */
-    public function testAssociativeCollection($collection)
+    public function provideMap()
     {
-        $calls = $this->callFunction(function () {
-            return func_get_args();
-        }, $collection);
-
-        $expected = array(
-            'one' => array(1, 'one'),
-            'two' => array(2, 'two'),
-            4     => array('four', 4),
-            5     => array('five', 5),
-        );
-        $this->assertSame($expected, $calls);
+        return $this->buildExpectedCollArgsProvider(array(
+            array(array(2, 4, 6), array(1, 2, 3), function ($v) { return $v * 2; })
+        ));
     }
 }

@@ -14,18 +14,22 @@ namespace felpado;
 use felpado as f;
 
 /**
- * method($method)
+ * f\method($method)
  *
  * Returns a closure that calls the given method and returns its value in an object.
+ * Optionally additional args can be passed and will be sent when called the method.
  *
- * // here Object accept the id in the constructor and returns it through the getId method
- * $getId = method('getId');
- * $getId(new Object(2));
- * => 2
+ * $getTimestamp = f\method('getTimestamp');
+ * $getId(new \DateTime();
+ * => `the timestamp`
+ *
+ * // with bound args
+ * $format = f\method('format', 'Y-m-d H:i:s')
+ * $format(new \DateTime())
  *
  * // useful with another functions
- * map(method('getId'), array(new Object(2), new Object(6)))
- * => array(2, 6)
+ * f\map(method('getId'), $articles)
+ * => array(`ids of articles`)
  */
 function method($method) {
     $args = f\rest(func_get_args());

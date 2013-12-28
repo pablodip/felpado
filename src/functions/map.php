@@ -14,17 +14,18 @@ namespace felpado;
 use felpado as f;
 
 /**
- * map($callback, $collection)
+ * f\map($fn, $coll)
  *
- * Returns an array with callback applied to each value of collection.
+ * Returns an array with fn applied to each value of collection.
+ * Map does not keep the index. Only the value is passed to fn, not the key.
  *
- * map(function ($element) { return $element * 2; }, array(1, 2, 3));
+ * f\map(function ($element) { return $element * 2; }, array(1, 2, 3));
  * => array(2, 4, 6)
  */
-function map($callback, $collection) {
+function map($fn, $coll) {
     $result = array();
-    foreach ($collection as $key => $value) {
-        $result[$key] = call_user_func($callback, $value, $key);
+    foreach ($coll as $key => $value) {
+        $result[$key] = call_user_func($fn, $value, $key);
     }
 
     return $result;

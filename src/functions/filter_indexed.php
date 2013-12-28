@@ -18,7 +18,7 @@ use felpado as f;
  *
  * Same than filter but keeping the index.
  *
- * f\filter(function ($value) { return $value % 2 == 0; }, range(1, 6));
+ * f\filter_indexed(function ($value) { return $value % 2 == 0; }, range(1, 6));
  * => array(1 => 2, 3 => 4, 5 => 6)
  */
 function filter_indexed($fn, $coll) {

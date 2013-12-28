@@ -13,6 +13,17 @@ namespace felpado;
 
 use felpado as f;
 
+/**
+ * f\identity($v)
+ *
+ * Returns the same value.
+ *
+ * f\identity('foo');
+ * => 'foo'
+ *
+ * f\identity(2);
+ * => 2
+ */
 function identity($value) {
     return $value;
 }

@@ -2,29 +2,24 @@
 
 namespace felpado\tests;
 
+use felpado as f;
+
 class lastTest extends felpadoTestCase
 {
     /**
-     * @dataProvider indexedCollectionProvider
+     * @dataProvider provideLast
      */
-    public function test1($collection)
+    public function testLast($expected, $coll)
     {
-        $this->assertSame('bar', $this->callFunction($collection));
+        $this->assertSame($expected, f\last($coll));
     }
 
-    /**
-     * @dataProvider associativeCollectionProvider
-     */
-    public function test2($collection)
+    public function provideLast()
     {
-        $this->assertSame('five', $this->callFunction($collection));
-    }
-
-    /**
-     * @dataProvider provideEmptyColl
-     */
-    public function testEmptyCollection($collection)
-    {
-        $this->assertNull(null, $this->callFunction($collection));
+        return $this->buildExpectedCollArgsProvider(array(
+            array(3, array(1, 2, 3)),
+            array(array('b', 'c'), array(true, 'a', array('b', 'c'))),
+            array(null, array())
+        ));
     }
 }

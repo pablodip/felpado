@@ -14,16 +14,16 @@ namespace felpado;
 use felpado as f;
 
 /**
- * keys($collection)
+ * f\keys($coll)
  *
  * Returns an array with the keys of collection.
  *
- * keys(array('one' => 1, 'two' => 2, 'three' => 3));
+ * f\keys(array('one' => 1, 'two' => 2, 'three' => 3));
  * => array('one', 'two', 'three')
  */
-function keys($collection) {
+function keys($coll) {
     $result = array();
-    foreach ($collection as $key => $value) {
+    foreach ($coll as $key => $value) {
         $result[] = $key;
     }
 

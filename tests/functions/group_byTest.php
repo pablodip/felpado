@@ -2,24 +2,30 @@
 
 namespace felpado\tests;
 
+use felpado as f;
+
 class group_byTest extends felpadoTestCase
 {
     /**
-     * @dataProvider indexedCollectionProvider
+     * @dataProvider provideGroupBy
      */
-    public function testGroupBy($collection)
+    public function testGroupBy($expected, $coll, $fn)
     {
-        $this->assertSame(array(
-            'integer' => array(4, 5),
-            'string'  => array('foo', 'bar'),
-        ), $this->callFunction('gettype', $collection));
+        $this->assertSame($expected, f\group_by($fn, $coll));
+    }
+
+    public function provideGroupBy()
+    {
+        return $this->buildExpectedCollArgsProvider(array(
+            array(array(3 => array('one', 'two'), 5 => array('three')), array('one', 'two', 'three'), 'strlen')
+        ));
     }
 
     /**
      * @dataProvider provideEmptyColl
      */
-    public function testEmptyCollection($collection)
+    public function testEmptyCollection($coll)
     {
-        $this->assertSame(array(), $this->callFunction('gettype', $collection));
+        $this->assertSame(array(), f\group_by('gettype', $coll));
     }
 }

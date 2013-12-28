@@ -14,17 +14,17 @@ namespace felpado;
 use felpado as f;
 
 /**
- * group_by($callback, $collection)
+ * f\group_by($fn, $coll)
  *
- * Returns an array with the values of collection keyed by the result of callback on each value.
+ * Returns a new collection with the elements grouped by the return of applying fn to each value.
  *
- * group_by('strlen', array('one', 'two', 'three'));
+ * f\group_by('strlen', array('one', 'two', 'three'));
  * => array(3 => array('one', 'two'), 5 => array('three'))
  */
-function group_by($callback, $collection) {
+function group_by($fn, $coll) {
     $result = array();
-    foreach ($collection as $value) {
-        $result[call_user_func($callback, $value)][] = $value;
+    foreach ($coll as $v) {
+        $result[call_user_func($fn, $v)][] = $v;
     }
 
     return $result;

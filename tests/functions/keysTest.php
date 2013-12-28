@@ -2,27 +2,25 @@
 
 namespace felpado\tests;
 
+use felpado as f;
+
 class keysTest extends felpadoTestCase
 {
     /**
-     * @dataProvider indexedCollectionProvider
+     * @dataProvider provideKeys
      */
-    public function testIndexedCollection($collection)
+    public function testIndexedCollection($coll)
     {
-        $this->assertSame(array(0, 1, 2, 3), $this->callFunction($collection));
+        $this->assertSame(array('o', 't', 3), f\keys($coll));
     }
 
-    /**
-     * @dataProvider associativeCollectionProvider
-     */
-    public function testAssociativeCollection($collection)
+    public function provideKeys()
     {
-        $this->assertSame(array(
-            'one',
-            'two',
-            4,
-            5,
-        ), $this->callFunction($collection));
+        return $this->provideColl(array(
+            'o' => 1,
+            't' => 2,
+            3 => 'three'
+        ));
     }
 
     /**
@@ -30,6 +28,6 @@ class keysTest extends felpadoTestCase
      */
     public function testEmptyCollection($collection)
     {
-        $this->assertSame(array(), $this->callFunction($collection));
+        $this->assertSame(array(), f\keys($collection));
     }
 }

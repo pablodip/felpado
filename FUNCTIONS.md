@@ -1,6 +1,6 @@
 # Functions
 
-[_](#_), [array_depth](#array_depth), [assoc](#assoc), [assoc_in](#assoc_in), [collection_depth](#collection_depth), [collection_in](#collection_in), [compose](#compose), [conjoin](#conjoin), [construct](#construct), [contains](#contains), [contains_in](#contains_in), [contains_strict](#contains_strict), [dissoc](#dissoc), [drop_last](#drop_last), [each](#each), [every](#every), [fill](#fill), [fill_validating_normalizing_or_throw](#fill_validating_normalizing_or_throw), [fill_validating_or_throw](#fill_validating_or_throw), [filter](#filter), [filter_indexed](#filter_indexed), [find](#find), [first](#first), [get](#get), [get_in](#get_in), [get_in_or](#get_in_or), [get_or](#get_or), [group_by](#group_by), [identity](#identity), [is_coll](#is_coll), [key](#key), [keys](#keys), [last](#last), [map](#map), [max](#max), [method](#method), [min](#min), [normalize_collection](#normalize_collection), [not](#not), [not_callback](#not_callback), [operator](#operator), [optional](#optional), [partial](#partial), [partial_merge_args](#partial_merge_args), [property](#property), [reduce](#reduce), [rename_key](#rename_key), [rename_keys](#rename_keys), [required](#required), [rest](#rest), [reverse](#reverse), [select](#select), [some](#some), [to_array](#to_array), [validate](#validate), [validate_collection](#validate_collection), [validate_collection_or_throw](#validate_collection_or_throw), [values](#values)
+[_](#_), [array_depth](#array_depth), [assoc](#assoc), [assoc_in](#assoc_in), [collection_depth](#collection_depth), [collection_in](#collection_in), [compose](#compose), [conjoin](#conjoin), [construct](#construct), [contains](#contains), [contains_in](#contains_in), [contains_strict](#contains_strict), [dissoc](#dissoc), [drop_last](#drop_last), [each](#each), [every](#every), [fill](#fill), [fill_validating_normalizing_or_throw](#fill_validating_normalizing_or_throw), [fill_validating_or_throw](#fill_validating_or_throw), [filter](#filter), [filter_indexed](#filter_indexed), [find](#find), [first](#first), [get](#get), [get_in](#get_in), [get_in_or](#get_in_or), [get_or](#get_or), [group_by](#group_by), [identity](#identity), [is_coll](#is_coll), [key](#key), [keys](#keys), [last](#last), [map](#map), [map_indexed](#map_indexed), [max](#max), [method](#method), [min](#min), [normalize_collection](#normalize_collection), [not](#not), [not_callback](#not_callback), [operator](#operator), [optional](#optional), [partial](#partial), [partial_merge_args](#partial_merge_args), [property](#property), [reduce](#reduce), [rename_key](#rename_key), [rename_keys](#rename_keys), [required](#required), [rest](#rest), [reverse](#reverse), [select](#select), [some](#some), [to_array](#to_array), [validate](#validate), [validate_collection](#validate_collection), [validate_collection_or_throw](#validate_collection_or_throw), [values](#values)
 
 <a name="_"></a>
 ### f\_
@@ -305,7 +305,7 @@ f\filter_indexed($fn, $coll)
 Same than filter but keeping the index.
 
 ```
-f\filter(function ($value) { return $value % 2 == 0; }, range(1, 6));
+f\filter_indexed(function ($value) { return $value % 2 == 0; }, range(1, 6));
 => array(1 => 2, 3 => 4, 5 => 6)
 ```
 
@@ -403,50 +403,61 @@ f\get(array('a' => 1, 'b' => 2), 'c', 3);
 <a name="group_by"></a>
 ### f\group_by
 
-group_by($callback, $collection)
+f\group_by($fn, $coll)
 
-Returns an array with the values of collection keyed by the result of callback on each value.
+Returns a new collection with the elements grouped by the return of applying fn to each value.
 
 ```
-group_by('strlen', array('one', 'two', 'three'));
+f\group_by('strlen', array('one', 'two', 'three'));
 => array(3 => array('one', 'two'), 5 => array('three'))
 ```
 
 <a name="identity"></a>
 ### f\identity
 
+f\identity($v)
 
-
-
+Returns the same value.
 
 ```
+f\identity('foo');
+=> 'foo'
 
+f\identity(2);
+=> 2
 ```
 
 <a name="is_coll"></a>
 ### f\is_coll
 
+f\is_coll($coll)
 
-
-
+Returns whether or not a variable is a coll. A coll is considered an array or a traversable object.
 
 ```
+f\is_coll(array());
+=> true
 
+f\is_coll(new \ArrayObject());
+=> true
+
+f\is_coll(true);
+=> false
 ```
 
 <a name="key"></a>
 ### f\key
 
-fkey($key)
+f\key($key)
 
-Returns a closure that returns the value of an array with the given key.
+Returns a closure that returns the value of a coll with the given key.
 
 ```
-$key = fkey('foo');
+$key = f\key('foo');
 $key(array('foo' => 2, 'bar' => 4));
 => 2
 
-map(fkey('foo'), array(
+map(f\key('foo'), array(
     array('foo' => 2, 'bar' => 4),
     array('foo' => 6, 'bar' => 8),
 ))
@@ -456,39 +467,52 @@ map(fkey('foo'), array(
 <a name="keys"></a>
 ### f\keys
 
-keys($collection)
+f\keys($coll)
 
 Returns an array with the keys of collection.
 
 ```
-keys(array('one' => 1, 'two' => 2, 'three' => 3));
+f\keys(array('one' => 1, 'two' => 2, 'three' => 3));
 => array('one', 'two', 'three')
 ```
 
 <a name="last"></a>
 ### f\last
 
-last($collection)
+f\last($coll)
 
 Returns the last value of collection, or null if collection is empty.
 
 ```
-last(array(1, 2, 3));
+f\last(array(1, 2, 3));
 => 3
 
-last(array());
+f\last(array());
 => null
 ```
 
 <a name="map"></a>
 ### f\map
 
-map($callback, $collection)
+f\map($fn, $coll)
 
-Returns an array with callback applied to each value of collection.
+Returns an array with fn applied to each value of collection.
+Map does not keep the index. Only the value is passed to fn, not the key.
 
 ```
-map(function ($element) { return $element * 2; }, array(1, 2, 3));
+f\map(function ($element) { return $element * 2; }, array(1, 2, 3));
+=> array(2, 4, 6)
+```
+
+<a name="map_indexed"></a>
+### f\map_indexed
+
+f\map_indexed($fn, $coll)
+
+Same than map but keeping the index. Also the index is passed as second argument to fn.
+
+```
+f\map_indexed(function ($element) { return $element * 2; }, array(1, 2, 3));
 => array(2, 4, 6)
 ```
 
@@ -506,19 +530,23 @@ map(function ($element) { return $element * 2; }, array(1, 2, 3));
 <a name="method"></a>
 ### f\method
 
-method($method)
+f\method($method)
 
 Returns a closure that calls the given method and returns its value in an object.
+Optionally additional args can be passed and will be sent when called the method.
 
 ```
-// here Object accept the id in the constructor and returns it through the getId method
-$getId = method('getId');
-$getId(new Object(2));
-=> 2
+$getTimestamp = f\method('getTimestamp');
+$getId(new \DateTime();
+=> `the timestamp`
+
+// with bound args
+$format = f\method('format', 'Y-m-d H:i:s')
+$format(new \DateTime())
 
 // useful with another functions
-map(method('getId'), array(new Object(2), new Object(6)))
-=> array(2, 6)
+f\map(method('getId'), $articles)
+=> array(`ids of articles`)
 ```
 
 <a name="min"></a>
