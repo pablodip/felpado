@@ -7,7 +7,7 @@ use felpado as f;
 function generate_functions_doc() {
     $functions = functions_info();
 
-    $docHeader = "# Functions";
+    $docHeader = sprintf("# Functions (%d)", count($functions));
     $docSeparator = "\n\n";
 
     $docFunctionList = function ($functions) {
