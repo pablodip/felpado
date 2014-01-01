@@ -23,5 +23,5 @@ function fill_validating_normalizing_or_throw($coll, $paramRules) {
 
     $filled = f\fill($coll, $paramRules);
 
-    return f\normalize_collection($filled, $paramRules);
+    return f\normalize_coll($filled, $paramRules);
 }

@@ -14,27 +14,22 @@ namespace felpado;
 use felpado as f;
 
 /**
- * f\rest($collection)
+ * f\rest_indexed($coll)
  *
- * Returns an array with the values of collection after the first.
- * It returns an empty array if collection is empty or has only one value.
- * Rest does not keep the index.
+ * Same than f\rest but keeping the index.
  *
- * f\rest(array(1, 2, 3, 4, 5));
- * => array(2, 3, 4, 5)
+ * f\rest_indexed(array('a' => 1, 'b' => 2, 'c' => 3));
+ * => array('b' => 2, 'c' => 3)
  *
- * f\rest(array(1));
- * => array()
- *
- * f\rest(array());
+ * f\rest_indexed(array());
  * => array()
  */
-function rest($coll) {
-    foreach ($coll as $v) {
+function rest_indexed($coll) {
+    foreach ($coll as $k => $v) {
         if (!isset($result)) {
             $result = array();
         } else {
-            $result[] = $v;
+            $result[$k] = $v;
         }
     }
 

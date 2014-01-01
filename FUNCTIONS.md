@@ -1,6 +1,6 @@
 # Functions
 
-[_](#_), [array_depth](#array_depth), [assoc](#assoc), [assoc_in](#assoc_in), [collection_depth](#collection_depth), [collection_in](#collection_in), [compose](#compose), [conjoin](#conjoin), [construct](#construct), [contains](#contains), [contains_in](#contains_in), [contains_strict](#contains_strict), [dissoc](#dissoc), [drop_last](#drop_last), [each](#each), [every](#every), [fill](#fill), [fill_validating_normalizing_or_throw](#fill_validating_normalizing_or_throw), [fill_validating_or_throw](#fill_validating_or_throw), [filter](#filter), [filter_indexed](#filter_indexed), [find](#find), [first](#first), [get](#get), [get_in](#get_in), [get_in_or](#get_in_or), [get_or](#get_or), [group_by](#group_by), [identity](#identity), [is_coll](#is_coll), [key](#key), [keys](#keys), [last](#last), [map](#map), [map_indexed](#map_indexed), [max](#max), [method](#method), [min](#min), [normalize_collection](#normalize_collection), [not](#not), [not_callback](#not_callback), [operator](#operator), [optional](#optional), [partial](#partial), [partial_merge_args](#partial_merge_args), [property](#property), [reduce](#reduce), [rename_key](#rename_key), [rename_keys](#rename_keys), [required](#required), [rest](#rest), [reverse](#reverse), [select](#select), [some](#some), [to_array](#to_array), [validate](#validate), [validate_collection](#validate_collection), [validate_collection_or_throw](#validate_collection_or_throw), [values](#values)
+[_](#_), [array_depth](#array_depth), [assoc](#assoc), [assoc_in](#assoc_in), [collection_depth](#collection_depth), [collection_in](#collection_in), [compose](#compose), [conjoin](#conjoin), [construct](#construct), [contains](#contains), [contains_in](#contains_in), [contains_strict](#contains_strict), [dissoc](#dissoc), [drop_last](#drop_last), [each](#each), [every](#every), [fill](#fill), [fill_validating_normalizing_or_throw](#fill_validating_normalizing_or_throw), [fill_validating_or_throw](#fill_validating_or_throw), [filter](#filter), [filter_indexed](#filter_indexed), [find](#find), [first](#first), [get](#get), [get_in](#get_in), [get_in_or](#get_in_or), [get_or](#get_or), [group_by](#group_by), [identity](#identity), [is_coll](#is_coll), [key](#key), [keys](#keys), [last](#last), [map](#map), [map_indexed](#map_indexed), [max](#max), [method](#method), [min](#min), [normalize_coll](#normalize_coll), [not](#not), [not_fn](#not_fn), [operator](#operator), [optional](#optional), [partial](#partial), [property](#property), [reduce](#reduce), [rename_key](#rename_key), [rename_keys](#rename_keys), [required](#required), [rest](#rest), [rest_indexed](#rest_indexed), [reverse](#reverse), [select](#select), [some](#some), [to_array](#to_array), [validate](#validate), [validate_collection](#validate_collection), [validate_collection_or_throw](#validate_collection_or_throw), [values](#values)
 
 <a name="_"></a>
 ### f\_
@@ -560,15 +560,26 @@ f\map(method('getId'), $articles)
 
 ```
 
-<a name="normalize_collection"></a>
-### f\normalize_collection
+<a name="normalize_coll"></a>
+### f\normalize_coll
 
+f\normalize_coll($coll, $normalizers)
 
-
-
+Returns a new collection normalizing the elements indicating in normalizers.
+It accepts param rules as normalizers.
+It's similar to map_indexed.
 
 ```
+f\normalize_coll(array('a' => 1.0), array('a' => 'intval'));
+=> array('a' => 1)
 
+// elements without normalizers are returned without modification
+f\normalize_coll(array('a' => 1.0, 'b' => 2.0), array('a' => 'intval'));
+=> array('a' => 1, 'b' => 2.0)
+
+// with param rules
+f\normalize_coll(array('a' => 1.0), array('a' => f\required('normalizer' => 'intval')));
+=> array('a' => 1)
 ```
 
 <a name="not"></a>
@@ -579,89 +590,122 @@ f\not($value)
 Returns the negated boolean value;
 
 ```
-not(true);
+f\not(true);
 => false
 
-not(false);
+f\not(false);
 => true
 
-not('a');
+f\not('a');
 => false
 
-not('');
+f\not('');
 => true
 ```
 
-<a name="not_callback"></a>
-### f\not_callback
+<a name="not_fn"></a>
+### f\not_fn
 
+f\not_fn($fn)
 
-
-
+Returns the negated boolean value when executing a function;
 
 ```
+f\not_fn(function () { return true; });
+=> false
 
+f\not_fn(function () { return false; });
+=> true
 ```
 
 <a name="operator"></a>
 ### f\operator
 
+f\operator($operator)
 
-
-
+Returns a function for the given operator.
 
 ```
+Available operators:
+  * instanceof
+  * *
+  * /
+  * %
+  * +
+  * -
 
+$eq = f\operator('==');
+$eq(1, 1)
+=> true
+
+$eq(1, 2)
+=> false
+
+$add = f\operator('+')
+$add(1, 2)
+=> 3
+
+f\map(f\operator('+'), range(1, 3))
+=> 6
 ```
 
 <a name="optional"></a>
 ### f\optional
 
+f\optional($config)
 
-
-
+Returns an optional param rule.
 
 ```
+Config (all optional):
+  * `defaultValue` or `d`
+  * `validator` or `v`
+  * `normalizer` or `n`
 
+$paramRule = f\optional();
+=> felpado\optional
+
+$paramRule = f\optional(array('defaultValue' => '1', 'validator' => 'is_numeric', 'normalizer' => 'intval'));
+=> felpado\optional
 ```
 
 <a name="partial"></a>
 ### f\partial
 
+f\partial($fn, $arg1 & more)
 
-
-
-
-```
-
-```
-
-<a name="partial_merge_args"></a>
-### f\partial_merge_args
-
-
-
-
+Partial application. Takes a function and some arguments, and returns a function with
+those arguments already applied.
 
 ```
+$replace = f\partial('str_replace', 'foo', 'bar');
+$replace('this is the string with some foo foo to replace')
+=> this is the string with some bar bar to replace
 
+// with placeholders to be able to apply non-first arguments
+$firstChar = f\partial('substr', f\_(), 0, 1)
+$firstChar('foo')
+=> f
+
+$firstChar('bar')
+=> b
 ```
 
 <a name="property"></a>
 ### f\property
 
-property($property)
+f\property($property)
 
 Returns a closure that returns the given property of an object.
 
 ```
 // here Object accept the id in the constructor and returns it through the id property
-$id = property('id');
+$id = f\property('id');
 $id(new Object(2));
 => 2
 
 // useful with another functions
-map(property('id'), array(new Object(2), new Object(6)))
+f\map(f\property('id'), array(new Object(2), new Object(6)))
 => array(2, 6)
 ```
 
@@ -679,52 +723,79 @@ map(property('id'), array(new Object(2), new Object(6)))
 <a name="rename_key"></a>
 ### f\rename_key
 
+f\rename_key($coll, $from, $to)
 
-
-
+Returns a new coll with a key renamed from from to to.
 
 ```
-
+f\rename_key(array('a' => 1), 'a', 'b')
+=> array('b' => 1)
 ```
 
 <a name="rename_keys"></a>
 ### f\rename_keys
 
+f\rename_keys($coll, $keysMap)
 
-
-
+Returns a new coll with the keys from keysMap renamed.
 
 ```
-
+f\rename_keys(array('a' => 1, 'b' => 2), array('a' => 'c', 'b' => 'd'))
+=> array('c' => 1, 'd' => 2)
 ```
 
 <a name="required"></a>
 ### f\required
 
+f\required($config)
 
-
-
+Returns a required param rule.
 
 ```
+Config (all required):
+  * `defaultValue` or `d`
+  * `validator` or `v`
+  * `normalizer` or `n`
 
+$paramRule = f\required();
+=> felpado\required
+
+$paramRule = f\required(array('defaultValue' => '1', 'validator' => 'is_numeric', 'normalizer' => 'intval'));
+=> felpado\required
 ```
 
 <a name="rest"></a>
 ### f\rest
 
-rest($collection)
+f\rest($collection)
 
 Returns an array with the values of collection after the first.
 It returns an empty array if collection is empty or has only one value.
+Rest does not keep the index.
 
 ```
-rest(array(1, 2, 3, 4, 5));
+f\rest(array(1, 2, 3, 4, 5));
 => array(2, 3, 4, 5)
 
-rest(array(1));
+f\rest(array(1));
 => array()
 
-rest(array());
+f\rest(array());
+=> array()
+```
+
+<a name="rest_indexed"></a>
+### f\rest_indexed
+
+f\rest_indexed($coll)
+
+Same than f\rest but keeping the index.
+
+```
+f\rest_indexed(array('a' => 1, 'b' => 2, 'c' => 3));
+=> array('b' => 2, 'c' => 3)
+
+f\rest_indexed(array());
 => array()
 ```
 

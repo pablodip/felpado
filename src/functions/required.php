@@ -13,6 +13,22 @@ namespace felpado;
 
 use felpado as f;
 
-function required($params = array()) {
-    return new required($params);
+/**
+ * f\required($config)
+ *
+ * Returns a required param rule.
+ *
+ * Config (all required):
+ *   * `defaultValue` or `d`
+ *   * `validator` or `v`
+ *   * `normalizer` or `n`
+ *
+ * $paramRule = f\required();
+ * => felpado\required
+ *
+ * $paramRule = f\required(array('defaultValue' => '1', 'validator' => 'is_numeric', 'normalizer' => 'intval'));
+ * => felpado\required
+ */
+function required($config = array()) {
+    return new required($config);
 }

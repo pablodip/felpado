@@ -13,6 +13,22 @@ namespace felpado;
 
 use felpado as f;
 
-function optional($params = array()) {
-    return new optional($params);
+/**
+ * f\optional($config)
+ *
+ * Returns an optional param rule.
+ *
+ * Config (all optional):
+ *   * `defaultValue` or `d`
+ *   * `validator` or `v`
+ *   * `normalizer` or `n`
+ *
+ * $paramRule = f\optional();
+ * => felpado\optional
+ *
+ * $paramRule = f\optional(array('defaultValue' => '1', 'validator' => 'is_numeric', 'normalizer' => 'intval'));
+ * => felpado\optional
+ */
+function optional($config = array()) {
+    return new optional($config);
 }

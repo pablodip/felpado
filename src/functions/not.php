@@ -18,16 +18,16 @@ use felpado as f;
  *
  * Returns the negated boolean value;
  *
- * not(true);
+ * f\not(true);
  * => false
  *
- * not(false);
+ * f\not(false);
  * => true
  *
- * not('a');
+ * f\not('a');
  * => false
  *
- * not('');
+ * f\not('');
  * => true
  */
 function not($value) {

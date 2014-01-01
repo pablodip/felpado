@@ -13,16 +13,24 @@ namespace felpado;
 
 use felpado as f;
 
-function rename_keys($collection, $keysMap) {
-    if (count($keysMap)) {
-        $from = f\first(f\keys($keysMap));
-        $to = f\first($keysMap);
-
-        return f\rename_keys(
-            f\rename_key($collection, $from, $to),
-            f\dissoc($keysMap, $from)
-        );
+/**
+ * f\rename_keys($coll, $keysMap)
+ *
+ * Returns a new coll with the keys from keysMap renamed.
+ *
+ * f\rename_keys(array('a' => 1, 'b' => 2), array('a' => 'c', 'b' => 'd'))
+ * => array('c' => 1, 'd' => 2)
+ */
+function rename_keys($coll, $keysMap) {
+    if (f\not($keysMap)) {
+        return $coll;
     }
 
-    return $collection;
+    $from = f\first(f\keys($keysMap));
+    $to = f\first($keysMap);
+
+    return f\rename_keys(
+        f\rename_key($coll, $from, $to),
+        f\dissoc($keysMap, $from)
+    );
 }

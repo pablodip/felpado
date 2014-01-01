@@ -4,16 +4,16 @@ namespace felpado\tests;
 
 use felpado as f;
 
-class normalize_collectionTest extends felpadoTestCase
+class normalize_collTest extends felpadoTestCase
 {
     public function testEmpty()
     {
-        $this->assertSame(array(), f\normalize_collection(array(), array()));
+        $this->assertSame(array(), f\normalize_coll(array(), array()));
     }
 
     public function testReturnsWithoutAlteringValuesWithoutNormalizer()
     {
-        $this->assertSame(array('a' => 1), f\normalize_collection(array('a' => 1), array()));
+        $this->assertSame(array('a' => 1), f\normalize_coll(array('a' => 1), array()));
     }
 
     public function testNormalizes()
@@ -23,7 +23,7 @@ class normalize_collectionTest extends felpadoTestCase
 
         $expected = array('a' => '1', 'b' => 2);
 
-        $this->assertSame($expected, f\normalize_collection($collection, $normalizers));
+        $this->assertSame($expected, f\normalize_coll($collection, $normalizers));
     }
 
     public function testNormalizersCanBeParamRules()
@@ -36,7 +36,7 @@ class normalize_collectionTest extends felpadoTestCase
 
         $expected = array('a' => '1', 'b' => 2);
 
-        $this->assertSame($expected, f\normalize_collection($collection, $normalizers));
+        $this->assertSame($expected, f\normalize_coll($collection, $normalizers));
     }
 
     public function testParamRulesWithoutNormalizerAreIgnored()
@@ -49,6 +49,6 @@ class normalize_collectionTest extends felpadoTestCase
 
         $expected = array('a' => '1', 'b' => 2.0);
 
-        $this->assertSame($expected, f\normalize_collection($collection, $normalizers));
+        $this->assertSame($expected, f\normalize_coll($collection, $normalizers));
     }
 }

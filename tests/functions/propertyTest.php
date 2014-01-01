@@ -2,6 +2,8 @@
 
 namespace felpado\tests;
 
+use felpado as f;
+
 class propertyTest extends felpadoTestCase
 {
     /**
@@ -10,7 +12,7 @@ class propertyTest extends felpadoTestCase
     public function testProperty($name)
     {
         $object = new propertyTestClass();
-        $property = $this->callFunction($name);
+        $property = f\property($name);
 
         $this->assertSame($object->$name, $property($object));
     }

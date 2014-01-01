@@ -2,37 +2,23 @@
 
 namespace felpado\tests;
 
+use felpado as f;
+
 class restTest extends felpadoTestCase
 {
     /**
-     * @dataProvider indexedCollectionProvider
+     * @dataProvider provideRest
      */
-    public function testIndexedCollection($collection)
+    public function testIndexedCollection($expected, $coll)
     {
-        $this->assertSame(array(
-            1 => 5,
-            2 => 'foo',
-            3 => 'bar',
-        ), $this->callFunction($collection));
+        $this->assertSame($expected, f\rest($coll));
     }
 
-    /**
-     * @dataProvider associativeCollectionProvider
-     */
-    public function testAssociativeCollection($collection)
+    public function provideRest()
     {
-        $this->assertSame(array(
-            'two' => 2,
-            4     => 'four',
-            5     => 'five',
-        ), $this->callFunction($collection));
-    }
-
-    /**
-     * @dataProvider provideEmptyColl
-     */
-    public function testEmptyCollection($collection)
-    {
-        $this->assertSame(array(), $this->callFunction($collection));
+        return $this->buildExpectedCollArgsProvider(array(
+            array(array(), array()),
+            array(array(2, 3, 4), range(1, 4))
+        ));
     }
 }

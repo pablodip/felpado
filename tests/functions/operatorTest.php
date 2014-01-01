@@ -11,11 +11,8 @@ class operatorTest extends felpadoTestCase
 {
     /** @dataProvider provideTestOperator */
     public function testOperator($op, $a, $b, $result) {
-        $fn1 = f\operator($op);
-        $fn2 = f\operator($op, $b);
-
-        $this->assertEquals($result, $fn1($a, $b));
-        $this->assertEquals($result, $fn2($a));
+        $fn = f\operator($op);
+        $this->assertEquals($result, $fn($a, $b));
     }
 
     public function provideTestOperator() {

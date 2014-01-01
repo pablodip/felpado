@@ -7,13 +7,13 @@ use felpado as f;
 /*
  * Code from https://github.com/nikic/iter/blob/master/test/IterFnTest.php
  */
-class not_callbackTest extends felpadoTestCase
+class not_fnTest extends felpadoTestCase
 {
-    public function testnot_callback() {
-        $constFalse = f\not_callback(function() { return true; });
-        $constTrue = f\not_callback(function() { return false; });
-        $invert = f\not_callback(function($bool) { return $bool; });
-        $nand = f\not_callback(f\operator('&&'));
+    public function testIt() {
+        $constFalse = f\not_fn(function() { return true; });
+        $constTrue = f\not_fn(function() { return false; });
+        $invert = f\not_fn(function($bool) { return $bool; });
+        $nand = f\not_fn(f\operator('&&'));
 
         $this->assertEquals(false, $constFalse());
         $this->assertEquals(true, $constTrue());

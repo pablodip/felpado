@@ -13,10 +13,38 @@ namespace felpado;
 
 use felpado as f;
 
-/*
- * Code from https://github.com/nikic/iter/blob/master/src/iter.fn.php
+/**
+ * f\operator($operator)
+ *
+ * Returns a function for the given operator.
+ *
+ * Available operators:
+ *   * instanceof
+ *   * *
+ *   * /
+ *   * %
+ *   * +
+ *   * -
+ *
+ * $eq = f\operator('==');
+ * $eq(1, 1)
+ * => true
+ *
+ * $eq(1, 2)
+ * => false
+ *
+ * $add = f\operator('+')
+ * $add(1, 2)
+ * => 3
+ *
+ * f\map(f\operator('+'), range(1, 3))
+ * => 6
  */
-function operator($operator, $defaultB = null) {
+function operator($operator) {
+    /*
+     * Code from https://github.com/nikic/iter/blob/master/src/iter.fn.php
+     */
+
     $functions = array(
         'instanceof' => function($a, $b) { return $a instanceof $b; },
         '*'   => function($a, $b) { return $a *   $b; },
@@ -46,12 +74,5 @@ function operator($operator, $defaultB = null) {
         throw new \InvalidArgumentException("Unknown operator \"$operator\"");
     }
 
-    $fn = $functions[$operator];
-    if (func_num_args() === 1) {
-        return $fn;
-    }
-
-    return function($a) use ($fn, $defaultB) {
-        return $fn($a, $defaultB);
-    };
+    return $functions[$operator];
 }
