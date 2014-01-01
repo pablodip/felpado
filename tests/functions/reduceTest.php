@@ -2,19 +2,21 @@
 
 namespace felpado\tests;
 
+use felpado as f;
+
 class reduceTest extends felpadoTestCase
 {
     /**
      * @dataProvider reduceProvider
      */
-    public function testReduce($collection)
+    public function testReduce($coll)
     {
         $calls = array();
-        $result = $this->callFunction(function ($result, $value) use(&$calls) {
+        $result = f\reduce(function ($result, $value) use(&$calls) {
             $calls[] = func_get_args();
 
             return $result + $value;
-        }, $collection);
+        }, $coll);
 
         $this->assertSame(6, $result);
         $expected = array(
@@ -27,14 +29,14 @@ class reduceTest extends felpadoTestCase
     /**
      * @dataProvider reduceProvider
      */
-    public function testReduceWithInitialValue($collection)
+    public function testReduceWithInitialValue($coll)
     {
         $calls = array();
-        $result = $this->callFunction(function ($result, $value) use(&$calls) {
+        $result = f\reduce(function ($result, $value) use(&$calls) {
             $calls[] = func_get_args();
 
             return $result + $value;
-        }, $collection, 5);
+        }, $coll, 5);
 
         $this->assertSame(11, $result);
         $expected = array(
@@ -51,16 +53,16 @@ class reduceTest extends felpadoTestCase
     }
 
     /**
-     * @dataProvider oneItemCollectionProvider
+     * @dataProvider provideReduceOneItem
      */
-    public function testOneItemCollection($collection)
+    public function testOneItemCollection($coll)
     {
         $calls = array();
-        $result = $this->callFunction(function ($result, $value) use(&$calls) {
+        $result = f\reduce(function ($result, $value) use(&$calls) {
             $calls[] = func_get_args();
 
             return $result + $value;
-        }, $collection);
+        }, $coll);
 
         $this->assertSame(2, $result);
         $expected = array();
@@ -68,21 +70,26 @@ class reduceTest extends felpadoTestCase
     }
 
     /**
-     * @dataProvider oneItemCollectionProvider
+     * @dataProvider provideReduceOneItem
      */
-    public function testOneItemCollectionWithInitialValue($collection)
+    public function testOneItemCollectionWithInitialValue($coll)
     {
         $calls = array();
-        $result = $this->callFunction(function ($result, $value) use(&$calls) {
+        $result = f\reduce(function ($result, $value) use(&$calls) {
             $calls[] = func_get_args();
 
             return $result + $value;
-        }, $collection, 6);
+        }, $coll, 6);
 
         $this->assertSame(8, $result);
         $expected = array(
             array(6, 2, 0),
         );
         $this->assertSame($expected, $calls);
+    }
+
+    public function provideReduceOneItem()
+    {
+        return $this->provideColl(array(2));
     }
 }

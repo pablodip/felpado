@@ -2,29 +2,28 @@
 
 namespace felpado\tests;
 
+use felpado as f;
+
 class someTest extends felpadoTestCase
 {
     /**
-     * @dataProvider indexedCollectionProvider
+     * @dataProvider provideSome
      */
-    public function testAllTrue($collection)
+    public function testSome($exp, $coll, $fn)
     {
-        $this->assertTrue($this->callFunction('is_scalar', $collection));
+        $this->assertSame($exp, f\some($fn, $coll));
     }
 
-    /**
-     * @dataProvider indexedCollectionProvider
-     */
-    public function testSomeTrue($collection)
+    public function provideSome()
     {
-        $this->assertTrue($this->callFunction('is_string', $collection));
-    }
+        $even = function ($v) { return $v % 2 === 0; };
 
-    /**
-     * @dataProvider indexedCollectionProvider
-     */
-    public function testNoneTrue($collection)
-    {
-        $this->assertFalse($this->callFunction('is_object', $collection));
+        return $this->buildExpectedCollArgsProvider(array(
+            array(false, array(), function () { return true; }),
+            array(false, array(1, 3, 5), $even),
+            array(true, array(1, 2, 3), $even),
+            array(true, array(1, 2, 3, 4, 5), $even),
+            array(true, array(2, 4, 6), $even)
+        ));
     }
 }

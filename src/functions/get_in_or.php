@@ -26,7 +26,7 @@ use felpado as f;
  * => 'bar'
  */
 function get_in_or($coll, $in, $default) {
-    $arrayIn = f\collection_in($coll, $in);
+    $arrayIn = f\_coll_in($coll, $in);
 
     if ($arrayIn === false) {
         return $default;

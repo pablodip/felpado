@@ -1,6 +1,6 @@
 # Functions
 
-[_](#_), [array_depth](#array_depth), [assoc](#assoc), [assoc_in](#assoc_in), [collection_depth](#collection_depth), [collection_in](#collection_in), [compose](#compose), [conjoin](#conjoin), [construct](#construct), [contains](#contains), [contains_in](#contains_in), [contains_strict](#contains_strict), [dissoc](#dissoc), [drop_last](#drop_last), [each](#each), [every](#every), [fill](#fill), [fill_validating_normalizing_or_throw](#fill_validating_normalizing_or_throw), [fill_validating_or_throw](#fill_validating_or_throw), [filter](#filter), [filter_indexed](#filter_indexed), [find](#find), [first](#first), [get](#get), [get_in](#get_in), [get_in_or](#get_in_or), [get_or](#get_or), [group_by](#group_by), [identity](#identity), [is_coll](#is_coll), [key](#key), [keys](#keys), [last](#last), [map](#map), [map_indexed](#map_indexed), [max](#max), [method](#method), [min](#min), [normalize_coll](#normalize_coll), [not](#not), [not_fn](#not_fn), [operator](#operator), [optional](#optional), [partial](#partial), [property](#property), [reduce](#reduce), [rename_key](#rename_key), [rename_keys](#rename_keys), [required](#required), [rest](#rest), [rest_indexed](#rest_indexed), [reverse](#reverse), [select](#select), [some](#some), [to_array](#to_array), [validate](#validate), [validate_collection](#validate_collection), [validate_collection_or_throw](#validate_collection_or_throw), [values](#values)
+[_](#_), [assoc](#assoc), [assoc_in](#assoc_in), [compose](#compose), [conjoin](#conjoin), [construct](#construct), [contains](#contains), [contains_in](#contains_in), [contains_strict](#contains_strict), [dissoc](#dissoc), [drop_last](#drop_last), [each](#each), [every](#every), [fill](#fill), [fill_validating_normalizing_or_throw](#fill_validating_normalizing_or_throw), [fill_validating_or_throw](#fill_validating_or_throw), [filter](#filter), [filter_indexed](#filter_indexed), [find](#find), [first](#first), [get](#get), [get_in](#get_in), [get_in_or](#get_in_or), [get_or](#get_or), [group_by](#group_by), [identity](#identity), [is_coll](#is_coll), [key](#key), [keys](#keys), [last](#last), [map](#map), [map_indexed](#map_indexed), [max](#max), [method](#method), [min](#min), [normalize_coll](#normalize_coll), [not](#not), [not_fn](#not_fn), [operator](#operator), [optional](#optional), [partial](#partial), [property](#property), [reduce](#reduce), [rename_key](#rename_key), [rename_keys](#rename_keys), [required](#required), [rest](#rest), [rest_indexed](#rest_indexed), [reverse](#reverse), [reverse_indexed](#reverse_indexed), [some](#some), [to_array](#to_array), [validate](#validate), [validate_coll](#validate_coll), [validate_coll_or_throw](#validate_coll_or_throw), [values](#values)
 
 <a name="_"></a>
 ### f\_
@@ -15,17 +15,6 @@ f\_();
 
 $firstCharacter = f\partial('substr', f\_(), 0, 1);
 => clojure to return the first character of a string
-```
-
-<a name="array_depth"></a>
-### f\array_depth
-
-
-
-
-
-```
-
 ```
 
 <a name="assoc"></a>
@@ -58,28 +47,6 @@ f\assoc_in(array('a' => 1), array(), 2);
 // supports infinite nesting
 f\assoc_in(array(), array('a', 'a1', 'a1I', 'a1IA'), 1);
 => array('a' => array('a1' => array('a1I' => array('a1IA' => 1))))
-```
-
-<a name="collection_depth"></a>
-### f\collection_depth
-
-
-
-
-
-```
-
-```
-
-<a name="collection_in"></a>
-### f\collection_in
-
-
-
-
-
-```
-
 ```
 
 <a name="compose"></a>
@@ -519,12 +486,25 @@ f\map_indexed(function ($element) { return $element * 2; }, array(1, 2, 3));
 <a name="max"></a>
 ### f\max
 
+f\max($coll, $fn = null)
 
-
-
+Returns the maximum value of coll when applying fn.
+If fn is not set, no function is applied.
 
 ```
+// without fn
+f\max(array(1, 2, 3))
+=> 3
 
+//with fn
+$users = array(array('name' => 'foo', 'age' => 10), array('name' => 'bar', 'age' => 20))
+$fn = function ($v) { return $v['age']; }
+f\max($users, $fn)
+=> array('name' => 'bar', 'age' => 20)
+
+//with f\key
+f\max($users, f\key('age'))
+=> array('name' => 'bar', 'age' => 20)
 ```
 
 <a name="method"></a>
@@ -552,12 +532,25 @@ f\map(method('getId'), $articles)
 <a name="min"></a>
 ### f\min
 
+f\min($coll, $fn = null)
 
-
-
+Returns the minimum value of coll when applying fn.
+If fn is not set, no function is applied.
 
 ```
+// without fn
+f\min(array(1, 2, 3))
+=> 1
 
+//with fn
+$users = array(array('name' => 'foo', 'age' => 10), array('name' => 'bar', 'age' => 20))
+$fn = function ($v) { return $v['age']; }
+f\min($users, $fn)
+=> array('name' => 'foo', 'age' => 10)
+
+//with f\key
+f\min($users, f\key('age'))
+=> array('name' => 'foo', 'age' => 10)
 ```
 
 <a name="normalize_coll"></a>
@@ -712,12 +705,23 @@ f\map(f\property('id'), array(new Object(2), new Object(6)))
 <a name="reduce"></a>
 ### f\reduce
 
+f\reduce($fn, $coll, $initialValue = null)
 
-
-
+Reduces coll through fn with an optional initial value.
+If initial value is not set, function is applied to the two initial values.
+If initial value is not set and there is only one value, that's the result.
 
 ```
+f\reduce(function ($accumulator, $value) { return $accumulator + $value; }, array(1, 2, 3))
+=> 6
 
+// with initial value
+f\reduce(function ($accumulator, $value) { return $accumulator + $value; }, array(1, 2, 3), 0)
+=> 6
+
+// with initial value
+f\reduce(function ($accumulator, $value) { return $accumulator + $value; }, array(1, 2, 3), 2)
+=> 8
 ```
 
 <a name="rename_key"></a>
@@ -802,80 +806,109 @@ f\rest_indexed(array());
 <a name="reverse"></a>
 ### f\reverse
 
-reverse($collection)
+f/reverse($coll)
 
-Returns an array with collection in the reverse order.
+Returns a new collection in reversed order.
 
 ```
-rest(array(1, 2, 3));
+f\reverse(array(1, 2, 3));
 => array(3, 2, 1)
 ```
 
-<a name="select"></a>
-### f\select
+<a name="reverse_indexed"></a>
+### f\reverse_indexed
 
+f/reverse_indexed($coll)
 
-
-
+Same than reverse but keeping the index.
 
 ```
-
+f\reverse_indexed(array('a' => 1, 'b' => 2, 'c' => 3));
+=> array('c' => 3, 'b' => 2, 'a' => 1)
 ```
 
 <a name="some"></a>
 ### f\some
 
-some($callback, $collection)
+f\some($fn, $coll)
 
-Returns true if callback applied to any value of collection returns logical true, otherwise false.
+Returns true if fn applied to any value of collection returns logical true, otherwise false.
 
 ```
-some(function ($value) { return $value > 10; }, array(5, 20, 30));
+f\some(function ($value) { return $value > 10; }, array(5, 20, 30));
 => true
 
-some(function ($value) { return $value > 10; }, array(5, 8, 9));
+f\some(function ($value) { return $value > 10; }, array(5, 8, 9));
 => false
 ```
 
 <a name="to_array"></a>
 ### f\to_array
 
+f\to_array($coll)
 
-
-
+Converts to array a coll.
+If it's already an array, just returns it.
+If it's a traversable object, converts it.
+If it's neither an array nor a traversable object, throws an exception.
 
 ```
+f\to_array(array(1, 2, 3));
+=> array(1, 2, 3)
 
+f\to_array(new \ArrayObject(array(1, 2, 3)));
+=> array(1, 2, 3)
+
+f\to_array(true);
+=> InvalidArgumentException
 ```
 
 <a name="validate"></a>
 ### f\validate
 
+f\validate($value, $validator)
 
-
-
-
-```
+Returns whether a value passed through a validator is true or false.
 
 ```
+f\validate(1, 'is_int')
+=> true
 
-<a name="validate_collection"></a>
-### f\validate_collection
-
-
-
-
-
+f\validate(1.0, 'is_int')
+=> false
 ```
 
+<a name="validate_coll"></a>
+### f\validate_coll
+
+f\validate_coll($coll, $paramRules)
+
+Returns the validation errors when validating coll with param rules.
+
+```
+// validating existence
+f\validate_coll(array(), array('a' => f\required(), 'b' => f\optional()));
+=> array('a' => 'required')
+
+// multiple errors
+f\validate_coll(array(), array('a' => f\required(), 'b' => f\required()));
+=> array('a' => 'required', 'b' => 'required')
+
+// validator fn
+f\validate_coll(array('a' => 1.0), array('a' => f\required('v' => 'is_int')));
+=> array('a' => 'invalid')
+
+// without errors
+f\validate_coll(array('a' => 1), array('a' => f\required('v' => 'is_int')));
+=> array()
 ```
 
-<a name="validate_collection_or_throw"></a>
-### f\validate_collection_or_throw
+<a name="validate_coll_or_throw"></a>
+### f\validate_coll_or_throw
 
+f\validate_coll_or_throw($coll, $paramRules, $exceptionClass = 'Exception')
 
-
-
+Same than f\validate_coll but throws an exception if there is any error.
 
 ```
 
@@ -884,11 +917,11 @@ some(function ($value) { return $value > 10; }, array(5, 8, 9));
 <a name="values"></a>
 ### f\values
 
-values($collection)
+f\values($coll)
 
-Returns an array with the values of collection.
+Returns an array with the values of coll.
 
 ```
-values(array('one' => 1, 'two' => 2, 'three' => 3));
+f\values(array('one' => 1, 'two' => 2, 'three' => 3));
 => array(1, 2, 3)
 ```

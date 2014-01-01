@@ -13,9 +13,27 @@ namespace felpado;
 
 use felpado as f;
 
-function reduce($callback, $collection, $initialValue = null) {
+/**
+ * f\reduce($fn, $coll, $initialValue = null)
+ *
+ * Reduces coll through fn with an optional initial value.
+ * If initial value is not set, function is applied to the two initial values.
+ * If initial value is not set and there is only one value, that's the result.
+ *
+ * f\reduce(function ($accumulator, $value) { return $accumulator + $value; }, array(1, 2, 3))
+ * => 6
+ *
+ * // with initial value
+ * f\reduce(function ($accumulator, $value) { return $accumulator + $value; }, array(1, 2, 3), 0)
+ * => 6
+ *
+ * // with initial value
+ * f\reduce(function ($accumulator, $value) { return $accumulator + $value; }, array(1, 2, 3), 2)
+ * => 8
+ */
+function reduce($fn, $coll, $initialValue = null) {
     $result = null;
-    foreach ($collection as $key => $value) {
+    foreach ($coll as $key => $value) {
         if ($result === null) {
             if ($initialValue === null) {
                 $result = $value;
@@ -25,7 +43,7 @@ function reduce($callback, $collection, $initialValue = null) {
             }
         }
 
-        $result = call_user_func($callback, $result, $value, $key);
+        $result = call_user_func($fn, $result, $value, $key);
     }
 
     return $result;

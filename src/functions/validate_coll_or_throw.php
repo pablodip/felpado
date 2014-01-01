@@ -13,8 +13,13 @@ namespace felpado;
 
 use felpado as f;
 
-function validate_collection_or_throw($collection, $paramRules, $exceptionClass = 'Exception') {
-    $errors = f\validate_collection($collection, $paramRules);
+/**
+ * f\validate_coll_or_throw($coll, $paramRules, $exceptionClass = 'Exception')
+ *
+ * Same than f\validate_coll but throws an exception if there is any error.
+ */
+function validate_coll_or_throw($coll, $paramRules, $exceptionClass = 'Exception') {
+    $errors = f\validate_coll($coll, $paramRules);
 
     if ($errors) {
         throw new $exceptionClass(json_encode($errors, true));

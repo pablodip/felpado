@@ -2,39 +2,23 @@
 
 namespace felpado\tests;
 
+use felpado as f;
+
 class reverseTest extends felpadoTestCase
 {
     /**
-     * @dataProvider indexedCollectionProvider
+     * @dataProvider provideReverse
      */
-    public function testIndexed($collection)
+    public function testIndexed($exp, $coll)
     {
-        $this->assertSame(array(
-            3 => 'bar',
-            2 => 'foo',
-            1 => 5,
-            0 => 4,
-        ), $this->callFunction($collection));
+        $this->assertSame($exp, f\reverse($coll));
     }
 
-    /**
-     * @dataProvider associativeCollectionProvider
-     */
-    public function testAssociative($collection)
+    public function provideReverse()
     {
-        $this->assertSame(array(
-            5     => 'five',
-            4     => 'four',
-            'two' => 2,
-            'one' => 1,
-        ), $this->callFunction($collection));
-    }
-
-    /**
-     * @dataProvider provideEmptyColl
-     */
-    public function testEmptyCollection($collection)
-    {
-        $this->assertSame(array(), $this->callFunction($collection));
+        return $this->buildExpectedCollArgsProvider(array(
+            array(array(), array()),
+            array(array(3, 2, 1), array(1, 2, 3))
+        ));
     }
 }

@@ -14,13 +14,13 @@ namespace felpado;
 use felpado as f;
 
 /**
- * f/reverse($coll)
+ * f/reverse_indexed($coll)
  *
- * Returns a new collection in reversed order.
+ * Same than reverse but keeping the index.
  *
- * f\reverse(array(1, 2, 3));
- * => array(3, 2, 1)
+ * f\reverse_indexed(array('a' => 1, 'b' => 2, 'c' => 3));
+ * => array('c' => 3, 'b' => 2, 'a' => 1)
  */
-function reverse($coll) {
-    return array_reverse(f\to_array($coll));
+function reverse_indexed($coll) {
+    return array_reverse(f\to_array($coll), true);
 }

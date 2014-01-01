@@ -4,11 +4,11 @@ namespace felpado\tests;
 
 use felpado as f;
 
-class validate_collection_or_throwTest extends felpadoTestCase
+class validate_coll_or_throwTest extends felpadoTestCase
 {
     public function testItDoesNotThrowWithoutErrors()
     {
-        f\validate_collection_or_throw(array('a' => 1), array(
+        f\validate_coll_or_throw(array('a' => 1), array(
             'a' => f\optional(array('v' => 'is_int'))
         ));
     }
@@ -18,7 +18,7 @@ class validate_collection_or_throwTest extends felpadoTestCase
      */
     public function testItThrowsWithErrors()
     {
-        f\validate_collection_or_throw(array('a' => 1), array(
+        f\validate_coll_or_throw(array('a' => 1), array(
             'a' => f\required(array('v' => 'is_float'))
         ));
     }
@@ -28,7 +28,7 @@ class validate_collection_or_throwTest extends felpadoTestCase
      */
     public function testItThrowsCustomException()
     {
-        f\validate_collection_or_throw(array('a' => 1), array(
+        f\validate_coll_or_throw(array('a' => 1), array(
             'a' => f\optional(array('v' => 'is_float'))
         ), 'InvalidArgumentException');
     }

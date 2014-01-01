@@ -2,49 +2,40 @@
 
 namespace felpado\tests;
 
+use felpado as f;
+
 class minTest extends felpadoTestCase
 {
     /**
-     * @dataProvider indexedCollectionProvider
+     * @dataProvider provideMinWithoutFn
      */
-    public function testMin($collection)
+    public function testMinWithoutFn($exp, $coll)
     {
-        $this->assertSame('bar', $this->callFunction($collection));
+        $this->assertSame($exp, f\min($coll));
     }
 
-    /**
-     * @dataProvider withCallbackCollectionProvider
-     */
-    public function testWithCallback($collection)
+    public function provideMinWithoutFn()
     {
-        $callback = function ($value) { return $value['age']; };
-        $expected = array('name' => 'foo', 'age' => 20);
-
-        $this->assertSame($expected, $this->callFunction($collection, $callback));
-    }
-
-    public function withCallbackCollectionProvider()
-    {
-        return $this->provideColl(array(
-            array('name' => 'bar', 'age' => 50),
-            array('name' => 'ups', 'age' => 40),
-            array('name' => 'foo', 'age' => 20),
+        return $this->buildExpectedCollArgsProvider(array(
+            array(null, array()),
+            array(1, array(1, 2, 3)),
+            array('a', array('a', 'b', 'c'))
         ));
     }
 
     /**
-     * @dataProvider oneItemCollectionProvider
+     * @dataProvider provideMinWithFn
      */
-    public function testOneItemCollection($collection)
+    public function testMinWithFn($exp, $coll, $fn)
     {
-        $this->assertSame(2, $this->callFunction($collection));
+        $this->assertSame($exp, f\min($coll, $fn));
     }
 
-    /**
-     * @dataProvider provideEmptyColl
-     */
-    public function testEmptyCollection($collection)
+    public function provideMinWithFn()
     {
-        $this->assertNull($this->callFunction($collection));
+        return $this->buildExpectedCollArgsProvider(array(
+            array(null, array(), 'felpado\identity'),
+            array(array('age' => 10), array(array('age' => 10), array('age' => 20)), function ($v) { return $v['age']; })
+        ));
     }
 }

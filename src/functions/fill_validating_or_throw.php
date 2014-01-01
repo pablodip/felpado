@@ -19,7 +19,7 @@ use felpado as f;
  * Combines filling and validation, throwing if validation fails.
  */
 function fill_validating_or_throw($coll, $paramRules) {
-    f\validate_collection_or_throw($coll, $paramRules);
+    f\validate_coll_or_throw($coll, $paramRules);
 
     return f\fill($coll, $paramRules);
 }

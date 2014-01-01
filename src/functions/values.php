@@ -14,16 +14,16 @@ namespace felpado;
 use felpado as f;
 
 /**
- * values($collection)
+ * f\values($coll)
  *
- * Returns an array with the values of collection.
+ * Returns an array with the values of coll.
  *
- * values(array('one' => 1, 'two' => 2, 'three' => 3));
+ * f\values(array('one' => 1, 'two' => 2, 'three' => 3));
  * => array(1, 2, 3)
  */
-function values($collection) {
+function values($coll) {
     $result = array();
-    foreach ($collection as $value) {
+    foreach ($coll as $value) {
         $result[] = $value;
     }
 

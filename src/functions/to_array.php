@@ -13,13 +13,30 @@ namespace felpado;
 
 use felpado as f;
 
-function to_array($collection) {
-    if (is_array($collection)) {
-        return $collection;
+/**
+ * f\to_array($coll)
+ *
+ * Converts to array a coll.
+ * If it's already an array, just returns it.
+ * If it's a traversable object, converts it.
+ * If it's neither an array nor a traversable object, throws an exception.
+ *
+ * f\to_array(array(1, 2, 3));
+ * => array(1, 2, 3)
+ *
+ * f\to_array(new \ArrayObject(array(1, 2, 3)));
+ * => array(1, 2, 3)
+ *
+ * f\to_array(true);
+ * => InvalidArgumentException
+ */
+function to_array($coll) {
+    if (is_array($coll)) {
+        return $coll;
     }
 
-    if ($collection instanceof \Traversable) {
-        return iterator_to_array($collection);
+    if ($coll instanceof \Traversable) {
+        return iterator_to_array($coll);
     }
 
     throw new \InvalidArgumentException('The value can not be converted to an array.');

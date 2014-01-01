@@ -2,6 +2,8 @@
 
 namespace felpado;
 
+use felpado as f;
+
 foreach (felpado_functions() as $function) {
     require __DIR__ . '/functions/' . $function . '.php';
 }
@@ -81,4 +83,31 @@ class placeholder
 
         return self::$instance;
     }
+}
+
+function _coll_in($collection, $in) {
+    $depth = f\drop_last($in);
+
+    if (count($depth)) {
+        return f\_coll_depth($collection, $depth);
+    }
+
+    return f\to_array($collection);
+}
+
+function _coll_depth($array, $depth) {
+    $first = f\first($depth);
+
+    if (f\contains($array, $first)) {
+        $arrayIn = f\to_array(f\get($array, $first));
+
+        $inRest = f\rest($depth);
+        if (count($inRest)) {
+            return f\_coll_depth($arrayIn, $inRest);
+        }
+
+        return $arrayIn;
+    }
+
+    return false;
 }

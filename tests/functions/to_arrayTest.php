@@ -2,27 +2,33 @@
 
 namespace felpado\tests;
 
+use felpado as f;
+
 class to_arrayTest extends felpadoTestCase
 {
-    public function testArray()
+    /**
+     * @dataProvider provideToArray
+     */
+    public function testIt($exp, $coll)
     {
-        $array = array(1, 2, 3);
-        $this->assertSame($array, $this->callFunction($array));
+        $this->assertSame($exp, f\to_array($coll));
     }
 
-    public function testTraversable()
+    public function provideToArray()
     {
-        $array = array(1, 2, 3);
-        $this->assertSame($array, $this->callFunction(new \ArrayObject($array)));
+        return $this->buildExpectedCollArgsProvider(array(
+            array(array(), array()),
+            array(array(1, 2, 3), array(1, 2, 3))
+        ));
     }
 
     /**
      * @dataProvider invalidValueProvider
-     * @expectedException InvalidArgumentException
+     * @expectedException \InvalidArgumentException
      */
     public function testInvalid($value)
     {
-        $this->callFunction($value);
+        f\to_array($value);
     }
 
     public function invalidValueProvider()

@@ -21,8 +21,8 @@ use felpado as f;
  * f\drop_last(array('a' => 1, 'b' => 2));
  * => array('a' => 1)
  */
-function drop_last($collection) {
-    $result = f\to_array($collection);
+function drop_last($coll) {
+    $result = f\to_array($coll);
     unset($result[f\last(f\keys($result))]);
 
     return $result;

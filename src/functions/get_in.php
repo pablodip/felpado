@@ -23,7 +23,7 @@ use felpado as f;
  * => 'foo'
  */
 function get_in($coll, $in) {
-    $arrayIn = f\collection_in($coll, $in);
+    $arrayIn = f\_coll_in($coll, $in);
 
     if ($arrayIn === false) {
         return $default;

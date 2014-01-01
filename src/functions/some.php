@@ -14,19 +14,19 @@ namespace felpado;
 use felpado as f;
 
 /**
- * some($callback, $collection)
+ * f\some($fn, $coll)
  *
- * Returns true if callback applied to any value of collection returns logical true, otherwise false.
+ * Returns true if fn applied to any value of collection returns logical true, otherwise false.
  *
- * some(function ($value) { return $value > 10; }, array(5, 20, 30));
+ * f\some(function ($value) { return $value > 10; }, array(5, 20, 30));
  * => true
  *
- * some(function ($value) { return $value > 10; }, array(5, 8, 9));
+ * f\some(function ($value) { return $value > 10; }, array(5, 8, 9));
  * => false
  */
-function some($callback, $collection) {
-    foreach ($collection as $value) {
-        if (call_user_func($callback, $value)) {
+function some($fn, $coll) {
+    foreach ($coll as $v) {
+        if (call_user_func($fn, $v)) {
             return true;
         }
     }

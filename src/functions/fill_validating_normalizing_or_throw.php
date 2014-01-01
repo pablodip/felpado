@@ -19,7 +19,7 @@ use felpado as f;
  * Combines filling, validating and normalization, throwing if validation fails.
  */
 function fill_validating_normalizing_or_throw($coll, $paramRules) {
-    f\validate_collection_or_throw($coll, $paramRules);
+    f\validate_coll_or_throw($coll, $paramRules);
 
     $filled = f\fill($coll, $paramRules);
 
