@@ -1,6 +1,6 @@
 # Functions
 
-[_](#_), [assoc](#assoc), [assoc_in](#assoc_in), [compose](#compose), [conjoin](#conjoin), [construct](#construct), [contains](#contains), [contains_in](#contains_in), [contains_strict](#contains_strict), [dissoc](#dissoc), [drop_last](#drop_last), [each](#each), [every](#every), [fill](#fill), [fill_validating_normalizing_or_throw](#fill_validating_normalizing_or_throw), [fill_validating_or_throw](#fill_validating_or_throw), [filter](#filter), [filter_indexed](#filter_indexed), [find](#find), [first](#first), [get](#get), [get_in](#get_in), [get_in_or](#get_in_or), [get_or](#get_or), [group_by](#group_by), [identity](#identity), [is_coll](#is_coll), [key](#key), [keys](#keys), [last](#last), [map](#map), [map_indexed](#map_indexed), [max](#max), [method](#method), [min](#min), [normalize_coll](#normalize_coll), [not](#not), [not_fn](#not_fn), [operator](#operator), [optional](#optional), [partial](#partial), [property](#property), [reduce](#reduce), [rename_key](#rename_key), [rename_keys](#rename_keys), [required](#required), [rest](#rest), [rest_indexed](#rest_indexed), [reverse](#reverse), [reverse_indexed](#reverse_indexed), [some](#some), [to_array](#to_array), [validate](#validate), [validate_coll](#validate_coll), [validate_coll_or_throw](#validate_coll_or_throw), [values](#values)
+[_](#_), [assoc](#assoc), [assoc_in](#assoc_in), [compose](#compose), [conjoin](#conjoin), [construct](#construct), [contains](#contains), [contains_in](#contains_in), [contains_strict](#contains_strict), [dissoc](#dissoc), [drop_last](#drop_last), [each](#each), [equal](#equal), [every](#every), [fill](#fill), [fill_validating_normalizing_or_throw](#fill_validating_normalizing_or_throw), [fill_validating_or_throw](#fill_validating_or_throw), [filter](#filter), [filter_indexed](#filter_indexed), [find](#find), [first](#first), [get](#get), [get_in](#get_in), [get_in_or](#get_in_or), [get_or](#get_or), [group_by](#group_by), [identical](#identical), [identity](#identity), [is_coll](#is_coll), [key](#key), [keys](#keys), [last](#last), [map](#map), [map_indexed](#map_indexed), [max](#max), [method](#method), [min](#min), [normalize_coll](#normalize_coll), [not](#not), [not_fn](#not_fn), [operator](#operator), [optional](#optional), [partial](#partial), [property](#property), [reduce](#reduce), [rename_key](#rename_key), [rename_keys](#rename_keys), [required](#required), [rest](#rest), [rest_indexed](#rest_indexed), [reverse](#reverse), [reverse_indexed](#reverse_indexed), [some](#some), [to_array](#to_array), [validate](#validate), [validate_coll](#validate_coll), [validate_coll_or_throw](#validate_coll_or_throw), [values](#values)
 
 <a name="_"></a>
 ### f\_
@@ -192,6 +192,27 @@ f\each(function ($value, $key) { do_something($value, $key); }, array(1, 2, 3));
 => null
 ```
 
+<a name="equal"></a>
+### f\equal
+
+f\equal($value1, $value2 & more)
+
+Returns whether two or more values are equal.
+
+```
+f\equal(1, 1)
+=> true
+
+f\equal(1, 1, 1)
+=> true
+
+f\equal(1, 2)
+=> false
+
+f\equal(1, 1, 2)
+=> false
+```
+
 <a name="every"></a>
 ### f\every
 
@@ -377,6 +398,29 @@ Returns a new collection with the elements grouped by the return of applying fn 
 ```
 f\group_by('strlen', array('one', 'two', 'three'));
 => array(3 => array('one', 'two'), 5 => array('three'))
+```
+
+<a name="identical"></a>
+### f\identical
+
+f\equal($value1, $value2 & more)
+
+Returns whether two or more values are identical.
+
+```
+f\identical(1, 1)
+=> true
+
+f\identical(new \ArrayObject(), new \ArrayObject())
+=> false
+
+f\identical(1, 2)
+=> false
+
+$object1 = new \ArrayObject()
+$object2 = $object1
+f\identical($object1, $object2)
+=> true
 ```
 
 <a name="identity"></a>
