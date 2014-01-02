@@ -33,7 +33,7 @@ use felpado as f;
  */
 function reduce($fn, $coll, $initialValue = null) {
     $result = null;
-    foreach ($coll as $key => $value) {
+    foreach ($coll as $value) {
         if ($result === null) {
             if ($initialValue === null) {
                 $result = $value;
@@ -43,7 +43,7 @@ function reduce($fn, $coll, $initialValue = null) {
             }
         }
 
-        $result = call_user_func($fn, $result, $value, $key);
+        $result = call_user_func($fn, $result, $value);
     }
 
     return $result;

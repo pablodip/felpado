@@ -33,7 +33,7 @@ use felpado as f;
  * => array()
  */
 function fill($coll, $paramRules) {
-    $fill = function ($result, $rule, $key) use ($coll) {
+    $fill = function ($rule, $key) use ($coll) {
         if (f\not($rule instanceof param_rule)) {
             throw new \InvalidArgumentException('Fill rules must be created with felpado\required and felpado\optional.');
         }
@@ -44,8 +44,8 @@ function fill($coll, $paramRules) {
             $value = f\get($coll, $key);
         }
 
-        return f\assoc($result, $key, $value);
+        return $value;
     };
 
-    return f\reduce($fill, $paramRules, array());
+    return f\map_indexed($fill, $paramRules);
 }
