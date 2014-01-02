@@ -41,7 +41,7 @@ class findTest extends felpadoTestCase
     public function testEmptyCollection($coll)
     {
         $calls = array();
-        $result = $this->callFunction(function ($value) use(&$calls) {
+        $result = f\find(function ($value) use(&$calls) {
             $calls[] = func_get_args();
 
             return is_string($value);

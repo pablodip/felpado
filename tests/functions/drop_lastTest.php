@@ -19,8 +19,8 @@ class drop_lastTest extends felpadoTestCase
     /**
      * @dataProvider provideEmptyColl
      */
-    public function testEmptyCollection($collection)
+    public function testEmptyCollection($coll)
     {
-        $this->assertSame(array(), $this->callFunction($collection));
+        $this->assertSame(array(), f\drop_last($coll));
     }
 }
