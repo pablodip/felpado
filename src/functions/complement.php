@@ -14,19 +14,19 @@ namespace felpado;
 use felpado as f;
 
 /**
- * f\not_fn($fn)
+ * f\complement($fn)
  *
  * Returns the negated boolean value when executing a function;
  *
- * @deprecated
- *
- * f\not_fn(function () { return true; });
+ * $fn = f\complement(function () { return true; });
+ * $fn();
  * => false
  *
- * f\not_fn(function () { return false; });
- * => true
+ * $fn = f\complement(function ($bool) { return $bool; });
+ * $fn(true);
+ * => false
  */
-function not_fn($fn) {
+function complement($fn) {
     /*
      * Code from https://github.com/nikic/iter/blob/master/src/iter.fn.php
      */

@@ -1,6 +1,6 @@
-# Functions (58)
+# Functions (61)
 
-[_](#_), [assoc](#assoc), [assoc_in](#assoc_in), [compose](#compose), [conjoin](#conjoin), [construct](#construct), [contains](#contains), [contains_in](#contains_in), [contains_strict](#contains_strict), [dissoc](#dissoc), [drop_last](#drop_last), [each](#each), [equal](#equal), [every](#every), [fill](#fill), [fill_validating_normalizing_or_throw](#fill_validating_normalizing_or_throw), [fill_validating_or_throw](#fill_validating_or_throw), [filter](#filter), [filter_indexed](#filter_indexed), [find](#find), [first](#first), [get](#get), [get_in](#get_in), [get_in_or](#get_in_or), [get_or](#get_or), [group_by](#group_by), [identical](#identical), [identity](#identity), [is_coll](#is_coll), [key](#key), [keys](#keys), [last](#last), [map](#map), [map_indexed](#map_indexed), [max](#max), [method](#method), [min](#min), [normalize_coll](#normalize_coll), [not](#not), [not_fn](#not_fn), [operator](#operator), [optional](#optional), [partial](#partial), [property](#property), [reduce](#reduce), [rename_key](#rename_key), [rename_keys](#rename_keys), [required](#required), [rest](#rest), [rest_indexed](#rest_indexed), [reverse](#reverse), [reverse_indexed](#reverse_indexed), [some](#some), [to_array](#to_array), [validate](#validate), [validate_coll](#validate_coll), [validate_coll_or_throw](#validate_coll_or_throw), [values](#values)
+[_](#_), [assoc](#assoc), [assoc_in](#assoc_in), [complement](#complement), [compose](#compose), [conjoin](#conjoin), [construct](#construct), [contains](#contains), [contains_in](#contains_in), [contains_strict](#contains_strict), [dissoc](#dissoc), [drop_last](#drop_last), [each](#each), [equal](#equal), [every](#every), [fill](#fill), [fill_validating_normalizing_or_throw](#fill_validating_normalizing_or_throw), [fill_validating_or_throw](#fill_validating_or_throw), [filter](#filter), [filter_indexed](#filter_indexed), [find](#find), [first](#first), [get](#get), [get_in](#get_in), [get_in_or](#get_in_or), [get_or](#get_or), [group_by](#group_by), [identical](#identical), [identity](#identity), [is_coll](#is_coll), [key](#key), [keys](#keys), [last](#last), [map](#map), [map_indexed](#map_indexed), [max](#max), [method](#method), [min](#min), [normalize_coll](#normalize_coll), [not](#not), [not_fn](#not_fn), [operator](#operator), [optional](#optional), [partial](#partial), [partition](#partition), [property](#property), [reduce](#reduce), [remove](#remove), [rename_key](#rename_key), [rename_keys](#rename_keys), [required](#required), [rest](#rest), [rest_indexed](#rest_indexed), [reverse](#reverse), [reverse_indexed](#reverse_indexed), [some](#some), [to_array](#to_array), [validate](#validate), [validate_coll](#validate_coll), [validate_coll_or_throw](#validate_coll_or_throw), [values](#values)
 
 <a name="_"></a>
 ### f\_
@@ -47,6 +47,23 @@ f\assoc_in(array('a' => 1), array(), 2);
 // supports infinite nesting
 f\assoc_in(array(), array('a', 'a1', 'a1I', 'a1IA'), 1);
 => array('a' => array('a1' => array('a1I' => array('a1IA' => 1))))
+```
+
+<a name="complement"></a>
+### f\complement
+
+f\complement($fn)
+
+Returns the negated boolean value when executing a function;
+
+```
+$fn = f\complement(function () { return true; });
+$fn();
+=> false
+
+$fn = f\complement(function ($bool) { return $bool; });
+$fn(true);
+=> false
 ```
 
 <a name="compose"></a>
@@ -648,6 +665,8 @@ f\not_fn($fn)
 Returns the negated boolean value when executing a function;
 
 ```
+@deprecated
+
 f\not_fn(function () { return true; });
 => false
 
@@ -728,6 +747,21 @@ $firstChar('bar')
 => b
 ```
 
+<a name="partition"></a>
+### f\partition
+
+f\partition($n, $coll)
+
+Returns a new collection from coll parted in chunks of n length.
+
+```
+f\partition(2, range(1, 6));
+=> array(array(1, 2), array(3, 4), array(5, 6)
+
+f\partition(3, range(1, 6));
+=> array(array(1, 2, 3), array(4, 5, 6))
+```
+
 <a name="property"></a>
 ### f\property
 
@@ -766,6 +800,18 @@ f\reduce(function ($accumulator, $value) { return $accumulator + $value; }, arra
 // with initial value
 f\reduce(function ($accumulator, $value) { return $accumulator + $value; }, array(1, 2, 3), 2)
 => 8
+```
+
+<a name="remove"></a>
+### f\remove
+
+f\remove($fn, $coll)
+
+Returns a new collection with the values that applied to fn are false.
+
+```
+f\remove(function ($value) { return $value % 2 == 0; }, range(1, 6));
+=> array(1, 3, 5)
 ```
 
 <a name="rename_key"></a>
