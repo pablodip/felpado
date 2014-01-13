@@ -24,10 +24,10 @@ use felpado as f;
  * f\find(function ($value) { return $value % 2 == 0; }, array(1, 3, 5);
  * => null
  */
-function find($callback, $collection) {
-    foreach ($collection as $value) {
-        if ($callback($value)) {
-            return $value;
+function find($fn, $coll) {
+    foreach ($coll as $v) {
+        if (call_user_func($fn, $v)) {
+            return $v;
         }
     }
 }
