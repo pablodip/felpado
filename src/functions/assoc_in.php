@@ -38,12 +38,8 @@ function assoc_in($coll, $in, $value) {
 
     $current =& $array;
     foreach ($in as $k) {
-        if (array_key_exists($k, $current)) {
-            if (!is_array($current[$k])) {
-                throw new \LogicException();
-            }
-        } else {
-            $current[$k] = array();
+        if (f\not(f\get_or($current, $k, null))) {
+            $current = f\assoc($current, $k, array());
         }
 
         $current =& $current[$k];

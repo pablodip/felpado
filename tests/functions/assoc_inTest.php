@@ -9,6 +9,14 @@ class assoc_inTest extends felpadoTestCase
     /**
      * @dataProvider provideAssocIn
      */
+    public function testItReplacesExistingValue($coll)
+    {
+        $this->assertSame(array('foo' => 'bar'), f\assoc_in($coll, ['foo'], 'bar'));
+    }
+
+    /**
+     * @dataProvider provideAssocIn
+     */
     public function testItShouldCreateTheDepth($coll)
     {
         $expected = array(
@@ -20,15 +28,6 @@ class assoc_inTest extends felpadoTestCase
             ),
         );
         $this->assertSame($expected, f\assoc_in($coll, array('bar', 'ups', 'in'), 5));
-    }
-
-    /**
-     * @dataProvider provideAssocIn
-     * @expectedException \LogicException
-     */
-    public function testItShouldThrowALogicExceptionWhenTheInPathAlreadyExistsAndItIsNotAnArray($coll)
-    {
-        f\assoc_in($coll, array('foo', 'bar'), 5);
     }
 
     /**
