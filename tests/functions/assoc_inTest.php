@@ -11,7 +11,7 @@ class assoc_inTest extends felpadoTestCase
      */
     public function testItReplacesExistingValue($coll)
     {
-        $this->assertSame(array('foo' => 'bar'), f\assoc_in($coll, ['foo'], 'bar'));
+        $this->assertSame(array('foo' => 'bar'), f\assoc_in($coll, array('foo'), 'bar'));
     }
 
     /**
