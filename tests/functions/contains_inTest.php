@@ -15,6 +15,7 @@ class contains_inTest extends felpadoTestCase
         $this->assertTrue(f\contains_in($coll, array('bar', 'two')));
         $this->assertTrue(f\contains_in($coll, array('bar', 'one', 'ups')));
         $this->assertTrue(f\contains_in($coll, array('bar', 'one')));
+        $this->assertTrue(f\contains_in($coll, array('bar', 'three', 0)));
     }
 
     /**
@@ -26,6 +27,7 @@ class contains_inTest extends felpadoTestCase
         $this->assertFalse(f\contains_in($coll, array('bar', 'no')));
         $this->assertFalse(f\contains_in($coll, array('bar', 'no', 'no')));
         $this->assertFalse(f\contains_in($coll, array('bar', 'one', 'no')));
+        $this->assertFalse(f\contains_in($coll, array('bar', 'three', 'no')));
     }
 
     /**
@@ -45,7 +47,12 @@ class contains_inTest extends felpadoTestCase
                 'one' => array(
                     'ups' => 4,
                 ),
-                'two' => 6
+                'two' => 6,
+                'three' => array(
+                    0 => array(
+                        'yep' => 7
+                    )
+                )
             )
         ));
     }

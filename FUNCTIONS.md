@@ -1,6 +1,6 @@
-# Functions (65)
+# Functions (64)
 
-[_](#_), [assoc](#assoc), [assoc_in](#assoc_in), [complement](#complement), [compose](#compose), [conjoin](#conjoin), [construct](#construct), [contains](#contains), [contains_in](#contains_in), [contains_strict](#contains_strict), [dissoc](#dissoc), [distinct](#distinct), [drop_last](#drop_last), [each](#each), [equal](#equal), [every](#every), [fill](#fill), [fill_validating_normalizing_or_throw](#fill_validating_normalizing_or_throw), [fill_validating_or_throw](#fill_validating_or_throw), [filter](#filter), [filter_indexed](#filter_indexed), [find](#find), [first](#first), [flatten](#flatten), [get](#get), [get_in](#get_in), [get_in_or](#get_in_or), [get_or](#get_or), [group_by](#group_by), [identical](#identical), [identity](#identity), [is_coll](#is_coll), [join](#join), [key](#key), [keys](#keys), [last](#last), [map](#map), [map_indexed](#map_indexed), [max](#max), [merge](#merge), [method](#method), [min](#min), [normalize_coll](#normalize_coll), [not](#not), [not_fn](#not_fn), [operator](#operator), [optional](#optional), [partial](#partial), [partition](#partition), [property](#property), [reduce](#reduce), [remove](#remove), [rename_key](#rename_key), [rename_keys](#rename_keys), [required](#required), [rest](#rest), [rest_indexed](#rest_indexed), [reverse](#reverse), [reverse_indexed](#reverse_indexed), [some](#some), [to_array](#to_array), [validate](#validate), [validate_coll](#validate_coll), [validate_coll_or_throw](#validate_coll_or_throw), [values](#values)
+[_](#_), [assoc](#assoc), [assoc_in](#assoc_in), [complement](#complement), [compose](#compose), [conjoin](#conjoin), [construct](#construct), [contains](#contains), [contains_in](#contains_in), [contains_strict](#contains_strict), [dissoc](#dissoc), [distinct](#distinct), [drop_last](#drop_last), [each](#each), [equal](#equal), [every](#every), [fill](#fill), [fill_validating_normalizing_or_throw](#fill_validating_normalizing_or_throw), [fill_validating_or_throw](#fill_validating_or_throw), [filter](#filter), [filter_indexed](#filter_indexed), [find](#find), [first](#first), [flatten](#flatten), [get](#get), [get_in](#get_in), [get_in_or](#get_in_or), [get_or](#get_or), [group_by](#group_by), [identical](#identical), [identity](#identity), [is_coll](#is_coll), [join](#join), [key](#key), [keys](#keys), [last](#last), [map](#map), [map_indexed](#map_indexed), [max](#max), [method](#method), [min](#min), [normalize_coll](#normalize_coll), [not](#not), [not_fn](#not_fn), [operator](#operator), [optional](#optional), [partial](#partial), [partition](#partition), [property](#property), [reduce](#reduce), [remove](#remove), [rename_key](#rename_key), [rename_keys](#rename_keys), [required](#required), [rest](#rest), [rest_indexed](#rest_indexed), [reverse](#reverse), [reverse_indexed](#reverse_indexed), [some](#some), [to_array](#to_array), [validate](#validate), [validate_coll](#validate_coll), [validate_coll_or_throw](#validate_coll_or_throw), [values](#values)
 
 <a name="_"></a>
 ### f\_
@@ -111,7 +111,7 @@ f\construct(1, array(2, 3, 4));
 f\contains($collection, $key)
 
 Returns true if the key is present in the collection, otherwise false.
-The comparison is done with the strict comparison operator `==`.
+The comparison is done with the strict comparison operator `===`.
 
 ```
 contains(array('a' => 1, 'b' => 2), 'a');
@@ -612,17 +612,6 @@ f\max($users, $fn)
 //with f\key
 f\max($users, f\key('age'))
 => array('name' => 'bar', 'age' => 20)
-```
-
-<a name="merge"></a>
-### f\merge
-
-
-
-
-
-```
-
 ```
 
 <a name="method"></a>

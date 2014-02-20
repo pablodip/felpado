@@ -17,7 +17,7 @@ use felpado as f;
  * f\contains($collection, $key)
  *
  * Returns true if the key is present in the collection, otherwise false.
- * The comparison is done with the strict comparison operator `==`.
+ * The comparison is done with the strict comparison operator `===`.
  *
  * contains(array('a' => 1, 'b' => 2), 'a');
  * => true
@@ -31,7 +31,7 @@ use felpado as f;
  */
 function contains($coll, $key) {
     foreach ($coll as $k => $value) {
-        if ($k == $key) {
+        if ($k === $key) {
             return true;
         }
     }
